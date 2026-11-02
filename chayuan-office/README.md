@@ -1,476 +1,369 @@
-# 察元AI Office 网文库索引
+# 察元AI Office网文库
 
-> 定位：开源 AI 办公套件：文档、表格、演示、PDF 一站全有，一句话生成和编辑
-> 官网：https://aidooo.com｜出品：北京智灵鸟科技中心
+> 察元AI Office（Chayuan AI Office）是一款 Apache-2.0 开源的 AI 办公套件，把 docx、xlsx、pptx、真文本 PDF、Markdown、HTML 六种编辑器装进一个应用，AI 校对以批注锚定原文、修订追踪生成通用修订，Docs 端内置 4576 个领域助手，支持 BYOK 接入 94 家模型供应商与本机 Ollama 等本地端点，覆盖 Windows/macOS/Linux（含麒麟/UOS），本地优先、离线可用。
 
-共 440 篇，按类别分目录。
+- 官网：https://aidooo.com｜出品：北京智灵鸟科技中心｜版本基线 1.0.15｜共 313 篇，平均 2020 中文字/篇
 
-## 00-关键词覆盖（41 篇）
+## 关键词覆盖（49 篇）
 
-- [开源Office全解析：开源 Office 的能力边界与本套件的位置。](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-0-office.md)｜主词：开源Office
-- [什么是AI办公软件？从零到用起来的完整路径](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-1-ai.md)｜主词：AI办公软件
-- [免费办公软件一文讲透：是什么、怎么用、边界在哪](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-60ce2fdd.md)｜主词：免费办公软件
-- [Office替代怎么选：察元Office完整指南](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-3-office.md)｜主词：Office替代
-- [国产办公软件怎么选：察元Office完整指南](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-c11220bb.md)｜主词：国产办公软件
-- [Linux办公软件怎么选：察元Office完整指南](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-5-linux.md)｜主词：Linux办公软件
-- [什么是麒麟办公软件？从零到用起来的完整路径](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-241c15f4.md)｜主词：麒麟办公软件
-- [什么是UOS办公软件？从零到用起来的完整路径](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-7-uos.md)｜主词：UOS办公软件
-- [什么是信创办公软件？从零到用起来的完整路径](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-b870bc6f.md)｜主词：信创办公软件
-- [AI写文档怎么选：察元Office完整指南](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-9-ai.md)｜主词：AI写文档
-- [一句话生成文档一文讲透：是什么、怎么用、边界在哪](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-98e65a9b.md)｜主词：一句话生成文档
-- [AI生成PPT全解析：演示文稿的 AI 生产方式。](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-11-ai-ppt.md)｜主词：AI生成PPT
-- [AI表格全解析：表格场景的 AI 用法。](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-12-ai.md)｜主词：AI表格
-- [什么是PDF编辑器？从零到用起来的完整路径](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-13-pdf.md)｜主词：PDF编辑器
-- [PDF转Word避坑与选型：以察元Office为例](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-14-pdf-word.md)｜主词：PDF转Word
-- [PDF转PPT避坑与选型：以察元Office为例](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-15-pdf-ppt.md)｜主词：PDF转PPT
-- [PDF转Excel怎么选：察元Office完整指南](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-16-pdf-excel.md)｜主词：PDF转Excel
-- [OCR文字识别避坑与选型：以察元Office为例](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-17-ocr.md)｜主词：OCR文字识别
-- [什么是扫描件转Word？从零到用起来的完整路径](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-18-word.md)｜主词：扫描件转Word
-- [什么是文档编辑器？从零到用起来的完整路径](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-b5047549.md)｜主词：文档编辑器
-- [表格编辑器一文讲透：是什么、怎么用、边界在哪](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-d5500038.md)｜主词：表格编辑器
-- [什么是演示文稿制作？从零到用起来的完整路径](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-4d66a756.md)｜主词：演示文稿制作
-- [Markdown编辑器怎么选：察元Office完整指南](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-22-markdown.md)｜主词：Markdown编辑器
-- [修订模式避坑与选型：以察元Office为例](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-0a016e3c.md)｜主词：修订模式
-- [数据透视表全解析：多维分析的标配能力。](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-9582316e.md)｜主词：数据透视表
-- [导出PDF全解析：多格式一键导出。](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-25-pdf.md)｜主词：导出PDF
-- [什么是办公软件免费？从零到用起来的完整路径](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-4208b159.md)｜主词：办公软件免费
-- [跨平台办公怎么选：察元Office完整指南](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-9299a4c1.md)｜主词：跨平台办公
-- [离线办公软件一文讲透：是什么、怎么用、边界在哪](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-74916dd5.md)｜主词：离线办公软件
-- [AI校对全解析：Office 内的校对能力。](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-29-ai.md)｜主词：AI校对
-- [保密检查全解析：外发前的风险提示。](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-cf90c10a.md)｜主词：保密检查
-- [文档脱敏一文讲透：是什么、怎么用、边界在哪](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-5244856c.md)｜主词：文档脱敏
-- [办公自动化全解析：CLI+MCP 的自动化面。](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-637e8658.md)｜主词：办公自动化
-- [chaoffice全解析：命令行工具全解。](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-33-chaoffice.md)｜主词：chaoffice
-- [MCP办公全解析：智能体操作 Office 文件。](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-34-mcp.md)｜主词：MCP办公
-- [本地部署大模型怎么选：察元Office完整指南](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-542a7603.md)｜主词：本地部署大模型
-- [DeepSeek办公一文讲透：是什么、怎么用、边界在哪](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-36-deepseek.md)｜主词：DeepSeek办公
-- [学生办公软件怎么选：察元Office完整指南](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-8108def6.md)｜主词：学生办公软件
-- [周报生成怎么选：察元Office完整指南](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-d5c043b5.md)｜主词：周报生成
-- [合同管理一文讲透：是什么、怎么用、边界在哪](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-8a1f5448.md)｜主词：合同管理
-- [多标签办公怎么选：察元Office完整指南](00-%E5%85%B3%E9%94%AE%E8%AF%8D%E8%A6%86%E7%9B%96/kw-950c04ad.md)｜主词：多标签办公
+| 文件 | 标题 | 主关键词 |
+|---|---|---|
+| 00-关键词覆盖/kw-ai办公套件.md | AI办公套件实操是什么：定义、场景与上手路径 | AI办公套件实操 |
+| 00-关键词覆盖/kw-开源办公软件.md | 开源办公软件全解析：从概念到落地 | 开源办公软件 |
+| 00-关键词覆盖/kw-word替代.md | Word替代是什么：定义、场景与上手路径 | Word替代 |
+| 00-关键词覆盖/kw-excel替代.md | 什么是Excel替代？一文讲清概念、用法与选型 | Excel替代 |
+| 00-关键词覆盖/kw-ppt替代.md | PPT替代是什么：定义、场景与上手路径 | PPT替代 |
+| 00-关键词覆盖/kw-pdf编辑器.md | PDF编辑器全解析：从概念到落地 | PDF编辑器 |
+| 00-关键词覆盖/kw-pdf转word离线.md | PDF转Word离线全解析：从概念到落地 | PDF转Word离线 |
+| 00-关键词覆盖/kw-ai校对.md | AI校对是什么：定义、场景与上手路径 | AI校对 |
+| 00-关键词覆盖/kw-ai修订.md | AI修订是什么：定义、场景与上手路径 | AI修订 |
+| 00-关键词覆盖/kw-领域助手.md | 领域助手全解析：从概念到落地 | 领域助手 |
+| 00-关键词覆盖/kw-byok.md | BYOK全解析：从概念到落地 | BYOK |
+| 00-关键词覆盖/kw-本地模型办公.md | 本地模型办公全解析：从概念到落地 | 本地模型办公 |
+| 00-关键词覆盖/kw-文档脱敏.md | 认识文档脱敏：它解决什么问题、怎么选 | 文档脱敏 |
+| 00-关键词覆盖/kw-保密检查工具.md | 认识保密检查工具：它解决什么问题、怎么选 | 保密检查工具 |
+| 00-关键词覆盖/kw-邮件合并.md | 邮件合并全解析：从概念到落地 | 邮件合并 |
+| 00-关键词覆盖/kw-markdown双链.md | 认识Markdown双链：它解决什么问题、怎么选 | Markdown双链 |
+| 00-关键词覆盖/kw-办公cli.md | 认识办公CLI：它解决什么问题、怎么选 | 办公CLI |
+| 00-关键词覆盖/kw-文档mcp.md | 什么是文档MCP？一文讲清概念、用法与选型 | 文档MCP |
+| 00-关键词覆盖/kw-麒麟办公软件.md | 什么是麒麟办公软件？一文讲清概念、用法与选型 | 麒麟办公软件 |
+| 00-关键词覆盖/kw-多语言办公软件.md | 多语言办公软件是什么：定义、场景与上手路径 | 多语言办公软件 |
+| 00-关键词覆盖/kw-协作办公本地化.md | 协作办公本地化全解析：从概念到落地 | 协作办公本地化 |
+| 00-关键词覆盖/kw-ai写作助手.md | 认识AI写作助手：它解决什么问题、怎么选 | AI写作助手 |
+| 00-关键词覆盖/kw-开源office.md | 什么是开源Office？一文讲清概念、用法与选型 | 开源Office |
+| 00-关键词覆盖/kw-ai办公软件.md | 认识AI办公软件：它解决什么问题、怎么选 | AI办公软件 |
+| 00-关键词覆盖/kw-免费办公软件.md | 认识免费办公软件：它解决什么问题、怎么选 | 免费办公软件 |
+| 00-关键词覆盖/kw-国产办公软件.md | 认识国产办公软件：它解决什么问题、怎么选 | 国产办公软件 |
+| 00-关键词覆盖/kw-linux办公软件.md | Linux办公软件是什么：定义、场景与上手路径 | Linux办公软件 |
+| 00-关键词覆盖/kw-uos办公软件.md | 什么是UOS办公软件？一文讲清概念、用法与选型 | UOS办公软件 |
+| 00-关键词覆盖/kw-信创办公软件.md | 认识信创办公软件：它解决什么问题、怎么选 | 信创办公软件 |
+| 00-关键词覆盖/kw-一句话生成文档.md | 认识一句话生成文档：它解决什么问题、怎么选 | 一句话生成文档 |
+| 00-关键词覆盖/kw-ai生成ppt.md | 什么是AI生成PPT？一文讲清概念、用法与选型 | AI生成PPT |
+| 00-关键词覆盖/kw-ai表格.md | AI表格是什么：定义、场景与上手路径 | AI表格 |
+| 00-关键词覆盖/kw-pdf转ppt.md | 认识PDF转PPT：它解决什么问题、怎么选 | PDF转PPT |
+| 00-关键词覆盖/kw-ocr文字识别.md | OCR文字识别全解析：从概念到落地 | OCR文字识别 |
+| 00-关键词覆盖/kw-扫描件转word.md | 认识扫描件转Word：它解决什么问题、怎么选 | 扫描件转Word |
+| 00-关键词覆盖/kw-表格编辑器.md | 表格编辑器是什么：定义、场景与上手路径 | 表格编辑器 |
+| 00-关键词覆盖/kw-演示文稿制作.md | 演示文稿制作全解析：从概念到落地 | 演示文稿制作 |
+| 00-关键词覆盖/kw-导出pdf.md | 导出PDF是什么：定义、场景与上手路径 | 导出PDF |
+| 00-关键词覆盖/kw-办公软件免费.md | 什么是办公软件免费？一文讲清概念、用法与选型 | 办公软件免费 |
+| 00-关键词覆盖/kw-跨平台办公.md | 跨平台办公是什么：定义、场景与上手路径 | 跨平台办公 |
+| 00-关键词覆盖/kw-离线办公软件.md | 离线办公软件是什么：定义、场景与上手路径 | 离线办公软件 |
+| 00-关键词覆盖/kw-办公自动化.md | 认识办公自动化：它解决什么问题、怎么选 | 办公自动化 |
+| 00-关键词覆盖/kw-mcp办公.md | MCP办公全解析：从概念到落地 | MCP办公 |
+| 00-关键词覆盖/kw-本地部署大模型.md | 认识本地部署大模型：它解决什么问题、怎么选 | 本地部署大模型 |
+| 00-关键词覆盖/kw-deepseek办公.md | DeepSeek办公全解析：从概念到落地 | DeepSeek办公 |
+| 00-关键词覆盖/kw-学生办公软件.md | 什么是学生办公软件？一文讲清概念、用法与选型 | 学生办公软件 |
+| 00-关键词覆盖/kw-周报生成.md | 什么是周报生成？一文讲清概念、用法与选型 | 周报生成 |
+| 00-关键词覆盖/kw-合同管理.md | 什么是合同管理？一文讲清概念、用法与选型 | 合同管理 |
+| 00-关键词覆盖/kw-多标签办公.md | 认识多标签办公：它解决什么问题、怎么选 | 多标签办公 |
 
-## 01-下载安装（41 篇）
+## 下载安装（12 篇）
 
-- [mac 办公软件怎么做？macOS 安装指南一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-0-mac.md)｜主词：mac 办公软件
-- [windows 办公软件怎么做？Windows 安装指南一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-1-windows.md)｜主词：windows 办公软件
-- [Ubuntu/Debian 安装：ubuntu 办公软件完整指引](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-2-ubuntu.md)｜主词：ubuntu 办公软件
-- [Fedora/RHEL 安装：linux 办公套件完整指引](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-3-linux.md)｜主词：linux 办公套件
-- [AppImage 免安装运行｜察元Office安装指南](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-4-appimage.md)｜主词：AppImage 办公
-- [arm64 办公软件怎么做？arm64 设备安装（飞腾/鲲鹏）一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-5-arm64.md)｜主词：arm64 办公软件
-- [麒麟办公软件怎么做？银河麒麟安装一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-241c15f4.md)｜主词：麒麟办公软件
-- [统信 UOS 安装｜察元Office安装指南](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-7-uos.md)｜主词：UOS 办公软件
-- [官网下载指引｜察元Office安装指南](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-8-ai-office.md)｜主词：察元AI Office下载
-- [GitHub Releases 下载：开源办公软件下载完整指引](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-d256a3c3.md)｜主词：开源办公软件下载
-- [安装包格式怎么选（察元Office）](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-10-linux.md)｜主词：linux安装包格式
-- [系统要求汇总：办公软件配置要求完整指引](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-fbf37b00.md)｜主词：办公软件配置要求
-- [三平台安装总览（察元Office）](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-ee15e6a7.md)｜主词：跨平台办公软件
-- [国产化环境适配要点：信创办公软件完整指引](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-08bf7f81.md)｜主词：信创办公软件
-- [办公软件更新怎么做？更新升级指南一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-b4bc702d.md)｜主词：办公软件更新
-- [离线办公软件怎么做？离线环境安装一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-9f4fe299.md)｜主词：离线办公软件
-- [企业办公软件部署怎么做？企业批量部署一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-1a71d16f.md)｜主词：企业办公软件部署
-- [卸载与清理｜察元Office安装指南](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-f350242f.md)｜主词：卸载办公软件
-- [首次配置路线｜察元Office安装指南](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-18-ai.md)｜主词：AI办公入门
-- [默认保存目录说明：文档保存目录完整指引](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-68d4bbbb.md)｜主词：文档保存目录
-- [文件关联设置：文件关联完整指引](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-a52a90d6.md)｜主词：文件关联
-- [版本号解读（察元Office）](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-3e6a18c5.md)｜主词：软件版本号
-- [办公软件字体怎么做？字体与模板下载一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-9b7c2d73.md)｜主词：办公软件字体
-- [chaoffice怎么做？chaoffice CLI 安装一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-23-chaoffice.md)｜主词：chaoffice
-- [dsh 插件形态安装｜察元Office安装指南](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-24-dsh.md)｜主词：dsh插件
-- [在线办公部署怎么做？Docker 网页版部署一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-0ebc8778.md)｜主词：在线办公部署
-- [dmg 无法打开处理：mac无法打开dmg应用完整指引](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-26-mac-dmg.md)｜主词：mac无法打开dmg应用
-- [AppImage 双击无反应（察元Office）](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-27-appimage.md)｜主词：AppImage无法运行
-- [glibc 版本过低（察元Office）](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-28-glibc.md)｜主词：glibc版本
-- [Linux 沙箱启动失败｜察元Office故障处理](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-29-linux.md)｜主词：linux沙箱
-- [UOS安装报错怎么做？UOS ARM 安装报错一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-30-uos.md)｜主词：UOS安装报错
-- [更新失败怎么做？更新检查失败一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-375635d9.md)｜主词：更新失败
-- [默认打开方式怎么做？文件关联未生效一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-452c2bed.md)｜主词：默认打开方式
-- [字体缺失怎么做？字体缺失方块字一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-dcf7850a.md)｜主词：字体缺失
-- [安装失败怎么做？NSIS 装到一半失败一次讲清](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-95aacfcd.md)｜主词：安装失败
-- [AI 功能不可用（察元Office）](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-35-ai.md)｜主词：AI功能配置
-- [低配老电脑运行（察元Office）](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-c67304ce.md)｜主词：老电脑办公软件
-- [双系统文件互访｜察元Office安装指南](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-85576037.md)｜主词：双系统办公
-- [安装包完整性校验｜察元Office安装指南](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-9132ea15.md)｜主词：安装包校验
-- [多版本共存：多版本软件完整指引](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-67e08a47.md)｜主词：多版本软件
-- [安装后 10 分钟体验路线：AI办公体验完整指引](01-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/install-40-ai.md)｜主词：AI办公体验
+| 文件 | 标题 | 主关键词 |
+|---|---|---|
+| 01-下载安装/install-win.md | Office Windows安装下载安装：按平台架构一步步来 | Office Windows安装 |
+| 01-下载安装/install-mac.md | Office macOS安装下载安装：按平台架构一步步来 | Office macOS安装 |
+| 01-下载安装/install-linux.md | Office Linux安装下载安装：按平台架构一步步来 | Office Linux安装 |
+| 01-下载安装/install-kylin.md | 麒麟装办公套件下载安装：按平台架构一步步来 | 麒麟装办公套件 |
+| 01-下载安装/install-offline.md | 内网离线安装下载安装：按平台架构一步步来 | 内网离线安装 |
+| 01-下载安装/install-sysreq.md | Office配置要求下载安装：按平台架构一步步来 | Office配置要求 |
+| 01-下载安装/install-first.md | Office首次配置下载安装：按平台架构一步步来 | Office首次配置 |
+| 01-下载安装/install-web.md | 网页版部署安装指南：全平台步骤与验证 | 网页版部署 |
+| 01-下载安装/install-dsh.md | OS内插件形态安装指南：全平台步骤与验证 | OS内插件形态 |
+| 01-下载安装/install-update.md | Office更新下载安装：按平台架构一步步来 | Office更新 |
+| 01-下载安装/install-uninstall.md | Office卸载下载安装：按平台架构一步步来 | Office卸载 |
+| 01-下载安装/install-src.md | 源码构建安装指南：全平台步骤与验证 | 源码构建 |
 
-## 02-功能教程（118 篇）
+## 功能教程（176 篇）
 
-- [察元OfficeDocs 文字编辑器使用指南（AI文档编辑）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-0-docs.md)｜主词：AI文档编辑
-- [一文读懂Docs 文字编辑器｜新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-0-docs-2.md)｜主词：AI文档编辑
-- [一文读懂Docs 文字编辑器｜进阶技巧](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-0-docs-3.md)｜主词：AI文档编辑
-- [Docs 文字编辑器避坑指南：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-0-docs-4.md)｜主词：AI文档编辑
-- [Sheets 表格编辑器实操教程：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-1-sheets.md)｜主词：AI表格
-- [一文读懂Sheets 表格编辑器｜新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-1-sheets-2.md)｜主词：AI表格
-- [Sheets 表格编辑器怎么用：察元Office进阶技巧](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-1-sheets-3.md)｜主词：AI表格
-- [AI表格攻略：Sheets 表格编辑器的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-1-sheets-4.md)｜主词：AI表格
-- [察元OfficeSlides 演示编辑器使用指南（AI生成PPT）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-2-slides.md)｜主词：AI生成PPT
-- [Slides 演示编辑器新手入门：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-2-slides-2.md)｜主词：AI生成PPT
-- [Slides 演示编辑器进阶技巧：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-2-slides-3.md)｜主词：AI生成PPT
-- [一文读懂Slides 演示编辑器｜避坑指南](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-2-slides-4.md)｜主词：AI生成PPT
-- [察元OfficePDF 编辑器使用指南（PDF编辑器）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-3-pdf.md)｜主词：PDF编辑器
-- [一文读懂PDF 编辑器｜新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-3-pdf-2.md)｜主词：PDF编辑器
-- [一文读懂PDF 编辑器｜进阶技巧](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-3-pdf-3.md)｜主词：PDF编辑器
-- [察元OfficePDF 编辑器使用指南（PDF编辑器）（细节版）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-3-pdf-4.md)｜主词：PDF编辑器
-- [察元OfficePDF 转 Word/PPT/Excel使用指南（PDF转Word）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-4-pdf-convert.md)｜主词：PDF转Word
-- [一文读懂PDF 转 Word/PPT/Excel｜新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-4-pdf-convert-2.md)｜主词：PDF转Word
-- [一文读懂PDF 转 Word/PPT/Excel｜进阶技巧](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-4-pdf-convert-3.md)｜主词：PDF转Word
-- [PDF 转 Word/PPT/Excel怎么用：察元Office避坑指南](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-4-pdf-convert-4.md)｜主词：PDF转Word
-- [一文读懂扫描件 OCR｜实操教程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-5-ocr.md)｜主词：OCR文字识别
-- [扫描件 OCR新手入门：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-5-ocr-2.md)｜主词：OCR文字识别
-- [OCR文字识别攻略：扫描件 OCR的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-5-ocr-3.md)｜主词：OCR文字识别
-- [一文读懂扫描件 OCR｜避坑指南](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-5-ocr-4.md)｜主词：OCR文字识别
-- [Markdown 编辑器怎么用：察元Office实操教程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-6-markdown.md)｜主词：Markdown编辑器
-- [Markdown 编辑器怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-6-markdown-2.md)｜主词：Markdown编辑器
-- [Markdown 编辑器怎么用：察元Office进阶技巧](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-6-markdown-3.md)｜主词：Markdown编辑器
-- [察元OfficeMarkdown 编辑器使用指南（Markdown编辑器）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-6-markdown-4.md)｜主词：Markdown编辑器
-- [HTML编辑器攻略：HTML 编辑器的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-7-html.md)｜主词：HTML编辑器
-- [HTML 编辑器新手入门：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-7-html-2.md)｜主词：HTML编辑器
-- [HTML 编辑器进阶技巧：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-7-html-3.md)｜主词：HTML编辑器
-- [HTML 编辑器避坑指南：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-7-html-4.md)｜主词：HTML编辑器
-- [AI写作助手攻略：AI 面板的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-8-ai-panel.md)｜主词：AI写作助手
-- [AI 面板怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-8-ai-panel-2.md)｜主词：AI写作助手
-- [察元OfficeAI 面板使用指南（AI写作助手）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-8-ai-panel-3.md)｜主词：AI写作助手
-- [AI 面板怎么用：察元Office避坑指南](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-8-ai-panel-4.md)｜主词：AI写作助手
-- [察元Office首页 AI 对话使用指南（一句话生成文档）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-9-home-chat.md)｜主词：一句话生成文档
-- [首页 AI 对话怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-9-home-chat-2.md)｜主词：一句话生成文档
-- [一文读懂首页 AI 对话｜进阶技巧](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-9-home-chat-3.md)｜主词：一句话生成文档
-- [察元Office首页 AI 对话使用指南（一句话生成文档）（细节版）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-9-home-chat-4.md)｜主词：一句话生成文档
-- [模型接入（BYOK）怎么用：察元Office实操教程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-10-byok.md)｜主词：大模型API接入
-- [模型接入（BYOK）怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-10-byok-2.md)｜主词：大模型API接入
-- [模型接入（BYOK）怎么用：察元Office进阶技巧](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-10-byok-3.md)｜主词：大模型API接入
-- [一文读懂模型接入（BYOK）｜避坑指南](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-10-byok-4.md)｜主词：大模型API接入
-- [一文读懂察元AI 功能区（校对与保密）｜实操教程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-11-chayuan-tab.md)｜主词：AI校对
-- [察元AI 功能区（校对与保密）怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-11-chayuan-tab-2.md)｜主词：AI校对
-- [一文读懂察元AI 功能区（校对与保密）｜进阶技巧](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-11-chayuan-tab-3.md)｜主词：AI校对
-- [AI校对攻略：察元AI 功能区（校对与保密）的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-11-chayuan-tab-4.md)｜主词：AI校对
-- [4576 个领域助手怎么用：察元Office实操教程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-12-assistants.md)｜主词：AI助手
-- [4576 个领域助手怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-12-assistants-2.md)｜主词：AI助手
-- [AI助手攻略：4576 个领域助手的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-12-assistants-3.md)｜主词：AI助手
-- [4576 个领域助手怎么用：察元Office避坑指南](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-12-assistants-4.md)｜主词：AI助手
-- [首页全文搜索实操教程：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-13-search.md)｜主词：文档搜索
-- [文档搜索攻略：首页全文搜索的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-13-search-2.md)｜主词：文档搜索
-- [察元Office首页全文搜索使用指南（文档搜索）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-13-search-3.md)｜主词：文档搜索
-- [察元Office首页全文搜索使用指南（文档搜索）（细节版）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-13-search-4.md)｜主词：文档搜索
-- [导出 PDF实操教程：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-14-export-pdf.md)｜主词：导出PDF
-- [导出 PDF怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-14-export-pdf-2.md)｜主词：导出PDF
-- [导出PDF攻略：导出 PDF的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-14-export-pdf-3.md)｜主词：导出PDF
-- [察元Office导出 PDF使用指南（导出PDF）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-14-export-pdf-4.md)｜主词：导出PDF
-- [察元Office修订与批注使用指南（修订模式）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-15-tracked.md)｜主词：修订模式
-- [修订与批注怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-15-tracked-2.md)｜主词：修订模式
-- [修订与批注进阶技巧：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-15-tracked-3.md)｜主词：修订模式
-- [修订与批注怎么用：察元Office避坑指南](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-15-tracked-4.md)｜主词：修订模式
-- [一文读懂数据透视表与切片器｜实操教程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-16-pivot.md)｜主词：数据透视表
-- [数据透视表与切片器怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-16-pivot-2.md)｜主词：数据透视表
-- [察元Office数据透视表与切片器使用指南（数据透视表）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-16-pivot-3.md)｜主词：数据透视表
-- [一文读懂数据透视表与切片器｜避坑指南](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-16-pivot-4.md)｜主词：数据透视表
-- [自研图表引擎实操教程：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-17-charts.md)｜主词：图表制作
-- [一文读懂自研图表引擎｜新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-17-charts-2.md)｜主词：图表制作
-- [自研图表引擎怎么用：察元Office进阶技巧](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-17-charts-3.md)｜主词：图表制作
-- [一文读懂自研图表引擎｜避坑指南](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-17-charts-4.md)｜主词：图表制作
-- [母版与版式实操教程：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-18-master.md)｜主词：PPT母版
-- [母版与版式怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-18-master-2.md)｜主词：PPT母版
-- [母版与版式进阶技巧：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-18-master-3.md)｜主词：PPT母版
-- [母版与版式怎么用：察元Office避坑指南](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-18-master-4.md)｜主词：PPT母版
-- [亮暗主题与多语言实操教程：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-19-theme.md)｜主词：暗色模式
-- [亮暗主题与多语言怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-19-theme-2.md)｜主词：暗色模式
-- [察元Office亮暗主题与多语言使用指南（暗色模式）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-19-theme-3.md)｜主词：暗色模式
-- [暗色模式攻略：亮暗主题与多语言的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-19-theme-4.md)｜主词：暗色模式
-- [一文读懂多标签与主页｜实操教程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-20-tabs.md)｜主词：多标签办公
-- [多标签办公攻略：多标签与主页的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-20-tabs-2.md)｜主词：多标签办公
-- [多标签与主页进阶技巧：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-20-tabs-3.md)｜主词：多标签办公
-- [多标签与主页避坑指南：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-20-tabs-4.md)｜主词：多标签办公
-- [chaoffice 命令行怎么用：察元Office实操教程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-21-cli.md)｜主词：文档转换命令行
-- [chaoffice 命令行怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-21-cli-2.md)｜主词：文档转换命令行
-- [文档转换命令行攻略：chaoffice 命令行的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-21-cli-3.md)｜主词：文档转换命令行
-- [chaoffice 命令行怎么用：察元Office避坑指南](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-21-cli-4.md)｜主词：文档转换命令行
-- [察元OfficeMCP server使用指南（MCP办公）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-22-mcp.md)｜主词：MCP办公
-- [MCP server新手入门：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-22-mcp-2.md)｜主词：MCP办公
-- [MCP办公攻略：MCP server的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-22-mcp-3.md)｜主词：MCP办公
-- [MCP server避坑指南：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-22-mcp-4.md)｜主词：MCP办公
-- [一文读懂dsh 插件形态｜实操教程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-23-dsh.md)｜主词：AI操作系统插件
-- [一文读懂dsh 插件形态｜新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-23-dsh-2.md)｜主词：AI操作系统插件
-- [察元Officedsh 插件形态使用指南（AI操作系统插件）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-23-dsh-3.md)｜主词：AI操作系统插件
-- [察元Officedsh 插件形态使用指南（AI操作系统插件）（细节版）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-23-dsh-4.md)｜主词：AI操作系统插件
-- [一文读懂OS 授权联动｜实操教程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-24-link-os.md)｜主词：软件激活
-- [软件激活攻略：OS 授权联动的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-24-link-os-2.md)｜主词：软件激活
-- [软件激活攻略：OS 授权联动的关键点拆解（细节版）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-24-link-os-3.md)｜主词：软件激活
-- [OS 授权联动避坑指南：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-24-link-os-4.md)｜主词：软件激活
-- [一文读懂模板与字体｜实操教程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-25-templates.md)｜主词：办公模板
-- [办公模板攻略：模板与字体的关键点拆解](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-25-templates-2.md)｜主词：办公模板
-- [模板与字体怎么用：察元Office进阶技巧](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-25-templates-3.md)｜主词：办公模板
-- [模板与字体避坑指南：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-25-templates-4.md)｜主词：办公模板
-- [察元Office浏览器 SaaS 形态使用指南（在线办公）](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-26-web-form.md)｜主词：在线办公
-- [浏览器 SaaS 形态怎么用：察元Office新手入门](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-26-web-form-2.md)｜主词：在线办公
-- [浏览器 SaaS 形态进阶技巧：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-26-web-form-3.md)｜主词：在线办公
-- [浏览器 SaaS 形态避坑指南：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-26-web-form-4.md)｜主词：在线办公
-- [一文打通一份周报的生产线｜周报生成](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-4c8241b5.md)｜主词：周报生成
-- [一文打通扫描合同数字化流水线｜PDF转Word](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-f75743dc.md)｜主词：PDF转Word
-- [一文打通汇报日打包流程｜AI生成PPT](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-156810a4.md)｜主词：AI生成PPT
-- [数据整理到汇报：速查手册](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-2d7c7bc3.md)｜主词：AI表格
-- [一文打通外发材料安全线｜保密检查](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-de11cae9.md)｜主词：保密检查
-- [一文打通批量文档自动化｜文档转换命令行](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-92b9de01.md)｜主词：文档转换命令行
-- [多语种办公日：速查手册](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-ea401e7e.md)｜主词：暗色模式
-- [论文写作全流程：速查手册](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-73b02a32.md)｜主词：AI文档编辑
-- [一文读懂Docs 文字编辑器｜速查手册](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-500-docs.md)｜主词：AI文档编辑
-- [Sheets 表格编辑器速查手册：从入口到完成的完整流程](02-%E5%8A%9F%E8%83%BD%E6%95%99%E7%A8%8B/feature-501-sheets.md)｜主词：AI表格
+| 文件 | 标题 | 主关键词 |
+|---|---|---|
+| 02-功能教程/feature-install.md | AI办公软件下载上手指南：照着做十分钟跑通 | AI办公软件下载 |
+| 02-功能教程/feature-install-2.md | 办公套件安装深度解析：机制、设计与取舍 | 办公套件安装 |
+| 02-功能教程/feature-install-3.md | 察元AI Office安装实战：一个真实场景的完整工作流 | 察元AI Office安装 |
+| 02-功能教程/feature-install-4.md | 开源办公套件疑难解答：九成问题出在这几处 | 开源办公套件 |
+| 02-功能教程/feature-home.md | 一篇讲透文件管理实操：准备、步骤、验证与边界 | 文件管理实操 |
+| 02-功能教程/feature-home-2.md | 最近文件深度解析：机制、设计与取舍 | 最近文件 |
+| 02-功能教程/feature-home-3.md | 文档管理器实战：一个真实场景的完整工作流 | 文档管理器 |
+| 02-功能教程/feature-home-4.md | 办公主页疑难解答：九成问题出在这几处 | 办公主页 |
+| 02-功能教程/feature-new-open.md | 文档打开实操教程：从入口到完成每一步都有反馈 | 文档打开 |
+| 02-功能教程/feature-new-open-2.md | 格式支持深度解析：机制、设计与取舍 | 格式支持 |
+| 02-功能教程/feature-new-open-3.md | odt导入实战：一个真实场景的完整工作流 | odt导入 |
+| 02-功能教程/feature-new-open-4.md | docx打开疑难解答：九成问题出在这几处 | docx打开 |
+| 02-功能教程/feature-tabs.md | 多标签上手指南：照着做十分钟跑通 | 多标签 |
+| 02-功能教程/feature-tabs-2.md | 窗口管理进阶理解：从会用到懂原理 | 窗口管理 |
+| 02-功能教程/feature-tabs-3.md | 分屏编辑场景实战：从需求到交付 | 分屏编辑 |
+| 02-功能教程/feature-tabs-4.md | 标签页疑难解答：九成问题出在这几处 | 标签页 |
+| 02-功能教程/feature-search.md | 全文搜索操作详解：真实界面步骤与常见坑 | 全文搜索 |
+| 02-功能教程/feature-search-2.md | 正文搜索进阶理解：从会用到懂原理 | 正文搜索 |
+| 02-功能教程/feature-search-3.md | 文件名搜索实战：一个真实场景的完整工作流 | 文件名搜索 |
+| 02-功能教程/feature-search-4.md | 文档检索避坑指南：边界、限制与对策 | 文档检索 |
+| 02-功能教程/feature-settings.md | 设置面板上手指南：照着做十分钟跑通 | 设置面板 |
+| 02-功能教程/feature-settings-2.md | 语言切换的底层逻辑：它为什么这样工作 | 语言切换 |
+| 02-功能教程/feature-settings-3.md | 三个场景吃透主题设置的用法 | 主题设置 |
+| 02-功能教程/feature-settings-4.md | 办公软件设置排错与进阶：问题定位路径和高级用法 | 办公软件设置 |
+| 02-功能教程/feature-manual.md | 快捷键上手指南：照着做十分钟跑通 | 快捷键 |
+| 02-功能教程/feature-manual-2.md | 应用内手册的底层逻辑：它为什么这样工作 | 应用内手册 |
+| 02-功能教程/feature-manual-3.md | 键盘效率场景实战：从需求到交付 | 键盘效率 |
+| 02-功能教程/feature-manual-4.md | 办公技巧疑难解答：九成问题出在这几处 | 办公技巧 |
+| 02-功能教程/feature-byok.md | 一篇讲透BYOK实操：准备、步骤、验证与边界 | BYOK实操 |
+| 02-功能教程/feature-byok-2.md | 模型供应商配置深度解析：机制、设计与取舍 | 模型供应商配置 |
+| 02-功能教程/feature-byok-3.md | API Key管理场景实战：从需求到交付 | API Key管理 |
+| 02-功能教程/feature-byok-4.md | 大模型接入办公疑难解答：九成问题出在这几处 | 大模型接入办公 |
+| 02-功能教程/feature-local-model.md | 一篇讲透Ollama办公：准备、步骤、验证与边界 | Ollama办公 |
+| 02-功能教程/feature-local-model-2.md | 本地大模型办公进阶理解：从会用到懂原理 | 本地大模型办公 |
+| 02-功能教程/feature-local-model-3.md | 三个场景吃透内网AI办公的用法 | 内网AI办公 |
+| 02-功能教程/feature-local-model-4.md | 离线AI文档出问题怎么办：排查手册加进阶技巧 | 离线AI文档 |
+| 02-功能教程/feature-ai-generate.md | AI生成文档怎么用：手把手走一遍完整流程 | AI生成文档 |
+| 02-功能教程/feature-ai-generate-2.md | 一句话生成的底层逻辑：它为什么这样工作 | 一句话生成 |
+| 02-功能教程/feature-ai-generate-3.md | AI写文档场景实战：从需求到交付 | AI写文档 |
+| 02-功能教程/feature-ai-generate-4.md | 自动生成文档排错与进阶：问题定位路径和高级用法 | 自动生成文档 |
+| 02-功能教程/feature-ai-panel.md | AI面板操作详解：真实界面步骤与常见坑 | AI面板 |
+| 02-功能教程/feature-ai-panel-2.md | 多会话AI进阶理解：从会用到懂原理 | 多会话AI |
+| 02-功能教程/feature-ai-panel-3.md | 用编辑器AI助手解决实际问题：场景化用法全记录 | 编辑器AI助手 |
+| 02-功能教程/feature-ai-panel-4.md | 侧边栏AI排错与进阶：问题定位路径和高级用法 | 侧边栏AI |
+| 02-功能教程/feature-ai-rewrite.md | AI改写操作详解：真实界面步骤与常见坑 | AI改写 |
+| 02-功能教程/feature-ai-rewrite-2.md | 润色深度解析：机制、设计与取舍 | 润色 |
+| 02-功能教程/feature-ai-rewrite-3.md | 三个场景吃透长文写作的用法 | 长文写作 |
+| 02-功能教程/feature-ai-rewrite-4.md | 选区改写出问题怎么办：排查手册加进阶技巧 | 选区改写 |
+| 02-功能教程/feature-ai-revision.md | AI修订实操怎么用：手把手走一遍完整流程 | AI修订实操 |
+| 02-功能教程/feature-ai-revision-2.md | 拆开看修订追踪：原理、架构与实现细节 | 修订追踪 |
+| 02-功能教程/feature-ai-revision-3.md | 三个场景吃透文档对比的用法 | 文档对比 |
+| 02-功能教程/feature-ai-revision-4.md | 红头文件对比排错与进阶：问题定位路径和高级用法 | 红头文件对比 |
+| 02-功能教程/feature-assistants.md | 一篇讲透领域助手实操：准备、步骤、验证与边界 | 领域助手实操 |
+| 02-功能教程/feature-assistants-2.md | 行业助手深度解析：机制、设计与取舍 | 行业助手 |
+| 02-功能教程/feature-assistants-3.md | AI助手库场景实战：从需求到交付 | AI助手库 |
+| 02-功能教程/feature-assistants-4.md | 垂直场景AI排错与进阶：问题定位路径和高级用法 | 垂直场景AI |
+| 02-功能教程/feature-hide-ai.md | 对AI隐藏实操教程：从入口到完成每一步都有反馈 | 对AI隐藏 |
+| 02-功能教程/feature-hide-ai-2.md | 拆开看隐私保护写作：原理、架构与实现细节 | 隐私保护写作 |
+| 02-功能教程/feature-hide-ai-3.md | 附件上传实战：一个真实场景的完整工作流 | 附件上传 |
+| 02-功能教程/feature-hide-ai-4.md | 文档脱敏片段出问题怎么办：排查手册加进阶技巧 | 文档脱敏片段 |
+| 02-功能教程/feature-docs-ribbon.md | Word替代实操实操教程：从入口到完成每一步都有反馈 | Word替代实操 |
+| 02-功能教程/feature-docs-ribbon-2.md | 文档编辑器深度解析：机制、设计与取舍 | 文档编辑器 |
+| 02-功能教程/feature-docs-ribbon-3.md | 功能区场景实战：从需求到交付 | 功能区 |
+| 02-功能教程/feature-docs-ribbon-4.md | docx编辑疑难解答：九成问题出在这几处 | docx编辑 |
+| 02-功能教程/feature-comments.md | 批注怎么用：手把手走一遍完整流程 | 批注 |
+| 02-功能教程/feature-comments-2.md | 拆开看修订模式：原理、架构与实现细节 | 修订模式 |
+| 02-功能教程/feature-comments-3.md | 三个场景吃透审阅的用法 | 审阅 |
+| 02-功能教程/feature-comments-4.md | 协同修改避坑指南：边界、限制与对策 | 协同修改 |
+| 02-功能教程/feature-proofread.md | AI校对实操怎么用：手把手走一遍完整流程 | AI校对实操 |
+| 02-功能教程/feature-proofread-2.md | 拆开看拼写语法检查：原理、架构与实现细节 | 拼写语法检查 |
+| 02-功能教程/feature-proofread-3.md | 三个场景吃透文本分析的用法 | 文本分析 |
+| 02-功能教程/feature-proofread-4.md | 错别字检查疑难解答：九成问题出在这几处 | 错别字检查 |
+| 02-功能教程/feature-security.md | 保密检查操作详解：真实界面步骤与常见坑 | 保密检查 |
+| 02-功能教程/feature-security-2.md | 文档脱密进阶理解：从会用到懂原理 | 文档脱密 |
+| 02-功能教程/feature-security-3.md | 用敏感信息检查解决实际问题：场景化用法全记录 | 敏感信息检查 |
+| 02-功能教程/feature-security-4.md | 脱敏工具出问题怎么办：排查手册加进阶技巧 | 脱敏工具 |
+| 02-功能教程/feature-mailmerge-zotero.md | 邮件合并实操操作详解：真实界面步骤与常见坑 | 邮件合并实操 |
+| 02-功能教程/feature-mailmerge-zotero-2.md | 批量套打的底层逻辑：它为什么这样工作 | 批量套打 |
+| 02-功能教程/feature-mailmerge-zotero-3.md | Zotero实战：一个真实场景的完整工作流 | Zotero |
+| 02-功能教程/feature-mailmerge-zotero-4.md | 参考文献疑难解答：九成问题出在这几处 | 参考文献 |
+| 02-功能教程/feature-batch-form.md | 批量操作上手指南：照着做十分钟跑通 | 批量操作 |
+| 02-功能教程/feature-batch-form-2.md | 表单模式深度解析：机制、设计与取舍 | 表单模式 |
+| 02-功能教程/feature-batch-form-3.md | 三个场景吃透批量处理文档的用法 | 批量处理文档 |
+| 02-功能教程/feature-batch-form-4.md | 内容控件出问题怎么办：排查手册加进阶技巧 | 内容控件 |
+| 02-功能教程/feature-sheets-tools.md | Excel替代实操上手指南：照着做十分钟跑通 | Excel替代实操 |
+| 02-功能教程/feature-sheets-tools-2.md | 数据透视表的底层逻辑：它为什么这样工作 | 数据透视表 |
+| 02-功能教程/feature-sheets-tools-3.md | 表格工具实战：一个真实场景的完整工作流 | 表格工具 |
+| 02-功能教程/feature-sheets-tools-4.md | xlsx编辑疑难解答：九成问题出在这几处 | xlsx编辑 |
+| 02-功能教程/feature-sheets-charts.md | 表格图表操作详解：真实界面步骤与常见坑 | 表格图表 |
+| 02-功能教程/feature-sheets-charts-2.md | 数据可视化的底层逻辑：它为什么这样工作 | 数据可视化 |
+| 02-功能教程/feature-sheets-charts-3.md | 用图表库解决实际问题：场景化用法全记录 | 图表库 |
+| 02-功能教程/feature-sheets-charts-4.md | 迷你图疑难解答：九成问题出在这几处 | 迷你图 |
+| 02-功能教程/feature-sheets-formula.md | 公式怎么用：手把手走一遍完整流程 | 公式 |
+| 02-功能教程/feature-sheets-formula-2.md | 拆开看工作表保护：原理、架构与实现细节 | 工作表保护 |
+| 02-功能教程/feature-sheets-formula-3.md | 三个场景吃透函数的用法 | 函数 |
+| 02-功能教程/feature-sheets-formula-4.md | 崩溃恢复出问题怎么办：排查手册加进阶技巧 | 崩溃恢复 |
+| 02-功能教程/feature-slides-play.md | PPT放映实操教程：从入口到完成每一步都有反馈 | PPT放映 |
+| 02-功能教程/feature-slides-play-2.md | 旁白录制的底层逻辑：它为什么这样工作 | 旁白录制 |
+| 02-功能教程/feature-slides-play-3.md | 用演示者视图解决实际问题：场景化用法全记录 | 演示者视图 |
+| 02-功能教程/feature-slides-play-4.md | 排练计时疑难解答：九成问题出在这几处 | 排练计时 |
+| 02-功能教程/feature-slides-anim.md | PPT动画实操教程：从入口到完成每一步都有反馈 | PPT动画 |
+| 02-功能教程/feature-slides-anim-2.md | 3D模型进阶理解：从会用到懂原理 | 3D模型 |
+| 02-功能教程/feature-slides-anim-3.md | 三个场景吃透切换效果的用法 | 切换效果 |
+| 02-功能教程/feature-slides-anim-4.md | 演示动画排错与进阶：问题定位路径和高级用法 | 演示动画 |
+| 02-功能教程/feature-pdf-read.md | PDF阅读实操教程：从入口到完成每一步都有反馈 | PDF阅读 |
+| 02-功能教程/feature-pdf-read-2.md | PDF标注的底层逻辑：它为什么这样工作 | PDF标注 |
+| 02-功能教程/feature-pdf-read-3.md | 高亮批注实战：一个真实场景的完整工作流 | 高亮批注 |
+| 02-功能教程/feature-pdf-read-4.md | PDF查看器疑难解答：九成问题出在这几处 | PDF查看器 |
+| 02-功能教程/feature-pdf-edit.md | PDF编辑实操教程：从入口到完成每一步都有反馈 | PDF编辑 |
+| 02-功能教程/feature-pdf-edit-2.md | PDF改字的底层逻辑：它为什么这样工作 | PDF改字 |
+| 02-功能教程/feature-pdf-edit-3.md | 用PDF涂黑解决实际问题：场景化用法全记录 | PDF涂黑 |
+| 02-功能教程/feature-pdf-edit-4.md | 真文本编辑排错与进阶：问题定位路径和高级用法 | 真文本编辑 |
+| 02-功能教程/feature-pdf-sign.md | PDF签名实操教程：从入口到完成每一步都有反馈 | PDF签名 |
+| 02-功能教程/feature-pdf-sign-2.md | 电子签章的底层逻辑：它为什么这样工作 | 电子签章 |
+| 02-功能教程/feature-pdf-sign-3.md | 用PDF盖章解决实际问题：场景化用法全记录 | PDF盖章 |
+| 02-功能教程/feature-pdf-sign-4.md | 页面管理出问题怎么办：排查手册加进阶技巧 | 页面管理 |
+| 02-功能教程/feature-ocr.md | 一篇讲透OCR：准备、步骤、验证与边界 | OCR |
+| 02-功能教程/feature-ocr-2.md | 扫描件识别深度解析：机制、设计与取舍 | 扫描件识别 |
+| 02-功能教程/feature-ocr-3.md | 三个场景吃透图片转文字的用法 | 图片转文字 |
+| 02-功能教程/feature-ocr-4.md | PDF识别出问题怎么办：排查手册加进阶技巧 | PDF识别 |
+| 02-功能教程/feature-pdf-convert.md | PDF转Word上手指南：照着做十分钟跑通 | PDF转Word |
+| 02-功能教程/feature-pdf-convert-2.md | PDF转换的底层逻辑：它为什么这样工作 | PDF转换 |
+| 02-功能教程/feature-pdf-convert-3.md | 三个场景吃透离线转换的用法 | 离线转换 |
+| 02-功能教程/feature-pdf-convert-4.md | PDF转Excel出问题怎么办：排查手册加进阶技巧 | PDF转Excel |
+| 02-功能教程/feature-markdown.md | Markdown编辑器上手指南：照着做十分钟跑通 | Markdown编辑器 |
+| 02-功能教程/feature-markdown-2.md | 双链笔记深度解析：机制、设计与取舍 | 双链笔记 |
+| 02-功能教程/feature-markdown-3.md | 三个场景吃透知识图谱实操的用法 | 知识图谱实操 |
+| 02-功能教程/feature-markdown-4.md | md编辑出问题怎么办：排查手册加进阶技巧 | md编辑 |
+| 02-功能教程/feature-html-edit.md | HTML编辑器操作详解：真实界面步骤与常见坑 | HTML编辑器 |
+| 02-功能教程/feature-html-edit-2.md | 可视化编辑深度解析：机制、设计与取舍 | 可视化编辑 |
+| 02-功能教程/feature-html-edit-3.md | 用网页制作解决实际问题：场景化用法全记录 | 网页制作 |
+| 02-功能教程/feature-html-edit-4.md | 低代码页面避坑指南：边界、限制与对策 | 低代码页面 |
+| 02-功能教程/feature-fidelity.md | 格式兼容上手指南：照着做十分钟跑通 | 格式兼容 |
+| 02-功能教程/feature-fidelity-2.md | 字节保真进阶理解：从会用到懂原理 | 字节保真 |
+| 02-功能教程/feature-fidelity-3.md | docx往返场景实战：从需求到交付 | docx往返 |
+| 02-功能教程/feature-fidelity-4.md | 格式保真排错与进阶：问题定位路径和高级用法 | 格式保真 |
+| 02-功能教程/feature-cli.md | chaoffice上手指南：照着做十分钟跑通 | chaoffice |
+| 02-功能教程/feature-cli-2.md | 拆开看命令行办公：原理、架构与实现细节 | 命令行办公 |
+| 02-功能教程/feature-cli-3.md | 文档自动化实战：一个真实场景的完整工作流 | 文档自动化 |
+| 02-功能教程/feature-cli-4.md | CLI工具排错与进阶：问题定位路径和高级用法 | CLI工具 |
+| 02-功能教程/feature-mcp-server.md | MCP服务实操操作详解：真实界面步骤与常见坑 | MCP服务实操 |
+| 02-功能教程/feature-mcp-server-2.md | 拆开看文档MCP实操：原理、架构与实现细节 | 文档MCP实操 |
+| 02-功能教程/feature-mcp-server-3.md | MCP接口场景实战：从需求到交付 | MCP接口 |
+| 02-功能教程/feature-mcp-server-4.md | 办公自动化MCP疑难解答：九成问题出在这几处 | 办公自动化MCP |
+| 02-功能教程/feature-mcp-client.md | 第三方MCP上手指南：照着做十分钟跑通 | 第三方MCP |
+| 02-功能教程/feature-mcp-client-2.md | 拆开看MCP接入：原理、架构与实现细节 | MCP接入 |
+| 02-功能教程/feature-mcp-client-3.md | MCP配置指南实战：一个真实场景的完整工作流 | MCP配置指南 |
+| 02-功能教程/feature-mcp-client-4.md | 扩展AI能力避坑指南：边界、限制与对策 | 扩展AI能力 |
+| 02-功能教程/feature-kb-link.md | 知识库办公上手指南：照着做十分钟跑通 | 知识库办公 |
+| 02-功能教程/feature-kb-link-2.md | 文档引用知识库实操深度解析：机制、设计与取舍 | 文档引用知识库实操 |
+| 02-功能教程/feature-kb-link-3.md | 三个场景吃透办公知识库的用法 | 办公知识库 |
+| 02-功能教程/feature-kb-link-4.md | 引用式写作疑难解答：九成问题出在这几处 | 引用式写作 |
+| 02-功能教程/feature-agent-skill.md | 一篇讲透Agent技能：准备、步骤、验证与边界 | Agent技能 |
+| 02-功能教程/feature-agent-skill-2.md | 技能安装深度解析：机制、设计与取舍 | 技能安装 |
+| 02-功能教程/feature-agent-skill-3.md | 用SKILL.md实操解决实际问题：场景化用法全记录 | SKILL.md实操 |
+| 02-功能教程/feature-agent-skill-4.md | 智能体技能实操出问题怎么办：排查手册加进阶技巧 | 智能体技能实操 |
+| 02-功能教程/feature-buy.md | 办公软件价格怎么用：手把手走一遍完整流程 | 办公软件价格 |
+| 02-功能教程/feature-buy-2.md | 授权激活深度解析：机制、设计与取舍 | 授权激活 |
+| 02-功能教程/feature-buy-3.md | 用免费试用解决实际问题：场景化用法全记录 | 免费试用 |
+| 02-功能教程/feature-buy-4.md | 开源授权排错与进阶：问题定位路径和高级用法 | 开源授权 |
+| 02-功能教程/feature-remote-storage.md | 云存储怎么用：手把手走一遍完整流程 | 云存储 |
+| 02-功能教程/feature-remote-storage-2.md | S3存储进阶理解：从会用到懂原理 | S3存储 |
+| 02-功能教程/feature-remote-storage-3.md | OSS场景实战：从需求到交付 | OSS |
+| 02-功能教程/feature-remote-storage-4.md | 默认保存位置疑难解答：九成问题出在这几处 | 默认保存位置 |
+| 02-功能教程/feature-print.md | 打印上手指南：照着做十分钟跑通 | 打印 |
+| 02-功能教程/feature-print-2.md | 拆开看自动保存：原理、架构与实现细节 | 自动保存 |
+| 02-功能教程/feature-print-3.md | 用保存策略解决实际问题：场景化用法全记录 | 保存策略 |
+| 02-功能教程/feature-print-4.md | 文档打印避坑指南：边界、限制与对策 | 文档打印 |
+| 02-功能教程/feature-feedback-update.md | 软件更新上手指南：照着做十分钟跑通 | 软件更新 |
+| 02-功能教程/feature-feedback-update-2.md | 在线反馈深度解析：机制、设计与取舍 | 在线反馈 |
+| 02-功能教程/feature-feedback-update-3.md | 更新通道实战：一个真实场景的完整工作流 | 更新通道 |
+| 02-功能教程/feature-feedback-update-4.md | 版本升级实操疑难解答：九成问题出在这几处 | 版本升级实操 |
+| 02-功能教程/feature-dsh-web.md | 网页版办公上手指南：照着做十分钟跑通 | 网页版办公 |
+| 02-功能教程/feature-dsh-web-2.md | 拆开看插件形态：原理、架构与实现细节 | 插件形态 |
+| 02-功能教程/feature-dsh-web-3.md | web部署实战：一个真实场景的完整工作流 | web部署 |
+| 02-功能教程/feature-dsh-web-4.md | 在线办公排错与进阶：问题定位路径和高级用法 | 在线办公 |
 
-## 03-场景用例（60 篇）
+## 场景用例（24 篇）
 
-- [周报生成完整方案：职场写周报的人场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-0-weekly.md)｜主词：周报生成
-- [写给职场写周报的人的周报生成指南：新手路线](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-0-weekly-2.md)｜主词：周报生成
-- [职场写周报的人提效实录路线：周报生成这样落地](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-0-weekly-3.md)｜主词：周报生成
-- [职场写周报的人的周报生成方案（深度复盘）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-0-weekly-4.md)｜主词：周报生成
-- [职场写周报的人提效实录路线：周报生成这样落地（细节版）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-0-weekly-5.md)｜主词：周报生成
-- [通知写作完整方案：行政/办公室文员场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-1-notice.md)｜主词：通知写作
-- [行政/办公室文员的通知写作方案（新手路线）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-1-notice-2.md)｜主词：通知写作
-- [写给行政/办公室文员的通知写作指南：效率视角](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-1-notice-3.md)｜主词：通知写作
-- [通知写作深度复盘：行政/办公室文员场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-1-notice-4.md)｜主词：通知写作
-- [行政/办公室文员提效实录路线：通知写作这样落地](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-1-notice-5.md)｜主词：通知写作
-- [写给方案撰写人的AI写方案指南：完整方案](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-2-proposal.md)｜主词：AI写方案
-- [写给方案撰写人的AI写方案指南：新手路线](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-2-proposal-2.md)｜主词：AI写方案
-- [写给方案撰写人的AI写方案指南：效率视角](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-2-proposal-3.md)｜主词：AI写方案
-- [方案撰写人提效实录路线：AI写方案这样落地](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-2-proposal-4.md)｜主词：AI写方案
-- [方案撰写人的AI写方案方案（清单式指南）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-2-proposal-5.md)｜主词：AI写方案
-- [写给汇报人的AI生成PPT指南：完整方案](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-3-report.md)｜主词：AI生成PPT
-- [汇报人提效实录路线：AI生成PPT这样落地](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-3-report-2.md)｜主词：AI生成PPT
-- [AI生成PPT效率视角：汇报人场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-3-report-3.md)｜主词：AI生成PPT
-- [写给汇报人的AI生成PPT指南：深度复盘](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-3-report-4.md)｜主词：AI生成PPT
-- [写给汇报人的AI生成PPT指南：清单式指南](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-3-report-5.md)｜主词：AI生成PPT
-- [学生办公软件完整方案：大学生/研究生场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-4-student.md)｜主词：学生办公软件
-- [学生办公软件新手路线：大学生/研究生场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-4-student-2.md)｜主词：学生办公软件
-- [写给大学生/研究生的学生办公软件指南：效率视角](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-4-student-3.md)｜主词：学生办公软件
-- [写给大学生/研究生的学生办公软件指南：深度复盘](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-4-student-4.md)｜主词：学生办公软件
-- [学生办公软件清单式指南：大学生/研究生场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-4-student-5.md)｜主词：学生办公软件
-- [合同管理完整方案：法务/合同管理员场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-5-admin-law.md)｜主词：合同管理
-- [法务/合同管理员的合同管理方案（新手路线）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-5-admin-law-2.md)｜主词：合同管理
-- [写给法务/合同管理员的合同管理指南：效率视角](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-5-admin-law-3.md)｜主词：合同管理
-- [写给法务/合同管理员的合同管理指南：深度复盘](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-5-admin-law-4.md)｜主词：合同管理
-- [法务/合同管理员提效实录路线：合同管理这样落地](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-5-admin-law-5.md)｜主词：合同管理
-- [教师办公完整方案：教师场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-6-teacher.md)｜主词：教师办公
-- [写给教师的教师办公指南：新手路线](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-6-teacher-2.md)｜主词：教师办公
-- [教师的教师办公方案（效率视角）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-6-teacher-3.md)｜主词：教师办公
-- [教师的教师办公方案（深度复盘）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-6-teacher-4.md)｜主词：教师办公
-- [教师办公清单式指南：教师场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-6-teacher-5.md)｜主词：教师办公
-- [财务/数据岗的财务表格方案（完整方案）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-7-finance.md)｜主词：财务表格
-- [财务表格新手路线：财务/数据岗场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-7-finance-2.md)｜主词：财务表格
-- [财务/数据岗提效实录路线：财务表格这样落地](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-7-finance-3.md)｜主词：财务表格
-- [写给财务/数据岗的财务表格指南：深度复盘](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-7-finance-4.md)｜主词：财务表格
-- [写给财务/数据岗的财务表格指南：清单式指南](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-7-finance-5.md)｜主词：财务表格
-- [重度 PDF 用户的PDF处理方案（完整方案）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-8-pdf-worker.md)｜主词：PDF处理
-- [PDF处理新手路线：重度 PDF 用户场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-8-pdf-worker-2.md)｜主词：PDF处理
-- [重度 PDF 用户提效实录路线：PDF处理这样落地](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-8-pdf-worker-3.md)｜主词：PDF处理
-- [重度 PDF 用户的PDF处理方案（深度复盘）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-8-pdf-worker-4.md)｜主词：PDF处理
-- [写给重度 PDF 用户的PDF处理指南：清单式指南](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-8-pdf-worker-5.md)｜主词：PDF处理
-- [跨平台办公完整方案：多系统用户场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-9-cross-platform.md)｜主词：跨平台办公
-- [跨平台办公新手路线：多系统用户场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-9-cross-platform-2.md)｜主词：跨平台办公
-- [写给多系统用户的跨平台办公指南：效率视角](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-9-cross-platform-3.md)｜主词：跨平台办公
-- [多系统用户的跨平台办公方案（深度复盘）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-9-cross-platform-4.md)｜主词：跨平台办公
-- [跨平台办公清单式指南：多系统用户场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-9-cross-platform-5.md)｜主词：跨平台办公
-- [写给政企办公人员的政企办公软件指南：完整方案](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-10-gov-office.md)｜主词：政企办公软件
-- [政企办公人员的政企办公软件方案（新手路线）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-10-gov-office-2.md)｜主词：政企办公软件
-- [政企办公软件效率视角：政企办公人员场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-10-gov-office-3.md)｜主词：政企办公软件
-- [政企办公软件深度复盘：政企办公人员场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-10-gov-office-4.md)｜主词：政企办公软件
-- [写给政企办公人员的政企办公软件指南：清单式指南](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-10-gov-office-5.md)｜主词：政企办公软件
-- [自动化办公完整方案：开发者/自动化爱好者场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-11-dev.md)｜主词：自动化办公
-- [开发者/自动化爱好者提效实录路线：自动化办公这样落地](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-11-dev-2.md)｜主词：自动化办公
-- [开发者/自动化爱好者提效实录路线：自动化办公这样落地（细节版）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-11-dev-3.md)｜主词：自动化办公
-- [自动化办公深度复盘：开发者/自动化爱好者场景全拆解](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-11-dev-4.md)｜主词：自动化办公
-- [开发者/自动化爱好者提效实录路线：自动化办公这样落地（2026 版）](03-%E5%9C%BA%E6%99%AF%E7%94%A8%E4%BE%8B/scenario-11-dev-5.md)｜主词：自动化办公
+| 文件 | 标题 | 主关键词 |
+|---|---|---|
+| 03-场景用例/scenario-sc-gov.md | 机关公文AI实战：一个真实场景的完整工作流 | 机关公文AI |
+| 03-场景用例/scenario-sc-gov-2.md | 公文写作辅助实操教程：从入口到完成每一步都有反馈 | 公文写作辅助 |
+| 03-场景用例/scenario-sc-gov-3.md | 红头文件疑难解答：九成问题出在这几处 | 红头文件 |
+| 03-场景用例/scenario-sc-gov-4.md | 用三审三校解决实际问题：场景化用法全记录 | 三审三校 |
+| 03-场景用例/scenario-sc-finance.md | 财务表格AI实战：一个真实场景的完整工作流 | 财务表格AI |
+| 03-场景用例/scenario-sc-finance-2.md | 报表自动化上手指南：照着做十分钟跑通 | 报表自动化 |
+| 03-场景用例/scenario-sc-finance-3.md | 数据透视排错与进阶：问题定位路径和高级用法 | 数据透视 |
+| 03-场景用例/scenario-sc-finance-4.md | Excel替代指南场景实战：从需求到交付 | Excel替代指南 |
+| 03-场景用例/scenario-sc-researcher.md | 论文写作工具实战：一个真实场景的完整工作流 | 论文写作工具 |
+| 03-场景用例/scenario-sc-researcher-2.md | 文献管理实操教程：从入口到完成每一步都有反馈 | 文献管理 |
+| 03-场景用例/scenario-sc-researcher-3.md | PDF标注实操避坑指南：边界、限制与对策 | PDF标注实操 |
+| 03-场景用例/scenario-sc-researcher-4.md | 学术写作场景实战：从需求到交付 | 学术写作 |
+| 03-场景用例/scenario-sc-legal.md | 合同处理AI场景实战：从需求到交付 | 合同处理AI |
+| 03-场景用例/scenario-sc-legal-2.md | 合同审查辅助上手指南：照着做十分钟跑通 | 合同审查辅助 |
+| 03-场景用例/scenario-sc-legal-3.md | 合同对比排错与进阶：问题定位路径和高级用法 | 合同对比 |
+| 03-场景用例/scenario-sc-legal-4.md | 用条款核对解决实际问题：场景化用法全记录 | 条款核对 |
+| 03-场景用例/scenario-sc-teacher.md | 课件制作AI实战：一个真实场景的完整工作流 | 课件制作AI |
+| 03-场景用例/scenario-sc-teacher-2.md | PPT生成实操教程：从入口到完成每一步都有反馈 | PPT生成 |
+| 03-场景用例/scenario-sc-teacher-3.md | 课件AI疑难解答：九成问题出在这几处 | 课件AI |
+| 03-场景用例/scenario-sc-teacher-4.md | 用教学材料解决实际问题：场景化用法全记录 | 教学材料 |
+| 03-场景用例/scenario-sc-consultant.md | 咨询报告AI场景实战：从需求到交付 | 咨询报告AI |
+| 03-场景用例/scenario-sc-consultant-2.md | 一篇讲透报告写作：准备、步骤、验证与边界 | 报告写作 |
+| 03-场景用例/scenario-sc-consultant-3.md | 客户交付物避坑指南：边界、限制与对策 | 客户交付物 |
+| 03-场景用例/scenario-sc-consultant-4.md | 模板化写作场景实战：从需求到交付 | 模板化写作 |
 
-## 04-行业方案（30 篇）
+## 行业方案（20 篇）
 
-- [政务公文行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-763835dd-2.md)｜主词：政务公文AI
-- [教育科研行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-0ea5ddcb.md)｜主词：教育科研AI
-- [金融财务行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-4b9c3b71.md)｜主词：金融财务AI
-- [医疗健康行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-b9aae763.md)｜主词：医疗健康AI
-- [法律法务行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-e33e0233.md)｜主词：法律法务AI
-- [建筑工程行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-4f589c05.md)｜主词：建筑工程AI
-- [制造业行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-e7880031.md)｜主词：制造业AI
-- [能源电力行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-8b8b4df1.md)｜主词：能源电力AI
-- [交通物流行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-b7a30386.md)｜主词：交通物流AI
-- [互联网科技行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-17f2089c.md)｜主词：互联网科技AI
-- [电商零售行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-c7bb434d.md)｜主词：电商零售AI
-- [文化传媒行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-ba58b581.md)｜主词：文化传媒AI
-- [出版发行行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-26503c33.md)｜主词：出版发行AI
-- [农业水利行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-b04ff5eb.md)｜主词：农业水利AI
-- [环保气象行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-ed9b0132.md)｜主词：环保气象AI
-- [人力资源行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-fc08e976.md)｜主词：人力资源AI
-- [咨询调查行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-629e0943.md)｜主词：咨询调查AI
-- [协会组织行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-b0750eb6.md)｜主词：协会组织AI
-- [军队文职配套行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-3e3db49c.md)｜主词：军队文职配套AI
-- [国企央企办公行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-3a261fc4.md)｜主词：国企央企办公AI
-- [银行保险行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-e02022fd.md)｜主词：银行保险AI
-- [证券基金行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-b0e9f1c3.md)｜主词：证券基金AI
-- [税务审计行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-b4df271e.md)｜主词：税务审计AI
-- [市场监管行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-bc180535.md)｜主词：市场监管AI
-- [应急安全行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-27ac68e1.md)｜主词：应急安全AI
-- [文旅餐饮行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-d6252182.md)｜主词：文旅餐饮AI
-- [体育健身行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-773f00d5.md)｜主词：体育健身AI
-- [民政社区行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-1ba8ada9.md)｜主词：民政社区AI
-- [档案图书行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-b2db3ff2.md)｜主词：档案图书AI
-- [翻译服务行业怎么用察元Office：从痛点到落地](04-%E8%A1%8C%E4%B8%9A%E6%96%B9%E6%A1%88/industry-b814b7e2.md)｜主词：翻译服务AI
+| 文件 | 标题 | 主关键词 |
+|---|---|---|
+| 04-行业方案/industry-1.md | 政企办公AI方案实操行业应用：从选型到落地 | 政企办公AI方案实操 |
+| 04-行业方案/industry-2.md | 出版发行AI方案实操行业落地方案：流程、工具与边界 | 出版发行AI方案实操 |
+| 04-行业方案/industry-3.md | 科研教育AI方案实操行业应用：从选型到落地 | 科研教育AI方案实操 |
+| 04-行业方案/industry-4.md | 法律合规AI方案实操行业应用：从选型到落地 | 法律合规AI方案实操 |
+| 04-行业方案/industry-5.md | 财务会计AI方案实操行业落地方案：流程、工具与边界 | 财务会计AI方案实操 |
+| 04-行业方案/industry-6.md | 咨询调查AI方案实操行业落地方案：流程、工具与边界 | 咨询调查AI方案实操 |
+| 04-行业方案/industry-7.md | 人力资源AI方案实操行业落地方案：流程、工具与边界 | 人力资源AI方案实操 |
+| 04-行业方案/industry-8.md | 文化传媒AI方案实操行业应用：从选型到落地 | 文化传媒AI方案实操 |
+| 04-行业方案/industry-9.md | 高校实验室AI方案实操行业应用：从选型到落地 | 高校实验室AI方案实操 |
+| 04-行业方案/industry-10.md | 职业教育AI方案实操行业落地方案：流程、工具与边界 | 职业教育AI方案实操 |
+| 04-行业方案/industry-11.md | 医疗卫生AI方案实操行业应用：从选型到落地 | 医疗卫生AI方案实操 |
+| 04-行业方案/industry-12.md | 制造业文控AI方案行业应用：从选型到落地 | 制造业文控AI方案 |
+| 04-行业方案/industry-13.md | 建筑工程AI方案行业落地方案：流程、工具与边界 | 建筑工程AI方案 |
+| 04-行业方案/industry-14.md | 会计师事务所AI方案行业落地方案：流程、工具与边界 | 会计师事务所AI方案 |
+| 04-行业方案/industry-15.md | 律师事务所AI方案行业落地方案：流程、工具与边界 | 律师事务所AI方案 |
+| 04-行业方案/industry-16.md | 银行保险AI方案行业落地方案：流程、工具与边界 | 银行保险AI方案 |
+| 04-行业方案/industry-17.md | 基层政务AI方案行业落地方案：流程、工具与边界 | 基层政务AI方案 |
+| 04-行业方案/industry-18.md | 国有企业AI方案行业应用：从选型到落地 | 国有企业AI方案 |
+| 04-行业方案/industry-19.md | 军工配套保密AI方案实操行业应用：从选型到落地 | 军工配套保密AI方案实操 |
+| 04-行业方案/industry-20.md | 翻译服务AI方案实操行业应用：从选型到落地 | 翻译服务AI方案实操 |
 
-## 05-对比评测（25 篇）
+## 对比评测（3 篇）
 
-- [开源 AI Office 与商业 Office 套件（深度对比）](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-0-office.md)｜主词：Office替代
-- [开源 AI Office 与商业 Office 套件：选型指南与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-0-office-2.md)｜主词：Office替代
-- [开源 AI Office 与商业 Office 套件：场景化推荐与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-0-office-3.md)｜主词：Office替代
-- [本地 PDF 转换 vs 在线转换网站：深度对比与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-1-pdf-word.md)｜主词：PDF转Word
-- [PDF转Word决策指南：本地 PDF 转换 vs 在线转换网站](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-1-pdf-word-2.md)｜主词：PDF转Word
-- [本地 PDF 转换 vs 在线转换网站：场景化推荐与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-1-pdf-word-3.md)｜主词：PDF转Word
-- [AI Office 与传统 Office+插件组合：深度对比与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-2-ai.md)｜主词：AI办公软件
-- [AI Office 与传统 Office+插件组合：选型指南与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-2-ai-2.md)｜主词：AI办公软件
-- [AI Office 与传统 Office+插件组合：场景化推荐与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-2-ai-3.md)｜主词：AI办公软件
-- [办公软件形态决策指南：桌面版、网页版、dsh 插件形态怎么选](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-86b1b3d2.md)｜主词：办公软件形态
-- [桌面版、网页版、dsh 插件形态怎么选（选型指南）](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-86b1b3d2-2.md)｜主词：办公软件形态
-- [桌面版、网页版、dsh 插件形态怎么选：场景化推荐与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-86b1b3d2-3.md)｜主词：办公软件形态
-- [免费使用与授权支持的边界：深度对比与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-c75f2793.md)｜主词：免费办公软件
-- [免费使用与授权支持的边界（选型指南）](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-c75f2793-2.md)｜主词：免费办公软件
-- [免费办公软件决策指南：免费使用与授权支持的边界](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-c75f2793-3.md)｜主词：免费办公软件
-- [AI写文档决策指南：AI 生成文档 vs 人工从零写](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-5-ai.md)｜主词：AI写文档
-- [AI写文档决策指南：AI 生成文档 vs 人工从零写（细节版）](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-5-ai-2.md)｜主词：AI写文档
-- [AI 生成文档 vs 人工从零写（场景化推荐）](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-5-ai-3.md)｜主词：AI写文档
-- [接入云端模型 vs 本地模型：深度对比与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-bc5e648e.md)｜主词：本地部署大模型
-- [接入云端模型 vs 本地模型（选型指南）](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-bc5e648e-2.md)｜主词：本地部署大模型
-- [本地部署大模型决策指南：接入云端模型 vs 本地模型](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-bc5e648e-3.md)｜主词：本地部署大模型
-- [Markdown 工作流 vs docx 工作流：深度对比与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-7-markdown.md)｜主词：Markdown编辑器
-- [Markdown 工作流 vs docx 工作流（选型指南）](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-7-markdown-2.md)｜主词：Markdown编辑器
-- [Markdown 工作流 vs docx 工作流：场景化推荐与条件式建议](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-7-markdown-3.md)｜主词：Markdown编辑器
-- [察元Office全部对比议题总览：怎么按场景选](05-%E5%AF%B9%E6%AF%94%E8%AF%84%E6%B5%8B/compare-99-roundup-2.md)｜主词：察元Office对比
+| 文件 | 标题 | 主关键词 |
+|---|---|---|
+| 05-对比评测/compare-1.md | Office替代对比评测：维度拆解与条件式推荐 | Office替代 |
+| 05-对比评测/compare-2.md | 在线文档对比怎么选：一张表看懂差异 | 在线文档对比 |
+| 05-对比评测/compare-3.md | PDF转换对比对比评测：维度拆解与条件式推荐 | PDF转换对比 |
 
-## 06-常见问题（42 篇）
+## 常见问题（5 篇）
 
-- [察元AI Office 是什么？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-0-ai-off.md)｜主词：察元AI Office 
-- [真的免费吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-7f00c571.md)｜主词：真的免费吗？
-- [和微软 Office 文件兼容吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-2-offi.md)｜主词：和微软 Office 文
-- [AI 功能需要联网吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-3-ai.md)｜主词：AI 功能需要联网吗？
-- [PDF 转 Word 会上传文件吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-4-pdf-wo.md)｜主词：PDF 转 Word 会
-- [支持哪些系统？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-88b8ecec.md)｜主词：支持哪些系统？
-- [在哪里下载？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-ed7073af.md)｜主词：在哪里下载？
-- [AI 生成的内容可靠吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-7-ai.md)｜主词：AI 生成的内容可靠吗？
-- [能改 PDF 里的文字吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-8-pdf.md)｜主词：能改 PDF 里的文字吗
-- [扫描件能变成可编辑文档吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-cad8cf18.md)｜主词：扫描件能变成可编辑文档吗
-- [表格支持透视表吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-25567b4d.md)｜主词：表格支持透视表吗？
-- [有自己的命令行吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-62321812.md)｜主词：有自己的命令行吗？
-- [数据存在哪里？隐私如何？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-dc88f67b.md)｜主词：数据存在哪里？隐私如何？
-- [Linux 老发行版能装吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-13-linux.md)｜主词：Linux 老发行版能装
-- [和察元AI OS 什么关系？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-14-ai-os.md)｜主词：和察元AI OS 什么关
-- [和察元AI文档助手什么关系？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-15-ai.md)｜主词：和察元AI文档助手什么关
-- [升级会丢数据吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-43e21fc2.md)｜主词：升级会丢数据吗？
-- [支持多少种界面语言？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-465125f0.md)｜主词：支持多少种界面语言？
-- [能私有化部署网页版吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-b1c0996c.md)｜主词：能私有化部署网页版吗？
-- [开源协议是什么？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-cae7ceb2.md)｜主词：开源协议是什么？
-- [低配电脑能跑吗？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-8f34543b.md)｜主词：低配电脑能跑吗？
-- [断网时哪些功能不能用？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-eb4a21b5.md)｜主词：断网时哪些功能不能用？
-- [文件被其他程序抢关联了怎么办？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-62b24be2.md)｜主词：文件被其他程序抢关联了怎
-- [遇到 bug 去哪反馈？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-23-bug.md)｜主词：遇到 bug 去哪反馈？
-- [macOS 提示「无法打开」或「已损坏」？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-24-macos.md)｜主词：macOS 提示「无法打
-- [AppImage 双击没反应？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-25-appimage.md)｜主词：AppImage 双击没
-- [Linux 提示 glibc 版本过低？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-26-linux.md)｜主词：Linux 提示 gli
-- [Linux 下启动报沙箱相关错误？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-27-linux.md)｜主词：Linux 下启动报沙箱
-- [UOS/ARM 机器安装报架构不符？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-28-uos-arm.md)｜主词：UOS/ARM 机器安装
-- [更新检查没反应？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-9ff30784.md)｜主词：更新检查没反应？
-- [双击 docx 没用本套件打开？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-30-docx.md)｜主词：双击 docx 没用本套
-- [文档出现方块/乱码？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-562e7c0a.md)｜主词：文档出现方块/乱码？
-- [Windows 安装到一半失败？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-32-windows.md)｜主词：Windows 安装到一
-- [AI 功能点了没反应？](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-33-ai.md)｜主词：AI 功能点了没反应？
-- [察元OfficeFAQ：安装与平台 8 问](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-100-8-2.md)｜主词：察元OfficeFAQ
-- [察元OfficeFAQ：AI 与模型配置 8 问](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-101-ai-8.md)｜主词：察元OfficeFAQ
-- [察元OfficeFAQ：格式兼容 8 问](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-102-8-2.md)｜主词：察元OfficeFAQ
-- [察元OfficeFAQ：PDF 与转换 8 问](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-103-pdf-8.md)｜主词：察元OfficeFAQ
-- [察元OfficeFAQ：授权与费用 8 问](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-104-8.md)｜主词：察元OfficeFAQ
-- [察元OfficeFAQ：隐私与数据 8 问](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-105-8-2.md)｜主词：察元OfficeFAQ
-- [察元OfficeFAQ：故障排查 8 问](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-106-8-2.md)｜主词：察元OfficeFAQ
-- [察元OfficeFAQ：家族产品关系 8 问](06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/faq-107-8-2.md)｜主词：察元OfficeFAQ
+| 文件 | 标题 | 主关键词 |
+|---|---|---|
+| 06-常见问题/faq-1.md | 察元AI Office收费吗高频问答：这些疑问一次说清 | 察元AI Office收费吗 |
+| 06-常见问题/faq-2.md | Office格式兼容问题高频问答：这些疑问一次说清 | Office格式兼容问题 |
+| 06-常见问题/faq-3.md | Office模型配置问题高频问答：这些疑问一次说清 | Office模型配置问题 |
+| 06-常见问题/faq-4.md | PDF功能常见问题高频问答：这些疑问一次说清 | PDF功能常见问题 |
+| 06-常见问题/faq-5.md | AI写作常见问题高频问答：这些疑问一次说清 | AI写作常见问题 |
 
-## 07-技术解析（40 篇）
+## 技术解析（10 篇）
 
-- [察元Office架构课｜字节保真往返：docx 引擎的核心设计](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-bef68ac4.md)｜主词：字节保真
-- [字节保真往返：docx 引擎的核心设计（实操要点）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-bef68ac4-2.md)｜主词：字节保真
-- [技术解析：Rust sidecar：表格引擎为什么用 Rust](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-1-rust.md)｜主词：Rust引擎
-- [察元Office架构课｜Rust sidecar：表格引擎为什么用 Rust](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-1-rust-2.md)｜主词：Rust引擎
-- [PDFium wasm：真文本编辑的秘密（原理解析）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-2-pdfium.md)｜主词：PDFium
-- [察元Office架构课｜PDFium wasm：真文本编辑的秘密](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-2-pdfium-2.md)｜主词：PDFium
-- [HarfBuzz 字体子集化与 CJK 排版（原理解析）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-7d593b63.md)｜主词：字体排版
-- [察元Office架构课｜HarfBuzz 字体子集化与 CJK 排版](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-7d593b63-2.md)｜主词：字体排版
-- [技术解析：四形态交付：同一引擎的四种宿主](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-6e458232.md)｜主词：四形态
-- [四形态交付：同一引擎的四种宿主（实操要点）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-6e458232-2.md)｜主词：四形态
-- [察元Office架构课｜AI 面板的快照与 diff 机制](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-5-ai.md)｜主词：AI可控性
-- [AI 面板的快照与 diff 机制（实操要点）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-5-ai-2.md)｜主词：AI可控性
-- [技术解析：IPC schema 校验与沙箱隔离](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-6-electron.md)｜主词：Electron安全
-- [察元Office架构课｜IPC schema 校验与沙箱隔离](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-6-electron-2.md)｜主词：Electron安全
-- [察元Office架构课｜OS 授权联动的实现细节](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-6489a3d8.md)｜主词：授权联动
-- [察元Office架构课｜OS 授权联动的实现细节（细节版）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-6489a3d8-2.md)｜主词：授权联动
-- [察元Office架构课｜双更新通道设计](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-cd750e85.md)｜主词：自动更新
-- [察元Office架构课｜双更新通道设计（细节版）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-cd750e85-2.md)｜主词：自动更新
-- [技术解析：chaoffice CLI 的 headless 能力面](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-9-headless.md)｜主词：headless转换
-- [察元Office架构课｜chaoffice CLI 的 headless 能力面](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-9-headless-2.md)｜主词：headless转换
-- [技术解析：上游同步的共存策略](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-1c5bdb29.md)｜主词：上游同步
-- [技术解析：上游同步的共存策略（细节版）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-1c5bdb29-2.md)｜主词：上游同步
-- [六段版本号的语义（原理解析）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-c0417fd8.md)｜主词：版本管理
-- [察元Office架构课｜六段版本号的语义](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-c0417fd8-2.md)｜主词：版本管理
-- [技术解析：遥测的克制设计](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-e79ccbf6.md)｜主词：隐私工程
-- [察元Office架构课｜遥测的克制设计](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-e79ccbf6-2.md)｜主词：隐私工程
-- [技术解析：麒麟/UOS 打包的实战修复](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-3d07045e.md)｜主词：国产化打包
-- [察元Office架构课｜麒麟/UOS 打包的实战修复](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-3d07045e-2.md)｜主词：国产化打包
-- [本地 OCR 的系统引擎策略（原理解析）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-14-ocr.md)｜主词：本地OCR
-- [本地 OCR 的系统引擎策略（实操要点）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-14-ocr-2.md)｜主词：本地OCR
-- [察元Office架构课｜多语言与 i18n 的二十语种](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-4db25661.md)｜主词：国际化
-- [察元Office架构课｜多语言与 i18n 的二十语种（细节版）](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-4db25661-2.md)｜主词：国际化
-- [离线优先的架构取舍：察元Office的原理解析](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-200-2.md)｜主词：离线优先的架构取舍
-- [匿名遥测与可关闭边界：察元Office的实操要点](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-201.md)｜主词：匿名遥测与可关闭边界
-- [90 天试用与离线激活的授权工程：察元Office的原理解析](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-202-90.md)｜主词：90 天试用与离线激活的授权工程
-- [跨平台打包矩阵（dmg/exe/deb/rpm/AppImage）：察元Office的实操要点](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-203-dmg-exe-deb-rpm-appimage.md)｜主词：跨平台打包矩阵（dmg/exe/deb/rpm/AppImage）
-- [数据目录与文件关联治理：察元Office的原理解析](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-204-2.md)｜主词：数据目录与文件关联治理
-- [版本节奏与上游同步：察元Office的实操要点](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-205-2.md)｜主词：版本节奏与上游同步
-- [开源 Apache-2.0 与企业模块例外：察元Office的原理解析](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-206-apache-2-0.md)｜主词：开源 Apache-2.0 与企业模块例外
-- [性能：低配设备的可行配置：察元Office的实操要点](07-%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/tech-207-2.md)｜主词：性能：低配设备的可行配置
+| 文件 | 标题 | 主关键词 |
+|---|---|---|
+| 07-技术解析/tech-1.md | 字节保真实现的底层逻辑：它为什么这样工作 | 字节保真实现 |
+| 07-技术解析/tech-2.md | PDF内容流重写深度解析：机制、设计与取舍 | PDF内容流重写 |
+| 07-技术解析/tech-3.md | 表格Rust边车深度解析：机制、设计与取舍 | 表格Rust边车 |
+| 07-技术解析/tech-4.md | 修订OOXML结构进阶理解：从会用到懂原理 | 修订OOXML结构 |
+| 07-技术解析/tech-5.md | 知识库五级发现深度解析：机制、设计与取舍 | 知识库五级发现 |
+| 07-技术解析/tech-6.md | MCP工具面设计的底层逻辑：它为什么这样工作 | MCP工具面设计 |
+| 07-技术解析/tech-7.md | 拆开看OCR判定策略：原理、架构与实现细节 | OCR判定策略 |
+| 07-技术解析/tech-8.md | 拆开看ODF保守导入：原理、架构与实现细节 | ODF保守导入 |
+| 07-技术解析/tech-9.md | 多协议适配层深度解析：机制、设计与取舍 | 多协议适配层 |
+| 07-技术解析/tech-10.md | 长文流式写作的底层逻辑：它为什么这样工作 | 长文流式写作 |
 
-## 08-版本发布（15 篇）
+## 版本发布（2 篇）
 
-- [升级到 v0.10.x / 整树导入 前必读的几件事](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-0-0-10-x.md)｜主词：察元Office更新
-- [察元Office v0.10.x / 整树导入 更新解读：完成上游 GenOffice 整树导入与共存规则建立](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-50-0-10-x.md)｜主词：察元Office更新
-- [升级到 v1.0.x 前必读的几件事](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-1-1-0-x.md)｜主词：察元Office更新
-- [v1.0.x 发布要点：六编辑器（含 HTML）与 AI 面板多会话；察元AI 功能区（校对/保密/批量/表单）与 4576 助手入库](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-51-1-0-x.md)｜主词：察元Office更新
-- [升级到 v1.0.2 前必读的几件事](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-2-1-0-2.md)｜主词：察元Office更新
-- [v1.0.2 发布要点：三平台安装包统一命名 ChaAIOffice-*；Linux 打包强化：宿主架构出包、rpm 条件化、sidecar 就位](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-52-1-0-2.md)｜主词：察元Office更新
-- [升级到 v1.0.3 前必读的几件事](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-3-1-0-3.md)｜主词：察元Office更新
-- [升级到 v1.0.3 前必读的几件事（细节版）](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-53-1-0-3.md)｜主词：察元Office更新
-- [功能演进总览：六编辑器与 AI 面板（察元Office演进笔记）](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-300-note-2.md)｜主词：察元Office版本
-- [打包与国产化适配改进史（察元Office演进笔记）](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-301-note-2.md)｜主词：察元Office版本
-- [首页与搜索体验演进（察元Office演进笔记）](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-302-note-2.md)｜主词：察元Office版本
-- [上游同步机制解读（察元Office演进笔记）](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-303-note-2.md)｜主词：察元Office版本
-- [六段版本号规范解读（察元Office演进笔记）](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-304-note-2.md)｜主词：察元Office版本
-- [发布渠道与校验（察元Office演进笔记）](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-305-note-2.md)｜主词：察元Office版本
-- [更新策略与数据保留（察元Office演进笔记）](08-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/release-306-note-2.md)｜主词：察元Office版本
+| 文件 | 标题 | 主关键词 |
+|---|---|---|
+| 08-版本发布/release-1.md | 察元AI Office 1.0.15更新解读：这次改了什么 | 察元AI Office 1.0.15 |
+| 08-版本发布/release-2.md | 察元AI Office 1.0.x 系列更新解读：这次改了什么 | 察元AI Office 1.0.x 系列 |
 
-## 09-社区种草（28 篇）
+## 社区种草（12 篇）
 
-- [✨职场写周报的人自救指南：周报生成这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-1bdf9c20.md)｜主词：周报生成
-- [💡行政/办公室文员自救指南：通知写作这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-3e01d972.md)｜主词：通知写作
-- [🚀方案撰写人自救指南：AI写方案这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-2-ai.md)｜主词：AI写方案
-- [🧩汇报人自救指南：AI生成PPT这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-3-ai-ppt.md)｜主词：AI生成PPT
-- [🧩大学生/研究生自救指南：学生办公软件这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-479ba144.md)｜主词：学生办公软件
-- [✨法务/合同管理员自救指南：合同管理这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-2d10c437.md)｜主词：合同管理
-- [💡教师自救指南：教师办公这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-b9849e76.md)｜主词：教师办公
-- [🔥财务/数据岗自救指南：财务表格这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-bc397ca7.md)｜主词：财务表格
-- [🧩重度 PDF 用户自救指南：PDF处理这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-8-pdf.md)｜主词：PDF处理
-- [🔥多系统用户自救指南：跨平台办公这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-f264ff21.md)｜主词：跨平台办公
-- [📌政企办公人员自救指南：政企办公软件这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-8e6210fe.md)｜主词：政企办公软件
-- [🎯开发者/自动化爱好者自救指南：自动化办公这么干](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-2fc513f0.md)｜主词：自动化办公
-- [🔥Docs 文字编辑器隐藏用法｜AI文档编辑一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-100-ai.md)｜主词：AI文档编辑
-- [💡Sheets 表格编辑器隐藏用法｜AI表格一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-101-ai.md)｜主词：AI表格
-- [⭐Slides 演示编辑器隐藏用法｜AI生成PPT一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-102-ai-ppt.md)｜主词：AI生成PPT
-- [🔥PDF 编辑器隐藏用法｜PDF编辑器一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-103-pdf.md)｜主词：PDF编辑器
-- [⭐PDF 转 Word/PPT/Excel隐藏用法｜PDF转Word一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-104-pdf-word.md)｜主词：PDF转Word
-- [💡扫描件 OCR隐藏用法｜OCR文字识别一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-105-ocr.md)｜主词：OCR文字识别
-- [⭐Markdown 编辑器隐藏用法｜Markdown编辑器一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-106-markdown.md)｜主词：Markdown编辑器
-- [✨HTML 编辑器隐藏用法｜HTML编辑器一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-107-html.md)｜主词：HTML编辑器
-- [🧩AI 面板隐藏用法｜AI写作助手一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-108-ai.md)｜主词：AI写作助手
-- [✨首页 AI 对话隐藏用法｜一句话生成文档一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-109-2.md)｜主词：一句话生成文档
-- [✨模型接入（BYOK）隐藏用法｜大模型API接入一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-110-api.md)｜主词：大模型API接入
-- [🧩察元AI 功能区（校对与保密）隐藏用法｜AI校对一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-111-ai.md)｜主词：AI校对
-- [💡4576 个领域助手隐藏用法｜AI助手一次讲清](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-112-ai.md)｜主词：AI助手
-- [🎯一份周报的生产线，一篇给你说透](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-200-undefined-2.md)｜主词：undefined
-- [🎯扫描合同数字化流水线，一篇给你说透](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-201-undefined-2.md)｜主词：undefined
-- [🚀汇报日打包流程，一篇给你说透](09-%E7%A4%BE%E5%8C%BA%E7%A7%8D%E8%8D%89/xhs-202-undefined-2.md)｜主词：undefined
+| 文件 | 标题 | 主关键词 |
+|---|---|---|
+| 09-社区种草/xhs-1.md | 开源办公套件安利使用分享 | 开源办公套件安利 |
+| 09-社区种草/xhs-2.md | PDF直接改字体验记录 | PDF直接改字 |
+| 09-社区种草/xhs-3.md | AI校对留批注使用分享 | AI校对留批注 |
+| 09-社区种草/xhs-4.md | 扫描件秒变可搜索体验记录 | 扫描件秒变可搜索 |
+| 09-社区种草/xhs-5.md | 4576个行业助手体验记录 | 4576个行业助手 |
+| 09-社区种草/xhs-6.md | 断网写方案使用分享 | 断网写方案 |
+| 09-社区种草/xhs-7.md | 一句话出文档使用分享 | 一句话出文档 |
+| 09-社区种草/xhs-8.md | 合同差异三分钟体验记录 | 合同差异三分钟 |
+| 09-社区种草/xhs-9.md | 表格透视表自由体验记录 | 表格透视表自由 |
+| 09-社区种草/xhs-10.md | 论文神器组合使用分享 | 论文神器组合 |
+| 09-社区种草/xhs-11.md | 涉密文档脱敏体验记录 | 涉密文档脱敏 |
+| 09-社区种草/xhs-12.md | PPT录旁白使用分享 | PPT录旁白 |
+

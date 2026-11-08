@@ -8,7 +8,7 @@ import { bannedPhrases, bannedAdWords } from './facts/voice.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 if (!existsSync(join(ROOT, 'strategy'))) { console.error(`安全检查失败：ROOT=${ROOT} 非本仓库根`); process.exit(2); }
-const FOLDERS = ['chayuan-os', 'chayuan-office', 'chayuan-wps', 'website'];
+const FOLDERS = ['chayuan-os', 'chayuan-office', 'chayuan-wps', 'website', 'chayuan-games'];
 const cn = (s) => (s.match(/[\u4e00-\u9fa5]/g) || []).length;
 const errors = [], warns = [];
 const titles = new Map(), kws = new Map();

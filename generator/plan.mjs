@@ -11,20 +11,113 @@ import { scenarios, comparisons, industries, pillars, faqClusters } from './fact
 const TOPICS = { 'chayuan-os': topicsOS, 'chayuan-office': topicsOffice, 'chayuan-wps': topicsWps, website: topicsWeb };
 const PRODUCT_NAME = { 'chayuan-os': '察元AI OS', 'chayuan-office': '察元AI Office', 'chayuan-wps': '察元AI文档助手', website: '察元AI 能力广场' };
 
-// ---------- 标题模板（按文型，{kw}必含；池子轮换） ----------
-const TITLE = {
-  A: ['{kw}实操教程：从入口到完成每一步都有反馈', '{kw}怎么用：手把手走一遍完整流程', '一篇讲透{kw}：准备、步骤、验证与边界', '{kw}上手指南：照着做十分钟跑通', '{kw}操作详解：真实界面步骤与常见坑'],
-  B: ['{kw}深度解析：机制、设计与取舍', '{kw}的底层逻辑：它为什么这样工作', '拆开看{kw}：原理、架构与实现细节', '{kw}进阶理解：从会用到懂原理'],
-  C: ['{kw}实战：一个真实场景的完整工作流', '用{kw}解决实际问题：场景化用法全记录', '{kw}场景实战：从需求到交付', '三个场景吃透{kw}的用法'],
-  D: ['{kw}排错与进阶：问题定位路径和高级用法', '{kw}出问题怎么办：排查手册加进阶技巧', '{kw}疑难解答：九成问题出在这几处', '{kw}避坑指南：边界、限制与对策'],
-  E: ['什么是{kw}？一文讲清概念、用法与选型', '{kw}是什么：定义、场景与上手路径', '{kw}全解析：从概念到落地', '认识{kw}：它解决什么问题、怎么选'],
-  F: ['{kw}对比评测：维度拆解与条件式推荐', '{kw}怎么选：一张表看懂差异', '{kw}对比：各自适合什么场景'],
-  G: ['{kw}常见问题合集：答案结论先行', '{kw}高频问答：这些疑问一次说清'],
-  H: ['{kw}版本发布说明：新特性与升级要点', '{kw}更新解读：这次改了什么'],
-  I: ['{kw}行业落地方案：流程、工具与边界', '{kw}行业应用：从选型到落地'],
-  J: ['{kw}安装指南：全平台步骤与验证', '{kw}下载安装：按平台架构一步步来'],
-  K: ['{kw}使用分享', '{kw}体验记录'],
+// ---------- 标题系统 v3：角度驱动（对标范文「主词 + 冒号 + 观点钩子」句式） ----------
+// 钩子从主题真实数据（教程定义句/why/能力点/场景/提问）提炼，同主题各变体取不同钩子源，
+// 彻底废除「40 个固定句式轮换」的模板化标题（CSDN 同质化判定主因）。
+import { readFileSync as _rf } from 'node:fs';
+function _loadJson(f) {
+  try { return JSON.parse(_rf(new URL(`./facts/harvested/${f}`, import.meta.url), 'utf8')); } catch { return []; }
+}
+const _HARVEST = {
+  'chayuan-os': _loadJson('os-tutorials.json'),
+  'chayuan-office': _loadJson('office-tutorials.json'),
+  'chayuan-wps': _loadJson('wps-tutorials.json'),
 };
+const _cjk = (s) => (s.match(/[\u4e00-\u9fa5]/g) || []).length;
+// 短语化：优先取完整子句（首个句读前的部分），超长时宁可弃用也不腰斩
+function _phrase(s, max) {
+  let t = String(s || '').replace(/^[-*\d.\s]+/, '').trim();
+  const stop = [':', '：', '，', '；', '。', '？', '！', '—', '（', '('].map((c) => t.indexOf(c)).filter((n) => n > 4).sort((a, b) => a - b)[0];
+  if (stop !== undefined) t = t.slice(0, stop);
+  if ([...t].length > max) {
+    const slice = [...t].slice(0, max).join('');
+    const idx = Math.max(slice.lastIndexOf('、'), slice.lastIndexOf('，'));
+    t = idx > 8 ? [...t].slice(0, idx).join('') : null; // 找不到自然边界就弃用该钩子
+  }
+  return t ? t.replace(/[，。；：、！？\s]+$/, '') : '';
+}
+// 主词与钩子的相关度（二元组重合），防「钩子讲的是别的事」
+function _rel(a, b) {
+  const f = (s) => { const t = String(s || '').replace(/[^\u4e00-\u9fa5a-zA-Z0-9]/g, ''); const set = new Set(); for (let i = 0; i < t.length - 1; i++) set.add(t.slice(i, i + 2)); return set; };
+  const A = f(a), B = f(b);
+  if (!A.size || !B.size) return 0;
+  let hit = 0; for (const g of A) if (B.has(g)) hit++;
+  return hit / A.size;
+}
+// 某行文章语境（主题/教程/场景/对比/版本/安装/种草引用）能提供的钩子池
+function hookPool(ctx, strict = true) {
+  const { topic, tut, sc, cp, v, ind, ins, xh, tech, kw, P } = ctx;
+  const anchor = `${kw}${topic?.name || ''}`;
+  const pool = [];
+  const push = (s, n, needRel = 0.05) => {
+    const p = _phrase(s, n);
+    if (_cjk(p) < 5 || pool.includes(p)) return;
+    if (strict && needRel > 0 && _rel(p, anchor) < needRel) return;
+    pool.push(p);
+  };
+  // 顺序即优先级：教程定义句 > why（观点钩子）> 真实提问 > 场景 > 产品定位 > 能力点/边界
+  if (tut?.one) push(tut.one, 20, 0.08);
+  if (topic?.why) push(topic.why, 16, 0.08);
+  if (tut?.asks?.[0]) push(tut.asks[0].replace(/[？?]$/, ''), 16, 0.08);
+  if (sc?.pains?.[0]) push(sc.pains[0], 14, 0.06);
+  if (sc?.gain) push(sc.gain, 16, 0.06);
+  if (P?.tagline) push(P.tagline, 16, 0.05);
+  // 产品级钩子（支柱词匹配不到主题时的主力；数字口径/边界的第一子句都是好钩子）
+  Object.values(P?.numbers || {}).slice(0, 6).forEach((n) => push(n, 14, 0.03));
+  (P?.cons || []).slice(0, 3).forEach((n) => push(n, 14, 0.03));
+  if (topic?.what) push(topic.what, 18, 0.1);
+  if (cp?.t) push(cp.t, 16, 0.05);
+  if (v?.highlights?.[0]) push(v.highlights[0], 16, 0.04);
+  if (ins?.blurb) push(ins.blurb, 14, 0.04);
+  if (xh?.angle) push(xh.angle, 16, 0.04);
+  if (tech?.angle) push(tech.angle, 18, 0.04);
+  if (ind) push(`${ind}里最吃重的那段流程`, 12, 0);
+  (topic?.scenes || []).slice(0, 2).forEach((c) => push(c, 14, 0.06));
+  (topic?.caps || []).slice(0, 4).forEach((c) => push(c, 12, 0.06));
+  (topic?.limits || []).slice(0, 1).forEach((c) => push(c, 14, 0.06));
+  if (!pool.length) push(`${kw}的完整链路`, 12, 0);
+  return pool;
+}
+// 连接句式池：{kw}=主关键词 {h}=钩子。钩子可缺席的句式以 {h?} 标注
+const TITLE = {
+  A: ['{kw}：{h}', '{kw}实操，{h}', '{h}：{kw}完整走法', '{kw}怎么做：{h}', '从入口到验证：{kw}', '{kw}：{h}，一次走通'],
+  B: ['{kw}：{h}', '拆开看{kw}：{h}', '{kw}的设计取舍：{h}', '{h}：{kw}的底层逻辑', '{kw}为什么这样工作：{h}'],
+  C: ['{kw}实战：{h}', '{h}：用{kw}跑通一个真实场景', '{kw}落地记：{h}', '从需求到交付：{kw}', '{kw}场景拆解：{h}'],
+  D: ['{kw}排错：{h}', '{kw}出问题先看这：{h}', '{h}：{kw}的坑与对策', '{kw}排查路径：{h}', '{kw}：{h}，别再瞎试'],
+  E: ['{kw}：{h}', '一文分清{kw}：{h}', '{kw}是什么：{h}', '{h}：{kw}概念与上手', '{kw}入门指南：{h}'],
+  F: ['{kw}对比：{h}', '{kw}怎么选：{h}', '{h}：{kw}逐维度对比', '{kw}评测：{h}'],
+  G: ['{kw}高频问答：{h}', '{kw}：{h}，一次说清', '关于{kw}：{h}'],
+  H: ['{kw}更新：{h}', '{kw}发布解读：{h}', '{kw}：{h}，这次改了什么'],
+  I: ['{kw}：{h}', '{kw}落地：{h}', '{h}：{kw}路径与边界'],
+  J: ['{kw}：{h}', '{kw}安装：{h}', '{kw}装机指南：{h}'],
+  K: ['{kw}：{h}', '{kw}两周记录：{h}', '{kw}：{h}，说实话'],
+};
+function _hash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return Math.abs(h); }
+function buildTitle(ar, kw, ctx, salt) {
+  const pool = hookPool(ctx).filter((h) => !h.includes(kw) && !kw.includes(h));
+  const pats = TITLE[ar];
+  const seed = _hash(kw + (salt || '') + (ctx.topic?.id || ''));
+  const maxLen = ar === 'K' ? 22 : 30; // 小红书笔记标题 ≤20 字上下
+  const minLen = ar === 'K' ? 6 : 10;
+  const pat = pats[seed % pats.length];
+  // 钩子按种子轮转取，同主题多变体天然错开
+  const hook = pool.length ? pool[(seed >> 3) % pool.length] : '';
+  let t = pat.replaceAll('{kw}', kw).replaceAll('{h}', hook);
+  // 长度治理
+  if ([...t].length > maxLen) {
+    const fresh = hookPool(ctx).filter((h) => !h.includes(kw) && !kw.includes(h) && [...h].length <= maxLen - [...kw].length - 1);
+    t = fresh.length ? `${kw}：${fresh[seed % fresh.length]}` : `${kw}`.slice(0, maxLen);
+    if ([...t].length > maxLen) t = [...t].slice(0, maxLen).join('');
+  }
+  t = t.replace(/[：:]\s*$/, '');
+  if ([...t].length < minLen) {
+    const any = hookPool(ctx, false).filter((h) => !h.includes(kw) && !kw.includes(h));
+    const h = any[seed % Math.max(1, any.length)];
+    const conn = ar === 'K' ? '两周记录' : ['怎么用', '是什么', '实操指南', '上手笔记'][(seed >> 5) % 4];
+    t = h ? `${kw}${conn}：${h}` : `${kw}${conn}：一文讲透`;
+  }
+  return t.replace(/\s+/g, ' ').trim();
+}
 
 const usedTitles = new Set();
 const usedKws = new Set();
@@ -47,13 +140,19 @@ function uniqKw(kw, fallbackPool) {
 }
 
 let seq = 0;
-function row(product, category, file, titleOrKw, kw, kws, archetype, topicId, refs = {}) {
+function row(product, category, file, kw, kws, archetype, topicId, refs = {}) {
   seq += 1;
   // 先定稿唯一主关键词，再生成标题（保证标题一定含主关键词）；keywords 去重
   const finalKw = uniqKw(kw, ['实操', '指南', '教程', '详解', '方法']);
-  const title = typeof titleOrKw === 'string' && titleOrKw.includes('{kw}')
-    ? uniqTitle(titleOrKw.replaceAll('{kw}', finalKw))
-    : uniqTitle(pickT(archetype, finalKw));
+  const topic = TOPICS[product].find((t) => t.id === topicId) || null;
+  const tut = _HARVEST[product]?.find((t) => t.id === topic?.tut) || null;
+  const ctx = {
+    topic, tut, kw: finalKw, P: PRODUCTS[product],
+    ins: refs.install, v: refs.version, ind: refs.industry, tech: refs.tech, xh: refs.xhs,
+    cp: comparisons[product]?.[refs.compareIdx] || null,
+    sc: scenarios[product]?.find((s) => s.id === refs.scenario) || null,
+  };
+  const title = uniqTitle(buildTitle(archetype, finalKw, ctx, file));
   const dedupKws = [...new Set([finalKw, ...kws.filter((k) => k && k !== finalKw)])].slice(0, 5);
   return { n: seq, product, category, file, title, kw: finalKw, kws: dedupKws, archetype, topicId, ...refs };
 }
@@ -66,17 +165,17 @@ export function buildPlan() {
     const folder = productKey; // PRODUCTS[productKey].folder 与 productKey 一致
     const P = PRODUCT_NAME[productKey];
 
-    // ===== 00 关键词覆盖（pillar 释义文） =====
+    // ===== 00 关键词覆盖（pillar 释义文；匹配不到主题的走产品级支柱内容） =====
     for (const [kw, intent, blurb] of pillars[productKey]) {
-      const topic = matchTopic(productKey, kw) || topics[0];
+      const topic = matchTopic(productKey, kw);
       plan.push(row(productKey, '00-关键词覆盖', `kw-${slug(kw)}.md`,
-        pickT('E', kw), kw, [kw, P, ...topicKwTail(productKey)], 'E', topic.id, { blurb, intent }));
+        kw, [kw, P, ...topicKwTail(productKey)], 'E', topic?.id || '', { blurb, intent }));
     }
 
     // ===== 01 下载安装 =====
     for (const ins of INSTALL[productKey]) {
       plan.push(row(productKey, '01-下载安装', `install-${ins.id}.md`,
-        pickT('J', ins.kw), ins.kw, [ins.kw, P, '下载安装', ...ins.extraKw], 'J', ins.topic || 'install', { install: ins }));
+        ins.kw, [ins.kw, P, '下载安装', ...ins.extraKw], 'J', ins.topic || 'install', { install: ins }));
     }
 
     // ===== 02 功能教程（主题 × 文型轮转） =====
@@ -87,7 +186,7 @@ export function buildPlan() {
         const kw = t.kws[i];
         const ar = archetypes[i % archetypes.length];
         plan.push(row(productKey, '02-功能教程', `feature-${t.id}${i ? '-' + (i + 1) : ''}.md`,
-          pickT(ar, kw), kw, [kw, P, ...t.kws.filter((k) => k !== kw).slice(0, 2)], ar, t.id, { variant: i }));
+          kw, [kw, P, ...t.kws.filter((k) => k !== kw).slice(0, 2)], ar, t.id, { variant: i }));
       }
     }
 
@@ -99,45 +198,45 @@ export function buildPlan() {
         const ar = sceneArc[i % sceneArc.length];
         const topicRef = matchTopic(productKey, sc.kw) || matchTopic(productKey, kw);
         plan.push(row(productKey, '03-场景用例', `scenario-${sc.id}${i ? '-' + (i + 1) : ''}.md`,
-          pickT(ar, kw), kw, [kw, P, '场景', ...sc.kws.filter((x) => x !== kw).slice(0, 2)], ar, topicRef?.id || '', { scenario: sc.id, variant: i }));
+          kw, [kw, P, '场景', ...sc.kws.filter((x) => x !== kw).slice(0, 2)], ar, topicRef?.id || '', { scenario: sc.id, variant: i }));
       });
     }
 
     // ===== 04 行业方案 =====
     industries[productKey].forEach((ind, i) => {
       plan.push(row(productKey, '04-行业方案', `industry-${i + 1}.md`,
-        pickT('I', `${ind}AI方案`), `${ind}AI方案`, [`${ind}AI方案`, ind, P, productKey === 'chayuan-wps' ? '文档AI' : 'AI落地'], 'I', '', { industry: ind }));
+        `${ind}AI方案`, [`${ind}AI方案`, ind, P, productKey === 'chayuan-wps' ? '文档AI' : 'AI落地'], 'I', '', { industry: ind }));
     });
 
     // ===== 05 对比评测 =====
     comparisons[productKey].forEach((cp, i) => {
       plan.push(row(productKey, '05-对比评测', `compare-${i + 1}.md`,
-        pickT('F', cp.kw), cp.kw, [cp.kw, P, '对比', '选型'], 'F', '', { compareIdx: i }));
+        cp.kw, [cp.kw, P, '对比', '选型'], 'F', '', { compareIdx: i }));
     });
 
     // ===== 06 常见问题 =====
     faqClusters[productKey].forEach((fc, i) => {
       plan.push(row(productKey, '06-常见问题', `faq-${i + 1}.md`,
-        pickT('G', fc.kw), fc.kw, [fc.kw, P, '常见问题', '解答'], 'G', '', { faqIdx: i }));
+        fc.kw, [fc.kw, P, '常见问题', '解答'], 'G', '', { faqIdx: i }));
     });
 
     // ===== 07 技术解析 =====
     TECH[productKey].forEach((tk, i) => {
       plan.push(row(productKey, '07-技术解析', `tech-${i + 1}.md`,
-        pickT('B', tk.kw), tk.kw, [tk.kw, P, '技术解析', '原理'], 'B', tk.topic || '', { tech: tk }));
+        tk.kw, [tk.kw, P, '技术解析', '原理'], 'B', tk.topic || '', { tech: tk }));
     });
 
     // ===== 08 版本发布 =====
     VERSIONS[productKey].forEach((v, i) => {
       const kw = `${P} ${v.v}`;
       plan.push(row(productKey, '08-版本发布', `release-${i + 1}.md`,
-        pickT('H', kw), kw, [kw, v.v, P, '更新', '版本'], 'H', '', { version: v }));
+        kw, [kw, v.v, P, '更新', '版本'], 'H', '', { version: v }));
     });
 
     // ===== 09 社区种草 =====
     XHS[productKey].forEach((xh, i) => {
       plan.push(row(productKey, '09-社区种草', `xhs-${i + 1}.md`,
-        pickT('K', xh.kw), xh.kw, [xh.kw, P, ...xh.tags.slice(0, 2)], 'K', xh.topic || '', { xhs: xh }));
+        xh.kw, [xh.kw, P, ...xh.tags.slice(0, 2)], 'K', xh.topic || '', { xhs: xh }));
     });
   }
 
@@ -151,19 +250,13 @@ export function buildPlan() {
     seq += 1;
     plan.push({
       n: seq, product, category: '00-关键词覆盖', file: `kw-${slug(kw)}.md`,
-      title: uniqTitle(pickT('E', kw)), kw, kws: [kw, P, ...topicKwTail(product)], archetype: 'E',
+      title: uniqTitle(buildTitle('E', kw, { topic, tut: _HARVEST[product]?.find((t) => t.id === topic?.tut) || null, kw }, kw)), kw, kws: [kw, P, ...topicKwTail(product)], archetype: 'E',
       topicId: topic?.id || '', intent: '长尾词', blurb: '', legacy: true,
     });
   }
   return plan;
 }
 
-function pickT(ar, kw) {
-  const pool = TITLE[ar];
-  const k = kw || 'x';
-  const i = (k.length + k.charCodeAt(0)) % pool.length;
-  return pool[i].replaceAll('{kw}', k);
-}
 function slug(kw) {
   return kw.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-').replace(/^-+|-+$/g, '') || 'x';
 }
@@ -255,7 +348,9 @@ function matchTopic(product, kw) {
       for (const id of ids) { const t = topics.find((x) => x.id === id); if (t) return t; }
     }
   }
-  return topics[0];
+  // 关键词与主题名直接沾边才认领，否则返回 null（支柱词走产品级内容，防张冠李戴）
+  const byName = topics.find((t) => kw.includes(t.name) || t.name.includes(kw) || (t.kws || []).some((k) => kw.includes(k) || k.includes(kw)));
+  return byName || null;
 }
 
 // ---------- 安装类文章（每产品） ----------

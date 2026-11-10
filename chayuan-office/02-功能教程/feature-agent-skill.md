@@ -1,6 +1,6 @@
 ---
-title: "一篇讲透Agent技能：准备、步骤、验证与边界"
-description: "Agent技能完整教程：察元AI Office 自带一份 agent skill（教会 AI 编码智能体使用 chaoffice 命令行的说明书），步骤含真实按钮文案与验证方法。"
+title: "Agent技能：版本化技能包"
+description: "Agent技能完整教程：让编程智能体天生会用办公套件，写代码调文档 API 不用翻文档。步骤含真实按钮文案与验证方法。"
 keywords: ["Agent技能", "察元AI Office", "技能安装", "SKILL.md"]
 product: chayuan-office
 category: "02-功能教程"
@@ -8,27 +8,25 @@ primary_keyword: "Agent技能"
 channel: "CSDN/知乎/博客"
 ---
 
-# 一篇讲透Agent技能：准备、步骤、验证与边界
+# Agent技能：版本化技能包
 
-写这篇的起因是群里有人问Agent技能，我发现自己也说不完整，索性把察元AI Office里的Agent Skill 安装器从头到尾走了一遍，把每一步的界面反馈都记下来。现在这份笔记可以直接当教程用。
+Agent技能的麻烦不在功能本身，在于信息散。让编程智能体天生会用办公套件，写代码调文档 API 不用翻文档。这篇把它收拢成一条能照着走的路径。
 
-## 是什么与为什么
+## 这个功能到底解决什么问题
 
-察元AI Office 自带一份 agent skill（教会 AI 编码智能体使用 chaoffice 命令行的说明书），并一键把它安装进本机检测到的 7 家智能体的技能目录——CLI 用 chaoffice skill，图形界面在设置 集成。每次写入都需要你点一下或敲一条命令，没有任何静默安装。
+Agent技能在察元AI Office里的形态一句话说清：把察元AI Office 的操作手册以 SKILL.md 技能包形式装进 7 家编码智能体（Claude Code、Codex CLI、Cursor、Gemini CLI、Copilot CLI、OpenCode、Windsurf）。
 
-让编程智能体天生会用办公套件，写代码调文档 API 不用翻文档。
+入口、步骤、验证三段看清，这事就顺了。
 
-先把这个定位立住，再看步骤。
-
-## 先确认这些再开始
+## 开工前检查这几样
 
 - 已安装察元AI Office。
 - skill 只是指挥手册：智能体真正干活仍要能调到 chaoffice 命令行。
 - CLI 形态的台账与图形界面共用同一个文件，两边互通状态。
 
-## 一步步来：从入口到完成
+## 一步步来
 
-方式 A · 终端 CLI：chaoffice skill
+方式 A · 终端 CLI：`chaoffice skill`
 
 1. 先看本机情况：chaoffice skill list。输出列出 7 家目标智能体（Claude Code、Codex、Cursor、Gemini CLI、GitHub Copilot、OpenCode、Windsurf），每行带：是否检测到（以其配置目录存在为准）、技能目录完全路径、安装状态与已装版本；detail 里还有随附 skill 的版本号与 SKILL.md 路径；
 2. 安装：chaoffice skill install <agent|all> [--dir <路径>] [--force]
@@ -41,13 +39,13 @@ channel: "CSDN/知乎/博客"
 
 | 智能体 | 技能目录 |
 |---|---|
-| Claude Code | $CLAUDE_CONFIG_DIR 或 ~/.claude/skills |
-| Codex | $CODEX_HOME 或 ~/.codex/skills |
-| Cursor | ~/.cursor/skills |
-| Gemini CLI | ~/.gemini/skills |
-| GitHub Copilot | ~/.copilot/skills |
-| OpenCode | $XDG_CONFIG_HOME/opencode/skills 或 ~/.config/opencode/skills |
-| Windsurf | ~/.codeium/windsurf/skills |
+| Claude Code | `$CLAUDE_CONFIG_DIR` 或 `~/.claude/skills` |
+| Codex | `$CODEX_HOME` 或 `~/.codex/skills` |
+| Cursor | `~/.cursor/skills` |
+| Gemini CLI | `~/.gemini/skills` |
+| GitHub Copilot | `~/.copilot/skills` |
+| OpenCode | `$XDG_CONFIG_HOME/opencode/skills` 或 `~/.config/opencode/skills` |
+| Windsurf | `~/.codeium/windsurf/skills` |
 
 方式 B · 图形界面：设置 ＞ 集成
 
@@ -64,19 +62,19 @@ channel: "CSDN/知乎/博客"
     9. 同页「试一试」区给出三句可直接复制的示例提问（「把 ~/Downloads/report.md 转成 Word 文档」「做一份 6 页的幻灯片，介绍我们第三季度的业绩」「把 budget.xlsx 转成 PDF，并在 察元AIOffice 里打开」）；
     10. 卸载只删本应用写入并记录在案的文件（按台账判定）；目录里若有其他文件会保留。
 
-状态机（两种方式共用，skill list 的 status 字段即此）
+状态机（两种方式共用，`skill list` 的 `status` 字段即此）
 
 1. 判定依据：front matter 的 name + metadata.version、文件 sha256 与台账（userData 的 app-settings.json 里 agentSkillInstalls 键，记录每次写入的版本/哈希/时间/渠道 app·zip·cli）。
 
 | 状态 | 含义 |
 |---|---|
-| missing | 技能目录里没有 chaoffice/ |
-| installed | 本应用写入、版本与字节和随附一致 |
-| outdated | 本应用写入、版本比随附旧 |
-| modified | 本应用写入、但文件被改过（与台账里的 sha256 不符） |
-| foreign | front matter 认得是我们的 skill，但不是本应用写的（别的机器/npx/手工） |
-| newer | 已装版本比随附还新（谁写的都算） |
-| occupied | chaoffice/ 目录存在但不是我们的 skill |
+| `missing` | 技能目录里没有 chaoffice/ |
+| `installed` | 本应用写入、版本与字节和随附一致 |
+| `outdated` | 本应用写入、版本比随附旧 |
+| `modified` | 本应用写入、但文件被改过（与台账里的 sha256 不符） |
+| `foreign` | front matter 认得是我们的 skill，但不是本应用写的（别的机器/npx/手工） |
+| `newer` | 已装版本比随附还新（谁写的都算） |
+| `occupied` | chaoffice/ 目录存在但不是我们的 skill |
 
 ## 做完后的验证
 
@@ -89,36 +87,25 @@ channel: "CSDN/知乎/博客"
 
 ## 什么情况下用得上
 
-用的智能体不在 7 家之列，想手动把 skill 文件放进它的技能目录；在用 Claude Code / Codex / Cursor 等 AI 编码智能体，想让它们「开箱就会」操作 Office 文件（生成 PPT、转 PDF、改 Word），而不是你每次手写 chaoffice 命令；让 Claude Code 自动生成并操作文档，装了新的察元AI Office 版本，skill 有更新，想一键同步到所有在用的智能体。
+用的智能体不在 7 家之列，想手动把 skill 文件放进它的技能目录，装了新的察元AI Office 版本，skill 有更新，想一键同步到所有在用的智能体；在用 Claude Code / Codex / Cursor 等 AI 编码智能体，想让它们「开箱就会」操作 Office 文件（生成 PPT、转 PDF、改 Word），而不是你每次手写 chaoffice 命令，让 Claude Code 自动生成并操作文档。
 
 用户常搜的问法：怎么把 chaoffice 技能装进 Claude Code / Codex / Cursor；skill 装到哪个目录？怎么卸载。
 
-## 注意事项与真实边界
+## 这些坑和边界要知道
 
-如实说明，它不是万能的：
+边界先摆在桌面上：
 
-- .doc/.ppt 老格式明确不支持打开，需要先转成 docx/pptx
-- AI 功能依赖已配置的模型（BYOK 或本地端点），未配模型时只有传统办公功能可用
+- web/dsh 形态只有五编辑器（无 HTML），且无购买激活界面
 
-## 你可能会问
-
-### 升级察元AI Office 后要重装吗？
-
-随附 skill 版本升级后，已装助手的行会出现「更新」按钮（CLI 里 skill list 显示 outdated），点一下或 chaoffice skill install all 即可；没提示就说明还是最新。
+## 高频疑问
 
 ### 装完之后智能体还是不会用 chaoffice？
 
 两件事：skill 要新开会话才生效（面板提示原文「已安装。新开一个会话后生效。」）；智能体还要能调到命令本身——在智能体环境里跑 chaoffice --version，跑不通就按 O36 第 2-3 步处理。
 
-### 我的智能体不在 7 家名单里怎么办？
-
-用「没有列出我的助手」三条路之一：界面「安装到其他目录…」选它的 skills 目录，或 CLI chaoffice skill install --dir <它的技能目录>，或「下载 skill（zip）」后交给它自装。任何「能读取 SKILL.md 目录」的助手都可用。
-
 ### skill install 报「the installed skill was edited by hand; not overwriting」？
 
 说明你（或别的工具）改过已装的 SKILL.md。确认不再需要那些改动后加 --force 覆盖：chaoffice skill install <agent> --force；想保留就先备份该文件。
-
-## 补充答疑
 
 ### 报「a newer skill X is installed; not downgrading」？
 
@@ -128,12 +115,17 @@ channel: "CSDN/知乎/博客"
 
 foreign 状态：文件本身是这份 skill（front matter 可识别），只是不是这台机器的察元AI Office 写的（如另一台机器拷来、npx 装的）。版本比随附旧时界面会给「更新」按钮；不旧则无需处理。
 
-## 能力点备忘
+### 升级察元AI Office 后要重装吗？
 
-- 7 家智能体投放
-- 版本化技能包
+随附 skill 版本升级后，已装助手的行会出现「更新」按钮（CLI 里 skill list 显示 outdated），点一下或 chaoffice skill install all 即可；没提示就说明还是最新。
 
-Agent技能的能力边界也写清楚了：能做什么、不擅长什么。工具好不好用，很大程度上取决于你知不知道它的边界。
+## 补充答疑
+
+### 我的智能体不在 7 家名单里怎么办？
+
+用「没有列出我的助手」三条路之一：界面「安装到其他目录…」选它的 skills 目录，或 CLI chaoffice skill install --dir <它的技能目录>，或「下载 skill（zip）」后交给它自装。任何「能读取 SKILL.md 目录」的助手都可用。
+
+这篇把Agent Skill 安装器的链路拆完了。卡住就回看常见问题那一节，多数坎都在那里。
 
 ---
 

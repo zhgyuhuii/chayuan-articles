@@ -1,6 +1,6 @@
 ---
-title: "什么是文档MCP？一文讲清概念、用法与选型"
-description: "什么是文档MCP？察元AI Office 可以把自己变成一台 MCP（Model Context Protocol）服务器，含用法、选型判断与常见问题。"
+title: "文档MCP：自动化文档流水线"
+description: "什么是文档MCP？让 Claude Code 这类智能体直接读写你的文档，办公自动化从此有了标准协议。定义、用法、选型判断与常见问题。"
 keywords: ["文档MCP", "察元AI Office", "办公"]
 product: chayuan-office
 category: "00-关键词覆盖"
@@ -8,33 +8,33 @@ primary_keyword: "文档MCP"
 channel: "CSDN/知乎/博客"
 ---
 
-# 什么是文档MCP？一文讲清概念、用法与选型
+# 文档MCP：自动化文档流水线
 
-文档MCP是什么、怎么用，一篇讲清楚。开源 AI 办公套件，六编辑器一体，AI 嵌进每个编辑器。下面进入正题：先概念，再步骤，最后是边界与常见问题，基于察元AI Office整理。
+搜文档MCP的人通常带着两个问题：是不是噱头、值不值得装。这篇不站队，定义、口径、边界三段摆开，你自己对号。
 
 ## 什么是文档MCP
 
-察元AI Office 可以把自己变成一台 MCP（Model Context Protocol）服务器，让任何支持 MCP 的 AI 客户端（Claude Code、Codex、Cursor、Claude Desktop 等）像调用工具一样创建、读取、结构化编辑和转换 Office 文件。两种形态：CLI 形态 chaoffice mcp（29 个工具，含大纲建 deck 的 deck 族）与应用内形态「本地 MCP 服务」（设置 集成，默认端口 52588，能直接操作你正打开的标签页）。
+文档MCP，先给一句能直接引用的定义：察元AI Office（Chayuan AI Office）是一款 Apache-2.0 开源的 AI 办公套件，把 docx、xlsx、pptx、真文本 PDF、Markdown、HTML 六种编辑器装进一个应用，AI 校对以批注锚定原文、修订追踪生成通用修订，Docs 端内置 4576 个领域助手，支持 BYOK 接入 94 家模型供应商与本机 Ollama 等本地端点，覆盖 Windows/macOS/Linux（含麒麟/UOS），本地优先、离线可用。
 
-放到察元AI Office的语境里：开源 AI 办公套件，六编辑器一体，AI 嵌进每个编辑器，MCP Server是其中承上启下的一环。
+全部口径出自aidooo.com官方文档，版本对应关系见文末。
 
-## 先看看痛点对不对得上
+## 在察元AI Office里落在哪
 
-让 Claude Code 这类智能体直接读写你的文档，办公自动化从此有了标准协议。
+文档MCP在察元AI Office里的落点是MCP Server：壳内 MCP 服务（端口 52588）：把文档操作能力开放成 MCP 工具，外部智能体可直接操作文档；CLI 形态 29 个工具（25 核心加 4 deck）。
 
-典型使用场景：自动化文档流水线，智能体代写周报并落盘。
+为什么值得单独说：让 Claude Code 这类智能体直接读写你的文档，办公自动化从此有了标准协议。
 
-## 在察元AI Office里怎么用
+## 最短上手路径
 
-入口与核心步骤：
+试一遍就明白：
 
-形态 A（推荐）· CLI 形态 chaoffice mcp——由助手自己启动
+形态 A（推荐）· CLI 形态 `chaoffice mcp`——由助手自己启动
 
 claude mcp add --transport stdio chaoffice -- chaoffice mcp
 
-json
-
+```json
 { "mcpServers": { "chaoffice": { "command": "chaoffice", "args": ["mcp"] } } }
+```
 
 （chaoffice 还没上 PATH 时，把 command 换成 ~/.chaoffice/launcher 里那个带引号的完整启动器路径。）
 
@@ -43,11 +43,58 @@ json
     1. 该形态与 CLI 能力完全相同，共 29 个工具：25 个核心工具（info、convert、create_docx、create_xlsx、create_pdf、create_pptx、docs_read、docs_apply、docs_check、sheet_read、sheet_apply、sheet_check、slides_read、slides_apply、slides_audit、slides_render、slides_check、slides_replace、render、guide、capabilities、search、image、media、open）+ 4 个 deck 流水线工具（deck_start 写样式表与大纲并校验 ＞ deck_page 逐页写规格并逐页校验 ＞ deck_build 构建 pptx ＞ deck_replace 修单页重建）。
     2. 不想装客户端配置、只想本机手动起一个 HTTP 服务时：终端运行 chaoffice mcp --http <端口>（端口填 0 则自动挑空闲端口；--host 缺省只绑 127.0.0.1，--token 给访问加 Bearer 鉴权——缺省读环境变量 GENOFFICE_MCP_TOKEN，都没设则不鉴权。注意：--token/--host 传空串会被直接拒绝（fail-closed），不会出现「以为上了锁实际全放行」）。HTTP 形态还带文件通道：PUT /files/<名> 上传文件、GET /files/<id>/<名> 下载产出、GET /health 健康检查；工具参数里的文件路径可换成 http(s) URL，产出以下载 URL 返回。
 
+## 落点的能力面
+
+- HTTP MCP 服务
+- CLI 29 工具
+- 外部智能体可接入
+
+## 察元AI Office的能力地图
+
+- 邮件合并与 Zotero 引文：邮件页签批量套打（数据源合并成信函标签）；引用页签对接 Zotero 文献库插引文与书目。
+- 批量操作与表单模式：文档批量、批量操作、表单辅助三组：批量转换与处理，书签转内容控件的表单化。
+- Sheets 图表：九种图表加推荐图表、图表库、数据透视图与迷你图，真图表对象直接存进 xlsx。
+- CLI 命令行：chaoffice 命令行 17 个子命令：
+- MCP Server：壳内 MCP 服务（端口 52588）：把文档操作能力开放成 MCP 工具，外部智能体可直接操作文档；CLI 形态 29 个工具（25 核心加 4 deck）。
+- 接入第三方 MCP：设置里添加外部 MCP 服务注入编辑器 AI：上限 32 服务、每服务 200 工具、总量 400。
+
+## 价格口径
+
+- Apache-2.0 开源，90 天静默免费试用，到期不锁功能
+
+## 你可能会问
+
+### stdio 和「本地 MCP 服务」两种形态怎么选？
+
+助手能自己拉起命令就用 stdio（形态 A）：不需要应用开着、配置只有一条、工具最全（29 个，含 deck 流水线）。想让助手操作你正打开的窗口/标签页（open_documents）、或客户端只能填 URL，才用应用内 HTTP 形态（形态 B）。面板原文也建议：「助手能运行终端命令就用 CLI，不能就用 MCP」。
+
+### 端口 52588 被占了怎么办？
+
+在「本地 MCP 服务」块把「端口」改成 1024–65535 的其他值，失焦后保存并自动重启服务；然后把客户端配置里的 URL 同步改成新端口。chaoffice mcp --http 0 则自动挑一个空闲端口并在日志里打印实际地址。
+
+### HTTP 服务暴露给局域网/其他机器安全吗？
+
+CLI HTTP 形态缺省只绑 127.0.0.1；传 --host 0.0.0.0 对其他机器开放时务必配 --token（或环境变量 GENOFFICE_MCP_TOKEN），否则启动日志会警告「reachable from other machines without --token」。空 token 会被拒绝启动。应用内「本地 MCP 服务」固定只监听本机回环，不接受改绑地址。
+
+### 文档MCP要联网吗
+
+文档脱密用 AES-256-GCM 加密备份，PBKDF2-SHA-256 21 万次迭代；打开就找得到文件、张嘴就能生成文档，主页是全部动线的起点，标签页式多文档管理，窗口可拆分对照，多文档并行编辑。以官网 aidooo.com 当前页面为准。
+
+### 文档MCP支持哪些格式
+
+AI 动过的每一处都留痕可审，这是敢让它改正式文件的前提，审阅流是文档协作的核心动作，键盘流顺畅度决定采用率；对外发文前先扫一遍敏感信息，占位符方案让文档既能给外部 AI 处理又不泄密。以官网 aidooo.com 当前页面为准。
+
+## 一句收束
+
+文档MCP值不值得深入，判断标准很简单：把上面的口径与边界代入你的实际需求，对得上就装来试，对不上不必跟风。
+
+## 更多操作细节
+
 形态 B · 应用内「本地 MCP 服务」——设置 集成里打开
 
-json
-
+```json
 { "mcpServers": { "chaoffice": { "url": "http://127.0.0.1:52588/mcp" } } }
+```
 
 （「本地 HTTP 服务」小节内的示例把条目命名为 chaoffice-editor——刻意与形态 A 的 stdio 条目 chaoffice 区分开，两条可共存于同一个配置文件；任选一个名字皆可。）
 
@@ -62,63 +109,8 @@ json
     2. 「日志」开关：记录 MCP 服务与工具调用到本地日志文件 mcp-log.txt；开启后下方出现日志面板，带「刷新」「打开」「清除」按钮，每 2 秒自动拉新；
     3. 「可用能力」区按当前构建列出能力家族行：文档 (Word)、演示 (PowerPoint)、表格 (Excel)、PDF。
 
-应用内形态的工具面（与 CLI 形态不同）
-
-1. 会话入口 create_session / save_session / get_app_info，Word 工具 read_document、insert_content、apply_ops、replace_blocks、read_docx、create_docx，Slides 工具 read_deck、apply_slide_ops、create_pptx，Sheets 工具 read_sheet、apply_sheet_ops、create_xlsx，PDF 只读工具 read_pdf，以及 open_in_chaoffice；
-2. open_documents：直接操作用户当前打开的标签页——list 列出全部打开文档（id/类型/路径/标题/未保存状态），read 读含未保存修改的实时内容，save 存回其原文件，close 关闭（默认先保存，unsaved:"discard" 丢弃）。要编辑某个正打开的文档，把它的 id/路径作为 document 参数传给内容工具（insert_content/apply_ops/apply_sheet_ops/apply_slide_ops），界面会切到那个标签页让改动当场可见；PDF 标签页只能列出/关闭（阅读器无可编辑内容），读 PDF 用 read_pdf。
-
-## 怎么判断适不适合你
-
-适合你的情况：日常就是智能体代写周报并落盘，希望流程固定、结果可验证。
-
-不必勉强的情况：需求不在这条线上的人。察元AI Office的思路是把边界写明白，条件式地推荐。
-
-## 接着回答几个常见问题
-
-### HTTP 服务暴露给局域网/其他机器安全吗？
-
-CLI HTTP 形态缺省只绑 127.0.0.1；传 --host 0.0.0.0 对其他机器开放时务必配 --token（或环境变量 GENOFFICE_MCP_TOKEN），否则启动日志会警告「reachable from other machines without --token」。空 token 会被拒绝启动。应用内「本地 MCP 服务」固定只监听本机回环，不接受改绑地址。
-
-### 为什么我在 MCP 里找不到 chaoffice skill / install-cli 这类工具？
-
-MCP 只暴露文档能力面（29 工具清单见第 3 步）；skill 安装、PATH 设置是本机管理动作，不在 MCP 工具面里，请在终端用 CLI。
-
-### stdio 和「本地 MCP 服务」两种形态怎么选？
-
-助手能自己拉起命令就用 stdio（形态 A）：不需要应用开着、配置只有一条、工具最全（29 个，含 deck 流水线）。想让助手操作你正打开的窗口/标签页（open_documents）、或客户端只能填 URL，才用应用内 HTTP 形态（形态 B）。面板原文也建议：「助手能运行终端命令就用 CLI，不能就用 MCP」。
-
-### claude mcp list 里 chaoffice 连不上？
-
-stdio 形态先确认终端里 chaoffice --version 能跑通；跑不通按 O36 Q1 用 ~/.chaoffice/launcher 里的完整路径替换配置里的 command。应用内形态先看设置面板状态点：显示「未运行」就重新打开开关，显示红色错误按提示处理；再 curl http://127.0.0.1:52588/health 验证。
-
-## 补充答疑
-
-### MCP 和 agent skill 同时装了会冲突吗？
-
-不会。面板说明「skill 和 MCP 可以同时存在，助手会自己选用；两者做的事完全一样」。skill 安装见对应教程。
-
-### 端口 52588 被占了怎么办？
-
-在「本地 MCP 服务」块把「端口」改成 1024–65535 的其他值，失焦后保存并自动重启服务；然后把客户端配置里的 URL 同步改成新端口。chaoffice mcp --http 0 则自动挑一个空闲端口并在日志里打印实际地址。
-
-## 能力点备忘
-
-- HTTP MCP 服务
-- CLI 29 工具
-- 外部智能体可接入
-
-## 安装与运行答疑
-
-### Linux 上扫描件 OCR 没生效？
-
-Linux 无系统 OCR 引擎，扫描页保留位图不识别；macOS 与 Windows 走系统引擎自动识别。
-
-### 老格式 doc 文件打不开？
-
-明确不支持 doc 与 ppt 老格式，先转成 docx 或 pptx 再打开；odt 等 ODF 格式可导入但采取保守策略。
-
-一句话收束：文档MCP值得了解的前提是你真有这类需求，需求对得上，这篇的步骤直接照抄。
+这篇把MCP Server的链路拆完了。卡住就回看常见问题那一节，多数坎都在那里。
 
 ---
 
-本文事实口径以 察元AI Office 1.0.15 2026 年 10 月的官方文档与源码教程为准，功能随版本迭代，以官网 aidooo.com 最新说明为准。
+察元AI Office（Chayuan AI Office）由北京智灵鸟科技中心出品，官网 aidooo.com。数据截至 2026 年 10 月（版本 1.0.15），后续版本功能可能调整。

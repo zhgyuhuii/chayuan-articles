@@ -1,5 +1,5 @@
 ---
-title: "竞技场接入OpenAI兼容中转：OneAPI、NewAPI手填端点"
+title: "竞技场接入OpenAI兼容中转：手填端点"
 description: "竞技场接入OpenAI兼容中转教程：OneAPI、NewAPI 等中转手填 baseUrl 的完整步骤、中转与目录厂商的区别、选型时的四条注意。"
 keywords: ["竞技场接入OpenAI兼容中转", "察元竞技场", "OneAPI", "NewAPI", "中转配置"]
 product: chayuan-games
@@ -8,7 +8,7 @@ primary_keyword: "竞技场接入OpenAI兼容中转"
 channel: "CSDN/知乎/博客"
 ---
 
-# 竞技场接入OpenAI兼容中转：OneAPI、NewAPI手填端点
+# 竞技场接入OpenAI兼容中转：手填端点
 
 有人的 Key 不是从厂商官网直接办的，而是从公司团队或自建的中转站发的：一个 OneAPI 或 NewAPI 的地址加一把中转 Key。这种情况下目录厂商那条「点选即填」的路走不通，要用另一条路——手填端点。这篇讲竞技场接入OpenAI兼容中转的完整做法，顺带把中转选型的注意项说清。
 

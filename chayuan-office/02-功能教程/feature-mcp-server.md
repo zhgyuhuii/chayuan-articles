@@ -1,6 +1,6 @@
 ---
-title: "MCP服务实操操作详解：真实界面步骤与常见坑"
-description: "MCP服务实操完整教程：察元AI Office 可以把自己变成一台 MCP（Model Context Protocol）服务器，步骤含真实按钮文案与验证方法。"
+title: "MCP服务实操：，一次走通"
+description: "MCP服务实操完整教程：让 Claude Code 这类智能体直接读写你的文档，办公自动化从此有了标准协议。步骤含真实按钮文案与验证方法。"
 keywords: ["MCP服务实操", "MCP服务", "察元AI Office", "文档MCP", "MCP接口"]
 product: chayuan-office
 category: "02-功能教程"
@@ -8,33 +8,31 @@ primary_keyword: "MCP服务实操"
 channel: "CSDN/知乎/博客"
 ---
 
-# MCP服务实操操作详解：真实界面步骤与常见坑
+# MCP服务实操：，一次走通
 
-用察元AI Office有段时间了，MCP Server是我用得比较多的一个功能。这篇把我积累的操作顺序和几个关键细节写出来，新手可以照着走，老手可以查漏。
+MCP服务实操的麻烦不在功能本身，在于信息散。让 Claude Code 这类智能体直接读写你的文档，办公自动化从此有了标准协议。这篇把它收拢成一条能照着走的路径。
 
-## 它是什么，为谁服务
+## 先弄清楚它是什么
 
-察元AI Office 可以把自己变成一台 MCP（Model Context Protocol）服务器，让任何支持 MCP 的 AI 客户端（Claude Code、Codex、Cursor、Claude Desktop 等）像调用工具一样创建、读取、结构化编辑和转换 Office 文件。两种形态：CLI 形态 chaoffice mcp（29 个工具，含大纲建 deck 的 deck 族）与应用内形态「本地 MCP 服务」（设置 集成，默认端口 52588，能直接操作你正打开的标签页）。
+为什么要有MCP服务实操：让 Claude Code 这类智能体直接读写你的文档，办公自动化从此有了标准协议。MCP Server的定位是壳内 MCP 服务（端口 52588）：把文档操作能力开放成 MCP 工具，外部智能体可直接操作文档；CLI 形态 29 个工具（25 核心加 4 deck）。
 
-让 Claude Code 这类智能体直接读写你的文档，办公自动化从此有了标准协议。
+先把定位立住，再看步骤。
 
-先把这个定位立住，再看步骤。
-
-## 先确认这些再开始
+## 动手前的准备
 
 - 已安装察元AI Office。
 - 端口区分（勿混）：察元AI Office 应用内「本地 MCP 服务」默认端口 52588；察元AI文档助手（WPS 加载项）的 MCP 是 62588；察元AI OS harness 控制面是 52583——都不是本篇的服务。
 - stdio 形态不需要开任何开关，也不需要察元AI Office 正在运行（客户端自己拉起进程）；应用内 HTTP 形态需要应用保持打开。
 
-## 从打开到做完的每一步
+## 操作步骤详解
 
-形态 A（推荐）· CLI 形态 chaoffice mcp——由助手自己启动
+形态 A（推荐）· CLI 形态 `chaoffice mcp`——由助手自己启动
 
 claude mcp add --transport stdio chaoffice -- chaoffice mcp
 
-json
-
+```json
 { "mcpServers": { "chaoffice": { "command": "chaoffice", "args": ["mcp"] } } }
+```
 
 （chaoffice 还没上 PATH 时，把 command 换成 ~/.chaoffice/launcher 里那个带引号的完整启动器路径。）
 
@@ -45,9 +43,9 @@ json
 
 形态 B · 应用内「本地 MCP 服务」——设置 集成里打开
 
-json
-
+```json
 { "mcpServers": { "chaoffice": { "url": "http://127.0.0.1:52588/mcp" } } }
+```
 
 （「本地 HTTP 服务」小节内的示例把条目命名为 chaoffice-editor——刻意与形态 A 的 stdio 条目 chaoffice 区分开，两条可共存于同一个配置文件；任选一个名字皆可。）
 
@@ -78,36 +76,39 @@ json
 
 ## 适用场景
 
-自动化文档流水线，智能体代写周报并落盘，要把文档能力挂到远程/其他机器的 MCP 客户端上（Streamable HTTP 形态），你的 AI 助手不能运行终端命令（如 Claude Desktop），CLI + skill 那条路走不通，只能走 MCP。
+智能体代写周报并落盘；你的 AI 助手不能运行终端命令（如 Claude Desktop），CLI + skill 那条路走不通，只能走 MCP；要把文档能力挂到远程/其他机器的 MCP 客户端上（Streamable HTTP 形态）；想让助手直接操作察元AI Office 窗口里正打开的文档（看见它一步步生成）。
 
 用户常搜的问法：怎么让 Claude Code / Cursor 通过 MCP 操作 Office 文件；chaoffice 的 MCP 端口是多少？怎么开。
 
-## 别在这几处栽跟头
+## 这些坑和边界要知道
 
-边界都在这：
+边界先摆在桌面上：
 
-- .doc/.ppt 老格式明确不支持打开，需要先转成 docx/pptx
-- AI 功能依赖已配置的模型（BYOK 或本地端点），未配模型时只有传统办公功能可用
+- web/dsh 形态只有五编辑器（无 HTML），且无购买激活界面
 
 ## 接着回答几个常见问题
-
-### claude mcp list 里 chaoffice 连不上？
-
-stdio 形态先确认终端里 chaoffice --version 能跑通；跑不通按 O36 Q1 用 ~/.chaoffice/launcher 里的完整路径替换配置里的 command。应用内形态先看设置面板状态点：显示「未运行」就重新打开开关，显示红色错误按提示处理；再 curl http://127.0.0.1:52588/health 验证。
-
-### 端口 52588 被占了怎么办？
-
-在「本地 MCP 服务」块把「端口」改成 1024–65535 的其他值，失焦后保存并自动重启服务；然后把客户端配置里的 URL 同步改成新端口。chaoffice mcp --http 0 则自动挑一个空闲端口并在日志里打印实际地址。
-
-### 为什么我在 MCP 里找不到 chaoffice skill / install-cli 这类工具？
-
-MCP 只暴露文档能力面（29 工具清单见第 3 步）；skill 安装、PATH 设置是本机管理动作，不在 MCP 工具面里，请在终端用 CLI。
 
 ### stdio 和「本地 MCP 服务」两种形态怎么选？
 
 助手能自己拉起命令就用 stdio（形态 A）：不需要应用开着、配置只有一条、工具最全（29 个，含 deck 流水线）。想让助手操作你正打开的窗口/标签页（open_documents）、或客户端只能填 URL，才用应用内 HTTP 形态（形态 B）。面板原文也建议：「助手能运行终端命令就用 CLI，不能就用 MCP」。
 
-如果只记一件事：HTTP MCP 服务。剩下的细节照步骤节走就行。
+### HTTP 服务暴露给局域网/其他机器安全吗？
+
+CLI HTTP 形态缺省只绑 127.0.0.1；传 --host 0.0.0.0 对其他机器开放时务必配 --token（或环境变量 GENOFFICE_MCP_TOKEN），否则启动日志会警告「reachable from other machines without --token」。空 token 会被拒绝启动。应用内「本地 MCP 服务」固定只监听本机回环，不接受改绑地址。
+
+### claude mcp list 里 chaoffice 连不上？
+
+stdio 形态先确认终端里 chaoffice --version 能跑通；跑不通按 O36 Q1 用 ~/.chaoffice/launcher 里的完整路径替换配置里的 command。应用内形态先看设置面板状态点：显示「未运行」就重新打开开关，显示红色错误按提示处理；再 curl http://127.0.0.1:52588/health 验证。
+
+### MCP 和 agent skill 同时装了会冲突吗？
+
+不会。面板说明「skill 和 MCP 可以同时存在，助手会自己选用；两者做的事完全一样」。skill 安装见对应教程。
+
+### 为什么我在 MCP 里找不到 chaoffice skill / install-cli 这类工具？
+
+MCP 只暴露文档能力面（29 工具清单见第 3 步）；skill 安装、PATH 设置是本机管理动作，不在 MCP 工具面里，请在终端用 CLI。
+
+这篇把MCP Server的链路拆完了。卡住就回看常见问题那一节，多数坎都在那里。
 
 ---
 

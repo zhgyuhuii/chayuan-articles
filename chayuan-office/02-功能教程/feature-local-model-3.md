@@ -1,6 +1,6 @@
 ---
-title: "三个场景吃透内网AI办公的用法"
-description: "内网AI办公场景实战：「本地与自建」分组把 AI 接到本机或内网的推理服务上：Ollama、LM Studio、Xinference、One API、New AP……从需求到交付的完整工作流。"
+title: "从需求到交付：内网AI办公"
+description: "内网AI办公场景实战：涉密文档不能出网，本地模型让 AI 校对、AI 改写在隔离环境照常工作。从需求到交付的完整工作流。"
 keywords: ["内网AI办公", "察元AI Office", "Ollama办公", "本地大模型办公"]
 product: chayuan-office
 category: "02-功能教程"
@@ -8,21 +8,15 @@ primary_keyword: "内网AI办公"
 channel: "CSDN/知乎/博客"
 ---
 
-# 三个场景吃透内网AI办公的用法
+# 从需求到交付：内网AI办公
 
-内网AI办公这件事，说简单也简单，说麻烦是真麻烦——麻烦不在功能本身，在于信息散落在各处，拼出一个完整流程要查好几篇资料。这篇文章把它一次讲全：是什么、入口在哪、具体步骤、边界在哪，全部基于察元AI Office的真实界面。
+内网AI办公的麻烦不在功能本身，在于信息散。涉密文档不能出网，本地模型让 AI 校对、AI 改写在隔离环境照常工作。这篇把它收拢成一条能照着走的路径。
 
-## 先看看痛点对不对得上
+## 为什么值得了解
 
-数据不出本机的合规场景：离线状态下继续用 AI（编辑、PDF 转换、OCR 等传统功能本就全本地）；内网/隔离网环境：只有一台内网推理网关（One API、New API、GPUStack、vLLM），没有公网出口，无外网机房写材料；本机装了 Ollama / LM Studio，想让 Office 的文档生成、改写全部走本地模型。
+内网/隔离网环境：只有一台内网推理网关（One API、New API、GPUStack、vLLM），没有公网出口；数据不出本机的合规场景：离线状态下继续用 AI（编辑、PDF 转换、OCR 等传统功能本就全本地）；本机装了 Ollama / LM Studio，想让 Office 的文档生成、改写全部走本地模型，无外网机房写材料。
 
-用户常搜的问法：Ollama 怎么接？要填 Key 吗；没有外网，AI 还能用吗。
-
-## 一步步来：从入口到完成
-
-第 1 步 · 打开「本地与自建」分组
-
-1. 主页左下角账号行齿轮「设置」＞「模型设置」，左栏目录展开「本地与自建」组，共 9 家：Ollama、Codex（本地 CLI）、LM Studio、Xinference、One API、New API、FastChat / vLLM、GPUStack、自定义 OpenAI 兼容。其中 7 家本地服务族（Ollama、LM Studio、Xinference、One API、New API、FastChat / vLLM、GPUStack）带「无需 Key」「免费」徽标（One API/New API/GPUStack 无默认地址，需手填）；Codex（本地 CLI）复用本机 CLI 登录、标「免费」；「自定义 OpenAI 兼容」是万能兜底入口，通常指向需要密钥的远端网关，不标「无需 Key」。
+## 操作步骤详解
 
 第 2 步 · 一键安装/启动（本机没有服务时）
 
@@ -54,18 +48,42 @@ channel: "CSDN/知乎/博客"
 - 一键启动 Ollama
 - 免 Key 直连
 
-## 别在这几处栽跟头
+## 它的局限也要说清楚
 
 用之前要认的账：
 
-- .doc/.ppt 老格式明确不支持打开，需要先转成 docx/pptx
-- AI 功能依赖已配置的模型（BYOK 或本地端点），未配模型时只有传统办公功能可用
+- web/dsh 形态只有五编辑器（无 HTML），且无购买激活界面
 
-## 你可能会问
+## 常见问题
+
+### 免 Key 家族到底要不要填 Key？
+
+Ollama、LM Studio、Xinference、One API、New API、FastChat/vLLM、GPUStack 这些本地/自建服务免 Key（表单标注「本地服务可不填密钥」）。「自定义 OpenAI 兼容」不在此列——它通常指向远端网关，一般要填 Bearer Key；免 Key 的本地引擎请用对应专属厂商条目。
 
 ### 「获取模型列表」返回空或失败？
 
 先确认服务真的在跑：Ollama 访问 http://127.0.0.1:11434/api/version；LM Studio 注意要在其应用里启动 Local Server（默认端口 1234），装了没开服务会显示「已安装，服务未运行」。服务正常仍失败时检查地址端口是否被改过，再重试拉取。
+
+### 一键安装失败/下载不动？
+
+安装走官方源（ollama.com、Homebrew、winget、npm），国内网络可能直连失败——失败信息里附了官方手动下载页，手动安装后点「重新检测」即可；Codex CLI 的 npm 安装失败会自动换 npmmirror 镜像重试一次。
+
+## 更多操作细节
+
+第 1 步 · 打开「本地与自建」分组
+
+1. 主页左下角账号行齿轮「设置」＞「模型设置」，左栏目录展开「本地与自建」组，共 9 家：Ollama、Codex（本地 CLI）、LM Studio、Xinference、One API、New API、FastChat / vLLM、GPUStack、自定义 OpenAI 兼容。其中 7 家本地服务族（Ollama、LM Studio、Xinference、One API、New API、FastChat / vLLM、GPUStack）带「无需 Key」「免费」徽标（One API/New API/GPUStack 无默认地址，需手填）；Codex（本地 CLI）复用本机 CLI 登录、标「免费」；「自定义 OpenAI 兼容」是万能兜底入口，通常指向需要密钥的远端网关，不标「无需 Key」。
+
+## 更多操作细节
+
+验证
+
+1. 浏览器或终端访问 http://127.0.0.1:11434/api/version（Ollama）应返回版本信息——与状态卡绿点「本地服务运行中」等价。
+2. 设置里该厂商已出现在「已启用」组，展开能看到勾选的模型 id。
+3. AI 面板模型选择器出现本地模型；发一句话，回复正常且断网后依然可用。
+4. 「默认模型」区对话默认显示「厂商名 · 模型 id」或「当前自动使用：…」指向本地模型。
+
+## 补充答疑
 
 ### 内网网关怎么接？
 
@@ -75,42 +93,14 @@ channel: "CSDN/知乎/博客"
 
 能挂上，按模型类型自动归类（对话/视觉/向量/生图/视频生成/语音合成/语音识别等，按模型 id 推断类型）；能力是否可用取决于模型本身——例如语音识别需要端点提供转写 API（OpenAI 兼容 /audio/transcriptions 或 Gemini inline），本地 Ollama 暂无此类端点时该能力不可选。
 
-## 补充答疑
+## 动手前再核对一遍
 
-### 一键安装失败/下载不动？
+- 二选一：本机已有本地推理服务（没有可用设置页一键安装，见第 2 步）；或内网可达的自建网关地址。
+- 本地服务里至少已拉好一个模型（如 ollama pull qwen3）——Office 只列服务端已有的模型，不代下模型权重。
+- 离线使用的前提是模型已在本机/内网：断网后云端供应商不可用，本地供应商照常。
 
-安装走官方源（ollama.com、Homebrew、winget、npm），国内网络可能直连失败——失败信息里附了官方手动下载页，手动安装后点「重新检测」即可；Codex CLI 的 npm 安装失败会自动换 npmmirror 镜像重试一次。
-
-### 免 Key 家族到底要不要填 Key？
-
-Ollama、LM Studio、Xinference、One API、New API、FastChat/vLLM、GPUStack 这些本地/自建服务免 Key（表单标注「本地服务可不填密钥」）。「自定义 OpenAI 兼容」不在此列——它通常指向远端网关，一般要填 Bearer Key；免 Key 的本地引擎请用对应专属厂商条目。
-
-## 更多操作细节
-
-第 4 步 · 内网与离线要点（Air-gap）
-
-1. 请求链路：Office ＞ 你填的 API 地址（localhost 或内网主机），不经任何中间服务器；模型列表同样从该地址实时拉取。
-2. 断网验证过的能力边界：本地模型对话/改写/生成照常；云端厂商与需要公网的能力（网络搜索、云端生图等）不可用；文档编辑、PDF 本地转换、扫描 OCR 本就全本机，不受影响。
-3. 配了语音识别默认模型（「生图、媒体与搜索」区 语音识别）时，首页对话可把音频转成文字：OpenAI 兼容端点走 /audio/transcriptions、Gemini 走 inline 音频；阿里百炼的 paraformer 系只接受公网音频 URL，本机音频请改配 qwen3-asr 系或本地 Whisper 形端点。
-
-## 能力点备忘
-
-- 八类本地端点
-- 一键启动 Ollama
-- 免 Key 直连
-
-## 安装与运行答疑
-
-### Linux 上扫描件 OCR 没生效？
-
-Linux 无系统 OCR 引擎，扫描页保留位图不识别；macOS 与 Windows 走系统引擎自动识别。
-
-### 必须配置 API Key 才能用 AI 吗？
-
-现阶段是。内置账号登录当前版本未开放，AI 功能需要 BYOK 接入厂商或本机 Ollama 等端点；不配模型时传统办公功能完全可用。
-
-整体用下来，本地模型接入的流程是清楚的：入口集中、步骤有反馈、做完有验证。第一次照着走一遍，后面基本就是肌肉记忆了。卡住就回看常见问题那一节。
+这篇把本地模型接入的链路拆完了。卡住就回看常见问题那一节，多数坎都在那里。
 
 ---
 
-察元AI Office，开源 AI 办公套件，六编辑器一体，AI 嵌进每个编辑器。官网 aidooo.com，数据截至 2026 年 10 月（版本 1.0.15）。
+本文事实口径以 察元AI Office 1.0.15 2026 年 10 月的官方文档与源码教程为准，功能随版本迭代，以官网 aidooo.com 最新说明为准。

@@ -1,6 +1,6 @@
 ---
-title: "智能体操作系统是什么：定义、场景与上手路径"
-description: "什么是智能体操作系统？察元OS 内置 DeepSeek Harness（系统级主对话窗，恒在），并可感知、管理 17 家外部 CLI 编码智能体（Claude Code、Codex、OpenCode、OpenClaw、ZCode、Gemini CLI、Qwen Code、Kimi Code、Cursor CLI、……"
+title: "一文分清智能体操作系统：家外部 CLI 智能体"
+description: "什么是智能体操作系统？命令行 AI 编程智能体一茬茬冒，一台机器管十几家、配置互不打架，是这套系统的核心场景之一。定义、用法、选型判断与常见问题。"
 keywords: ["智能体操作系统", "察元AI OS", "察元OS"]
 product: chayuan-os
 category: "00-关键词覆盖"
@@ -8,25 +8,39 @@ primary_keyword: "智能体操作系统"
 channel: "CSDN/知乎/博客"
 ---
 
-# 智能体操作系统是什么：定义、场景与上手路径
+# 一文分清智能体操作系统：家外部 CLI 智能体
 
-先说结论：智能体操作系统在察元AI OS里是完整可用的，从支持的智能体总览的入口进去，按下面步骤操作即可。这篇文章覆盖概念、步骤、验证和常见问题四部分，读完能独立完成整个流程。
+智能体操作系统这个词被搜得越来越多，但它到底指什么、和普通工具软件差在哪，说法很杂。这篇按官方口径给定义、给数字、给边界，产品以察元AI OS为例。
 
 ## 什么是智能体操作系统
 
-察元OS 内置 DeepSeek Harness（系统级主对话窗，恒在），并可感知、管理 17 家外部 CLI 编码智能体（Claude Code、Codex、OpenCode、OpenClaw、ZCode、Gemini CLI、Qwen Code、Kimi Code、Cursor CLI、Copilot CLI、Droid、Amp、Grok Build、CodeBuddy、Crush、Aider、Goose）：装好的自动上架进 Dock，每家能装、能写模型、能收系统技能/MCP、能被采集记忆的范围见下方能力矩阵。
+智能体操作系统这个说法对应的产品是察元AI OS（Chayuan AI OS）：AI 桌面操作系统，本地大模型、知识库、智能体、宠物群聊装进一个桌面。北京智灵鸟科技中心出品。
 
-放到察元AI OS的语境里：AI 桌面操作系统，本地大模型、知识库、智能体、宠物群聊装进一个桌面，支持的智能体总览是其中承上启下的一环。
+口径只基于aidooo.com官方文档，数字与版本对应关系见文末尾注。
 
-## 为什么值得了解
+## 核心口径一张表
 
-命令行 AI 编程智能体一茬茬冒，一台机器管十几家、配置互不打架，是这套系统的核心场景之一。
+| 口径 | 内容 |
+|---|---|
+| agents | 17 家外部 CLI 智能体（Claude Code、Codex、OpenCode、OpenClaw、ZCode、Gemini CLI、Qwen Code、Kimi Code、Cursor CLI、Copilot CLI、Droid、Amp、Grok Build、CodeBuddy、Crush、Aider、Goose）加内置 DeepSeek Harness |
+| injectFive | 模型配置可一键写入五家（Harness/Claude Code/Codex/OpenCode/OpenClaw），MCP 配置自动传播 13 家 |
+| vendors | 66 家内置云端厂商目录加自定义 OpenAI 兼容厂商 |
+| mcpTools | 86 个 MCP 工具（2026 年 10 月实测） |
+| storeCats | 插件、技能、MCP 插件、智能体、技能包五大类 |
 
-典型使用场景：按项目选趁手的智能体；对比不同智能体的代码质量。
+## 平台与形态
 
-## 在察元AI OS里怎么用
+支持的系统与形态：Windows 10/11（x64/arm64）、macOS（Apple Silicon/Intel）、Linux（deb/AppImage，银河麒麟 V10 与统信 UOS 已实测）、Docker 服务器形态。
 
-入口与核心步骤：
+## 在察元AI OS里落在哪
+
+智能体操作系统在察元AI OS里的落点是支持的智能体总览：内置 DeepSeek Harness（系统级）加 17 家外部 CLI 智能体统一管理：Claude Code、Codex、OpenCode、OpenClaw、ZCode、Gemini CLI、Qwen Code、Kimi Code、Cursor CLI、Copilot CLI、Droid、Amp、Grok Build、CodeBuddy、Crush、Aider、Goose，各家能力矩阵标明能否一键安装、写入模型、收系统技能、收 MCP、记忆采集。
+
+为什么值得单独说：命令行 AI 编程智能体一茬茬冒，一台机器管十几家、配置互不打架，是这套系统的核心场景之一。
+
+## 最短上手路径
+
+试一遍就明白：
 
 第 1 步 · 应用商店看名单
 
@@ -34,98 +48,72 @@ channel: "CSDN/知乎/博客"
 2. 每行从左到右：图标 ＞ 智能体名 ＞ 能力徽标（system 紫 / L2 绿 / L1 蓝）＞ 安装态（绿色「已安装」（后跟 · v<版本>）或灰色「未安装」）＞ 安装方式明文（等宽字体，如 npm install -g @anthropic-ai/claude-code）＞ 右侧按钮。
 3. 列表固定 16 行（17 家外部 CLI 去掉察元自家的 ZCode），顺序：Claude Code、Codex、OpenCode、OpenClaw、Gemini CLI、Aider、Goose、Qwen Code、Kimi Code、Crush、Cursor CLI、Copilot CLI、Droid、Amp、Grok Build、CodeBuddy。DeepSeek Harness 是系统自身，不走商店。
 
-第 2 步 · 应用管理看本机识别结果
-
-1. Dock 点「应用管理」＞ 顶部页签「智能体」。
-2. 默认只列已识别的智能体，顶部计数「本机智能体 · {n} 型」；勾选「显示未安装」（勾选状态会记住）可看全量排查视图。
-3. 每行：图标 ＞ 能力徽标 ＞ 名称（被隐藏过的带「已隐藏」徽标；未识别的标灰「未检测到」）＞ 状态行：
-    1. 已识别：「已检测（managed）· 版本 {x.y.z}」——managed = 察元管理态（商店安装/升级版或安装包内置版）；homeDir = 家目录探针命中（自己装的）；path = PATH 里找到命令；
-    2. 未识别：「未检测到安装迹象（装好后自动上架/恢复）」。
-    3. 行尾按钮：「隐藏」/「恢复」（控制 Dock 上架）与「删记录」；顶部的「重新扫描」（扫描中显示「扫描中…」）随时重测，装完新 CLI 后点它即可，无需重启。
-    4. Dock 上架规则：未识别或被隐藏的智能体不显示；识别到的自动上架成正常应用图标。
-
-第 3 步 · 设置 ＞ 系统技能 看技能接收方
-
-1. 「设置」＞ 左栏「系统技能」。这里管理察元能力手册（chatop-system / chatop-kb / chatop-office-link）向智能体的分发：
-    1. 卡片「智能体（已应用 {n}）」列出 dsh、Claude Code、ZCode、Codex、OpenCode、OpenClaw 六家，逐行状态「已应用」/「有更新」/「未应用」/「未安装」（未装的行置灰），行尾按钮「应用」/「更新」，右上有「统一应用系统技能到智能体」；
-    2. 除手动应用外，主进程在启动/切换用户时自动把技能镜像进所有已安装且声明了技能目录的智能体（覆盖面见矩阵「系统技能」列，不止这六家）。
-
-## 怎么判断适不适合你
-
-适合你的情况：日常就是对比不同智能体的代码质量，希望流程固定、结果可验证。
-
-不必勉强的情况：需求不在这条线上的人。察元AI OS的思路是把边界写明白，条件式地推荐。
-
-## 高频疑问
-
-### L1、L2 徽标代表什么？
-
-徽标取自注册表 abilityLevel：system = 察元自身；L1 = 基础启动（终端 + 工作区即开即用）；L2 = 在 L1 之上支持本地模型接入与记忆采集等深度整合（当前为 Claude Code、Codex、OpenCode 三家）。徽标是能力档位标记，不是逐项开关——OpenClaw 徽标是 L1，但 2026-10-29 起同样具备模型配置写入面（见矩阵「模型写入」列），逐项能力以矩阵各列为准。
-
-### 为什么 Aider 和 Goose 没有「安装」按钮？
-
-这两家不经 npm 分发、也没有官方脚本通道，商店行不提供安装入口（安装方式一栏为空）。按官方途径自行安装后，应用管理 ＞「智能体」＞「重新扫描」即自动上架（Aider 探针 ~/.aider / ~/.aider.conf.yml / PATH 里的 aider；Goose 探针 ~/.goose / PATH 里的 goose）。
-
-### 我装了 ZCode，为什么 Dock 里看不到？
-
-ZCode 是察元自家 CLI，注册表标记暂不上 Dock（应用管理 ＞ 智能体里能看到它的识别状态）。它仍会收系统技能、MCP 同步与记忆采集。
-
-### 智能体装好后在察元里能额外调用什么？
-
-探测到的智能体自动获得：系统技能镜像（上表「系统技能」列）、MCP 清单合并（含知识库 MCP——对话里可直接用 kb_search 等查知识库）、运行在真实终端（pty）里可执行 shell 与读写文件；带记忆声明的五家还可被采集记忆。
-
-## 补充答疑
-
-### 网页里打开察元，智能体列表是空的？
-
-探测与安装管理仅桌面形态可用，网页/Docker 形态的相关页面只显示「智能体探测仅在桌面版（Electron）可用。」。
-
-## 更多操作细节
-
-第 4 步 · 对照能力矩阵
-
-18 类智能体（1 内置 + 17 外部 CLI），每格来自注册表 packages/agent-registry/src/index.js：
-
-逐列说明（列 = 注册表字段）：
-
-1. 一键安装 = npm 非空（应用商店「安装」按钮走 npm 受管安装，共 13 家）或 installScript 非空（Cursor CLI 走官方脚本）。Aider/Goose 既无 npm 包也无脚本通道，商店里没有安装按钮。
-2. 官方脚本 = installScript 非空：Cursor CLI 固定 https://cursor.com/install；Grok Build 的 https://x.ai/cli/install.sh 在非 mac 系统（npm 平台包限制 darwin）自动降级启用。
-3. 模型写入 = modelConfigFile 非空：Claude Code（~/.claude/settings.json）、Codex（~/.codex/config.toml）、OpenCode（~/.config/opencode/opencode.json）、OpenClaw（~/.openclaw/openclaw.json）四家外部 CLI 支持把模型代理地址+模型名写进配置（Harness 经会话模型下拉）——合计即「五家写入面」，操作见对应教程。
-4. 系统技能 = skillDir 非空：dsh + 13 家外部 CLI（L2 三家、ZCode、OpenClaw 与商店批次八家）的技能包目录会被 skill-sync 镜像；Gemini CLI / Aider / Goose / Qwen Code 无技能目录约定，不参与。
-5. MCP = mcp 非空：同样的 13 家外部 CLI 会被 mcp-sync 全量合并 MCP 清单（控制面 chatop 与知识库 chatop-kb 两个托管条目自动随行）；Gemini CLI / Aider / Goose / Qwen Code 不传播。
-6. 记忆采集 = memory.supported：Claude Code / ZCode / Codex / OpenCode / OpenClaw 五家有声明式记忆文件（如 ~/.claude/CLAUDE.md、~/.codex/AGENTS.md），可被采集进「设置 ＞ 记忆」的待确认队列。
-7. 自动探测上架：全部 17 家外部 CLI 都会被三级探测识别（① 察元管理态 ② 家目录探针如 ~/.claude/、~/.codex/ ③ PATH 里的命令），自己装的同样自动上架；ZCode 探测照跑但暂不上 Dock（uiVisible: false）。
-
-| 智能体 | 徽标 | 一键安装 | 官方脚本 | 模型写入 | 系统技能 | MCP | 记忆采集 | 自动探测上架 |
-|---|---|---|---|---|---|---|---|---|
-| DeepSeek Harness（内置） | system | — | — | （会话模型下拉） | | （源清单直读） | — | 恒在 |
-| Claude Code | L2 | | — | | | | | |
-| ZCode | L1 | — | — | — | | | | （应用管理可见，不上 Dock） |
-| Codex | L2 | | — | | | | | |
-| OpenCode | L2 | | — | | | | | |
-| OpenClaw | L1 | | — | | | | | |
-| Gemini CLI | L1 | | — | — | — | — | — | |
-| Aider | L1 | — | — | — | — | — | — | |
-| Goose | L1 | — | — | — | — | — | — | |
-| Qwen Code | L1 | | — | — | — | — | — | |
-| Kimi Code | L1 | | — | — | | | — | |
-| Crush | L1 | | — | — | | | — | |
-| Cursor CLI | L1 | （脚本） | | — | | | — | |
-| Copilot CLI | L1 | | — | — | | | — | |
-| Droid | L1 | | — | — | | | — | |
-| Amp | L1 | | — | — | | | — | |
-| Grok Build | L1 | | （非 mac 时） | — | | | — | |
-| CodeBuddy | L1 | | — | — | | | — | |
-
-## 能力点备忘
+## 落点的能力面
 
 - 17 家外部 CLI 加内置 Harness
 - 能力矩阵一目了然
 - 新装约 5 秒自动感知
 - 官方品牌图标自动拉取
 
-一句话收束：智能体操作系统值得了解的前提是你真有这类需求，需求对得上，这篇的步骤直接照抄。
+## 察元AI OS的能力地图
+
+- 模型设置向导：首次登录桌面会自动弹出四步向导：先讲清楚模型代理是全机统一出口这个概念，再选默认对话模型，
+- 配置云端厂商模型：66 家内置厂商目录加自定义 OpenAI 兼容厂商：填 API 地址与密钥，获取模型列表，测试连接，保存并启用。
+- 下载本地模型：模型库按本机内存预算分层推荐（能跑/勉强/跑不动三档标记），支持断点续传，
+- 全局默认模型：11 类任务各选默认模型：对话、嵌入、重排、决策、文生图、图生图、视频生成、……
+- 模型应用到智能体：把代理地址加模型名一键写进 Harness、Claude Code、Codex、OpenCode、OpenClaw 五家配置，写入前自动备份、可回退，真实厂商密钥不出凭证库。
+- 联网搜索配置：给智能体配联网检索（Serper、Tavily、Linkup、SearXNG、DuckDuckGo）、图片搜索与图库平台的 Key，配置入口在设置＞默认模型＞网络资源页签。
+
+## 实话实说：哪些人不必急着装
+
+- 8GB 内存设备建议一次只加载一个对话模型，复杂任务受限
+- 全量安装包含模型权重约 4.7GB，轻量包约 1GB，完整离线能力需要额外下载权重
+- 暂不支持龙芯平台；本地不提供视频生成（视频生成走云端路由）
+- 云端厂商模型调用需自备 API Key
+
+这些边界不影响主线使用，但选型前知道比不知道强。
+
+## 数据与安全设计
+
+- 全部本地服务默认只监听 127.0.0.1 回环地址，数据不出本机
+- 三级权限门：T0 只读直放、T1 高危每运行期首问（可记忆）、T2 截屏关机级每次必问；审批卡 120 秒无人响应自动拒绝（fail-closed）
+- 敏感操作全部写审计日志 audit.jsonl，可回放检查
+- 跨终端互联（DDS）出厂零共享，开哪类授权完全由用户决定；远端调用以远端访客身份过对端权限门并留审计
+
+## 价格口径
+
+- 免费下载使用，购买只停提醒、不锁功能
+- 首运行起 90 天完全静默，之后每日首次启动弹一次购买页（可关闭）
+- 四档价格：149/359/599/1049 元，离线短码激活（HMAC 签发、绑定 16 位机器指纹、本地验签）
+
+## 你可能会问
+
+### 我装了 ZCode，为什么 Dock 里看不到？
+
+ZCode 是察元自家 CLI，注册表标记暂不上 Dock（应用管理 ＞ 智能体里能看到它的识别状态）。它仍会收系统技能、MCP 同步与记忆采集。
+
+### 为什么 Aider 和 Goose 没有「安装」按钮？
+
+这两家不经 npm 分发、也没有官方脚本通道，商店行不提供安装入口（安装方式一栏为空）。按官方途径自行安装后，应用管理 ＞「智能体」＞「重新扫描」即自动上架（Aider 探针 ~/.aider / ~/.aider.conf.yml / PATH 里的 aider；Goose 探针 ~/.goose / PATH 里的 goose）。
+
+### L1、L2 徽标代表什么？
+
+徽标取自注册表 abilityLevel：system = 察元自身；L1 = 基础启动（终端 + 工作区即开即用）；L2 = 在 L1 之上支持本地模型接入与记忆采集等深度整合（当前为 Claude Code、Codex、OpenCode 三家）。徽标是能力档位标记，不是逐项开关——OpenClaw 徽标是 L1，但 2026-10-29 起同样具备模型配置写入面（见矩阵「模型写入」列），逐项能力以矩阵各列为准。
+
+### AppImage 双击没反应怎么办？
+
+多为缺 FUSE 2：安装 libfuse2（Ubuntu 24.04 为 libfuse2t64），或用 --appimage-extract-and-run 解压运行；统信 UOS 环境推荐直接用 deb 包。
+
+### 首次启动感觉卡住了？
+
+首启要初始化数据目录并加载模型服务，5 到 30 秒属正常范围，期间无需干预，完成后自动进入桌面。
+
+## 一句收束
+
+智能体操作系统值不值得深入，判断标准很简单：把上面的口径与边界代入你的实际需求，对得上就装来试，对不上不必跟风。
+
+这篇把支持的智能体总览的链路拆完了。卡住就回看常见问题那一节，多数坎都在那里。
 
 ---
 
-本文事实口径以 察元AI OS 3.1.15 2026 年 10 月的官方文档与源码教程为准，功能随版本迭代，以官网 aidooo.com 最新说明为准。
+察元AI OS（Chayuan AI OS）由北京智灵鸟科技中心出品，官网 aidooo.com。数据截至 2026 年 10 月（版本 3.1.15），后续版本功能可能调整。

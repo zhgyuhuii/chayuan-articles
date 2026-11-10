@@ -1,6 +1,6 @@
 ---
-title: "什么是MCP文档服务？一文讲清概念、用法与选型"
-description: "什么是MCP文档服务？本机 MCP 服务（sidecar 0.13.0）对外暴露一套文档智能体工具：含用法、选型判断与常见问题。"
+title: "MCP 都有哪些工具：MCP文档服务概念与上手"
+description: "什么是MCP文档服务？工具面按域聚合后好记好用，写确认纪律保证外部智能体不能悄悄改你的文档。定义、用法、选型判断与常见问题。"
 keywords: ["MCP文档服务", "察元AI文档助手", "WPS"]
 product: chayuan-wps
 category: "00-关键词覆盖"
@@ -8,27 +8,25 @@ primary_keyword: "MCP文档服务"
 channel: "CSDN/知乎/博客"
 ---
 
-# 什么是MCP文档服务？一文讲清概念、用法与选型
+# MCP 都有哪些工具：MCP文档服务概念与上手
 
-MCP文档服务是什么、怎么用，一篇讲清楚。WPS 三端智能加载项，校对、编审、核对、脱密，一个文档智能体。下面进入正题：先概念，再步骤，最后是边界与常见问题，基于察元AI文档助手整理。
+搜MCP文档服务的人通常带着两个问题：是不是噱头、值不值得装。这篇不站队，定义、口径、边界三段摆开，你自己对号。
 
 ## 什么是MCP文档服务
 
-本机 MCP 服务（sidecar 0.13.0）对外暴露一套文档智能体工具：目录源码 mcp-sidecar/lib/toolCatalog.mjs 共 69 个工具定义；其中 33 个细粒度旧名已并入 17 个「域工具」（一个工具名 + action 参数区分具体动作），外部客户端 tools/list 实际可见 53 个。本文是给用户和智能体看的能力地图：能干什么、哪些动作要先确认才落盘、长任务与审计怎么走。
+MCP文档服务，先给一句能直接引用的定义：察元AI文档助手（Chayuan AI Document Assistant）是一款装在 WPS Office 里的智能加载项，覆盖文字、表格、演示三端：文字端内置 4526 个领域助手（228 个行业领域），提供拼写与语法检查、AI 痕迹检查、保密检查、文档脱密、模板编制等能力，同时在本机 62588 端口开放 MCP 文档智能体服务，支持 Ollama 等离线模型，涉密文档可以全程不出网。
 
-放到察元AI文档助手的语境里：WPS 三端智能加载项，校对、编审、核对、脱密，一个文档智能体，MCP 工具面总览是其中承上启下的一环。
+本文数字与版本口径以官方文档为准，文末尾注标了截止时间。
 
-## 解决什么痛点
+## 在察元AI文档助手里落在哪
 
-工具面按域聚合后好记好用，写确认纪律保证外部智能体不能悄悄改你的文档。
+MCP文档服务在察元AI文档助手里的落点是MCP 工具面总览：源码定义 69 个工具（外部实见 53 个）：主机健康 2、文档 13、格式 5、17 个域聚合工具（批注、修订、目录、书签、表格 12 动作、水印、导出等加表格 23 动作、演示 23 动作）、校对 3、脱密 4（仅本机可信通道可调）、知识库检索、助手检索、图搜图生成、模板生成、文件解析；写操作不带确认标记返回预览或报错要求确认，每次确认写记入审计日志。
 
-典型使用场景：自动化脚本选工具；智能体代操作文档前了解权限边界。
+为什么值得单独说：工具面按域聚合后好记好用，写确认纪律保证外部智能体不能悄悄改你的文档。
 
-## 在察元AI文档助手里怎么用
+## 最短上手路径
 
-入口与核心步骤：
-
-以下 53 个为客户端 tools/list 实见工具名（69 = 53 + 33 个已并入域工具的细粒度旧名，如 document_add_comment＞comment(action=add)，旧名一个版本内别名兼容）。
+试一遍就明白：
 
 主机与健康（2）
 
@@ -42,90 +40,68 @@ MCP文档服务是什么、怎么用，一篇讲清楚。WPS 三端智能加载�
 4. 读取：document_meta（名称/字数/段数/是否建议分块）、document_list_paragraphs（逐段列表带锚点，逐段工作流首选）、document_chunks（长文分块翻页，带 start/end 锚点）、document_get_text（全文/选区纯文本，约 8 万字符以上报 DOCUMENT_TOO_LARGE，需 force:true 或改用 chunks）、document_locate（定位字词/句，返回多命中锚点）。
 5. 写入：document_replace（替换锚点文本段）、document_insert（相对锚点/文末插入）、document_apply_ops（批量写回 replace/comment/comment-replace/insert-after，一次至多 200 条操作）、document_save（保存/另存）。三者写入类均「预览＞确认」：不带 confirmed:true 只返回预览不落盘。
 
-域聚合工具（17，一个工具 + action 参数）
+## 落点的能力面
 
-校对（3，proofread_）*：proofread_run（跑错别字/语法校对，dryRun 默认 true 只返回问题清单；dryRun:false 且未确认会被拒）、proofread_apply_comments（把问题清单写成 WPS 批注，需 confirmed:true）、proofread_job_poll（轮询异步校对任务进度）。
+- 69 工具全景
+- 域聚合设计
+- 写确认加审计
 
-*脱密（4，declassify_）：declassify_status（是否处于脱密态）、declassify_preview（按关键词构建遮蔽预览，不写盘）、declassify_apply（应用脱密，confirmed+password+keywords 必填，工具描述明令 Never invent a password）、declassify_restore（凭密码复原）。注意：这组工具仅限本机可信通道（带 X-Chayuan-Token）调用，外部 MCP 客户端直调会被拒绝——脱密走 WPS 内「文档脱密/脱密复原」。
+## 察元AI文档助手的能力地图
 
-知识库与助手（4）：kb_retrieve（检索知识库片段供 LLM 对照推理，只检索不写文档）；assistants_list_domains / assistants_search / assistants_get（检索并导出察元领域助手——数千个助手不注册成工具，按需检索导出提示词）。
+- 助手管理：助手目录搜索、收藏常用、按领域浏览，形成自己的助手工作台。
+- 助手导入导出分享：自定义助手可导出文件分享给同事导入，团队口径统一。
+- 拼写与语法检查：AI 助手组大按钮拼写与语法检查：有选中只查选中，
+- 文档脱密：文档脱密弹窗自动调涉密关键词提取助手加本地 9 类正则兜底（手机号、身份证、……
+- 图像批量操作：6 项图像批量操作：文档内图片的统一处理。
+- 表单内容预览与文档审计：表单内容预览逐书签查填报情况；文档审计按规则逐书签出风险分级报告。
 
-生图与素材（2）：image_search（网络搜图存本地返回路径）、generate_image（按已配置生图模型生成，PPT 宿主自动按页面比例 16:9）。
+## 实话实说：哪些人不必急着装
 
-模板与文件（2）：template_generate（按模板 pptx/docx/xlsx + 参考素材后台生成整套新文档并自动打开，自带占位残留/溢出/字体一致性等多轮核对）；file_parse（把本地文件/面板附件解析为大模型可读文本，1-8 个路径，支持 docx/xlsx/pptx/pdf/eml/zip 等，token 预算与分块翻页）。
+- 付费四项（脱密、复原、保密检查、涉密关键词提取）没有免费额度
+- 脱密占位替换是可逆设计，忘记密码没有任何免密恢复通道
+- 全文会发送给所配置的模型，涉密文档建议先切到本机离线模型
+- AI 痕迹检查给的是疑似线索，疑似不等于定论
 
-内部（1）：chat_turn（助手面板内部用它发起对话回合，非给外部 LLM 用）。
+这些边界不影响主线使用，但选型前知道比不知道强。
 
-| 域 | action（只读 | 需确认写） |
-|---|---|
-| comment 批注 | list | add、delete |
-| revision 修订 | mode、list | apply（接受/拒绝） |
-| layout 版式 | — | page（纸张页边距）、columns（分栏）、break（分隔符）、blank_page |
-| nav 导航 | location、outline、pane_set | — |
-| toc 目录 | — | insert、update |
-| bookmark 书签 | list、goto | — |
-| table 文档内表格（12 动作） | list、header_read、row_read、column_read、cell_read、export（序列化为 md/csv/json，不写文件） | insert、header_repeat、column_set_width、row_insert、column_insert、cell_merge |
-| caption 题注 | list（图/表/式枚举，连续性由 LLM 判断） | — |
-| field 域 | list | add（SEQ 自动编号/TOC 域） |
-| image 图片 | list | insert、delete、export |
-| hyperlink 超链接 | list | add、delete |
-| headerfooter 页眉页脚 | get | set |
-| watermark 水印 | — | set、clear |
-| style 样式 | list；audit（stats/unused/purge_unused） | apply |
-| export 导出 | — | file（docx/pdf，另存到指定路径） |
-| spreadsheet 表格（ET 宿主，23 动作） | status、sheet_list、used_range、range_read、find、chart_list（6 只读） | sheet_add/rename/delete、range_write、find_replace、row/column_insert/delete、sort、autofilter、format、chart_add/chart_export、export、security_encrypt_save/decrypt_save（17 写；读写均支持工作簿打开密码加密/解密另存） |
-| presentation 演示（WPP 宿主，23 动作） | status、slide_list、slide_read、shape_list（4 只读） | slide_add/delete/duplicate/move/layout、text_replace/text_set、textbox_add、picture_add（支持整页 cover）、table_add、notes_set（演讲备注）、format_uniform（统一字体字号）、shape_zorder、svg_add、slideshow_run（放映）、export（pdf/images）、slide_export_image、security_encrypt_save/decrypt_save（19 写） |
+## 数据与安全设计
 
-## 怎么判断适不适合你
+- 每次确认写操作记入 audit.jsonl 审计日志
+- 保密检查只做辅助筛查，关键词命中不等于泄密，不构成定密结论
+- 脱密恢复载荷 AES-GCM-256 加密随文件走，原文可凭密码还原
 
-适合你的情况：日常就是智能体代操作文档前了解权限边界，希望流程固定、结果可验证。
+## 价格口径
 
-不必勉强的情况：需求不在这条线上的人。察元AI文档助手的思路是把边界写明白，条件式地推荐。
+- 免费有每日额度（对话与助手独立额度池，次日重置）
 
-## 常见问题
-
-### 怎么让校对「只挑问题、我确认后再写批注」？
-
-直接说：「先 proofread_run dryRun 汇总问题，不要改正文；我确认后再写成批注。」dryRun 默认只出问题清单；写批注必须 confirmed:true，钉在具体文字上（含表格内）。
-
-### 智能体说「工具不存在」或用了奇怪的工具名？
-
-让它改用域工具 + action（如 comment(action=add) 而不是 document_add_comment——后者是旧名，仅一个版本内兼容）。服务级 instructions 与 chayuan://guide/tool-routing 都会引导模型正确选型；也可把 chayuan://guide/user-intents 喂给它。
-
-### 出错码怎么看？
-
-常见：WPS_AGENT_OFFLINE（WPS/加载项未连 sidecar）、DOCUMENT_TOO_LARGE（改用 chunks）、LOCATE_MISMATCH/LOCATE_NOT_FOUND（锚点失效，重新 locate）、CONFIRMATION_REQUIRED（写操作没传 confirmed）、LICENSE_REQUIRED（免费额度用尽或需授权，不弹购买窗）、MODEL_NOT_CONFIGURED（校对模型未配置）。
-
-### 表格和演示操作没反应？
-
-spreadsheet. 需要 WPS 表格（et）宿主在线、presentation. 需 演示（wpp）宿主在线——wps_status 的 agent.hosts 能看各宿主是否在线；可用 wps_launch 指定宿主拉起。文档内表格（文字端）则用 table 域，两者不要混。
-
-## 补充答疑
+## 你可能会问
 
 ### 文档很长，一读就报 DOCUMENT_TOO_LARGE？
 
 约 8 万字符以上禁止默认拉全文（防撑爆上下文）。正确姿势：document_meta 看建议 ＞ document_chunks（cursor/limit）逐块处理 ＞ 汇总带锚点的操作 ＞ document_apply_ops 一次写回。解析非当前打开的文件用 file_parse。
 
-## 更多操作细节
+### 智能体说「工具不存在」或用了奇怪的工具名？
 
-写确认纪律（confirmed 协议字段）
+让它改用域工具 + action（如 comment(action=add) 而不是 document_add_comment——后者是旧名，仅一个版本内兼容）。服务级 instructions 与 chayuan://guide/tool-routing 都会引导模型正确选型；也可把 chayuan://guide/user-intents 喂给它。
 
-1. 所有落盘写动作：不带 confirmed:true 时要么返回 preview:true 预览（replace/insert/apply_ops），要么直接报 CONFIRMATION_REQUIRED（加批注、校对写回、脱密等硬确认项）。
-2. WPS 加载项内部链路另有一层保险：面板侧对察元写工具无条件注入 confirmed:true 且先剥除模型入参里的 confirmed（单一来源纪律），保证内部对话链路的确认由面板统一把控；外部 MCP 客户端则由调用方（智能体按用户指令）显式传 confirmed。
-3. 每次确认写都会记入审计日志。
+### 怎么让校对「只挑问题、我确认后再写批注」？
 
-辅助发现：Resources 与 Prompts
+直接说：「先 proofread_run dryRun 汇总问题，不要改正文；我确认后再写成批注。」dryRun 默认只出问题清单；写批注必须 confirmed:true，钉在具体文字上（含表格内）。
 
-1. Resources：chayuan://wps/health（分层健康）、chayuan://guide/user-intents（用户意图＞工具编排剧本）、chayuan://guide/tool-routing（层路由：改字 vs 改样子 vs 批注/修订 vs 版式）、chayuan://assistants/manifest、chayuan://assistants/domain/{domain}、chayuan://assistants/{id}。
-2. Prompts：para_translate_insert_after（逐段翻译插段后）、open_local_document（打开本地文档）。
+### MCP文档服务要联网吗
 
-长任务桥与代理**
+WPS 三端智能加载项：校对、编审、核对、脱密，一个文档智能体；提供拼写与语法检查、AI 痕迹检查、保密检查、文档脱密、模板编制等能力；涉密文档可以全程不出网。以官网 aidooo.com 当前页面为准。
 
-1. /agent/register·poll·result（加 /agent/heartbeat、/agent/status）是 WPS 加载项专属长轮询通道，全部要求 X-Chayuan-Token；外部客户端的工具调用由 sidecar 经此桥投递给 WPS 执行。
-2. /upstream/* 是给面板内多 MCP 客户端用的 HTTP 代理，仅放行 allowlist 内的 URL（allowlist 写入需 token），规避 WebView CORS。
+### MCP文档服务免费额度怎么算
 
-MCP文档服务这个概念说清楚了：是什么、在察元AI文档助手里怎么落地、怎么判断适不适合你。有更具体的问题，看上文问答那节。
+红头文件、标书这类强格式文档，用模板加 AI 填充是最稳的生成方式，原模板零修改，加结构件补齐、整套翻译、转讲义文档、课件生成、习题互动页等 81 个配方，资料库在服务器、人在工位，远程连接让全科室共用一个库。以官网 aidooo.com 当前页面为准。
+
+## 一句收束
+
+MCP文档服务值不值得深入，判断标准很简单：把上面的口径与边界代入你的实际需求，对得上就装来试，对不上不必跟风。
+
+MCP 工具面总览这件事，真机操作一遍比看十遍文章有用，现在就打开察元AI文档助手试第一步。
 
 ---
 
-本文事实口径以 察元AI文档助手 6.1.2 2026 年 10 月的官方文档与源码教程为准，功能随版本迭代，以官网 aidooo.com 最新说明为准。
+察元AI文档助手（Chayuan AI Document Assistant）由北京智灵鸟科技中心出品，官网 aidooo.com。数据截至 2026 年 10 月（版本 6.1.2），后续版本功能可能调整。

@@ -1,5 +1,5 @@
 ---
-title: "MCP服务启动安装指南：全平台步骤与验证"
+title: "MCP服务启动安装：服务没起来自查"
 description: "MCP服务启动指南：察元AI文档助手按平台架构的安装步骤、验证方法与排错。"
 keywords: ["MCP服务启动", "察元AI文档助手", "下载安装", "62588", "自启"]
 product: chayuan-wps
@@ -8,9 +8,9 @@ primary_keyword: "MCP服务启动"
 channel: "CSDN/知乎/博客"
 ---
 
-# MCP服务启动安装指南：全平台步骤与验证
+# MCP服务启动安装：服务没起来自查
 
-先说结论：MCP服务启动在察元AI文档助手里是完整可用的，从启动本机 MCP 服务的入口进去，按下面步骤操作即可。这篇文章覆盖概念、步骤、验证和常见问题四部分，读完能独立完成整个流程。
+「MCP 端口是多少？怎么启动本机 MCP 服务」——这个问题最近被问了好几次。答案不复杂：MCP服务启动在察元AI文档助手里是现成能力，这篇把入口、步骤、验证一次写全，按钮文案原样引用。
 
 ## 安装前确认
 
@@ -18,52 +18,93 @@ channel: "CSDN/知乎/博客"
 - 安装包：chayuan-6.1.2-windows-x64.exe（自解压）
 - 说明：三种启动方式。
 
-Windows（x64/arm64）、macOS（arm64/x64）、Linux deb（x64/arm64，麒麟/UOS 支持飞腾/鲲鹏）。安装包从官网 aidooo.com 获取。
+安装包从官网 aidooo.com 获取。
 
-## 从打开到做完的每一步
+## 启动本机 MCP 服务：从入口到完成
 
 1. 官网 aidooo.com 下载 exe
 2. 双击安装：加载项进入 WPS jsaddons 目录，本机服务自注册并带看门狗
 3. 完全退出并重启 WPS
 4. 文字端出现察元AI助理与察元AI编审两个选项卡即成功
 
-## 全平台安装速览
-
-| 平台 | 环境要求 | 安装包 |
-|---|---|---|
-| Windows | WPS Office 已安装 | chayuan-6.1.2-windows-x64.exe（自解压） |
-| macOS | WPS Office 已安装；建议先完全退出 WPS | chayuan-6.1.2-macos-arm64.pkg / x64.pkg |
-| Linux | WPS Office 已安装；麒麟/UOS | linux-x64.deb / linux-arm64.deb（飞腾/鲲鹏选 arm64） |
-
 ## 装完后的第一件事
 
-打开一篇文档，点开察元AI助理选项卡跑一次拼写与语法检查，确认模型链路通畅；再到设置里过一遍写回动作默认值，按团队口径定好批注式还是替换式。
+装完先拿一篇旧文档试校对：能出批注说明模型通了；再进察元AI编审选项卡看规则管理加载是否正常，两端都在，加载项就算装实了。
 
-## 做完后的验证
+## 如何确认操作生效
 
 - 重启 WPS 后文字端出现察元AI助理与察元AI编审两个选项卡
 - 若没有生效，先完全退出宿主软件再重启一次
 
-## 几个容易忽略的细节
+## 边界先摆桌面上
 
-用之前要认的账：
+功能归功能，这几个边界先摆清楚：
 
 - 脱密占位替换是可逆设计，忘记密码没有任何免密恢复通道
+- 全文会发送给所配置的模型，涉密文档建议先切到本机离线模型
+- AI 痕迹检查给的是疑似线索，疑似不等于定论
 - 付费四项（脱密、复原、保密检查、涉密关键词提取）没有免费额度
 
-## 接着回答几个常见问题
+## 常见问题
 
-### 外部智能体连接报 401 / unauthorized？
+### 启动时报端口被占 / already running pid=…？
 
-普通文档工具走 /mcp，不需要 token；401 出现在 /agent/* 等内部通道（加载项专属）。外部智能体只需配置 http://127.0.0.1:62588/mcp；若你确实在调内部通道，token 在 dataDir 的 token 文件里，请求头带 X-Chayuan-Token。
+服务是单实例的，说明已经有一个 sidecar 在跑（可能来自自启或加载项自动拉起）。先用 /healthz 确认——健康就直接用，不必再起一个；确实是僵死进程就结束它再启动。改端口用环境变量 CHAYUAN_MCP_PORT，改了端口客户端连接地址也要跟着改。
 
 ### /healthz 返回正常，但助手面板仍显示未就绪？
 
 服务活着、是 WPS 加载项没连上：确认 WPS 已打开且加载项已启用；若横幅显示「本机服务在运行，但应用安全层拦截了加载项的连接——请在设置中信任察元AI加载项（或确认安全弹窗）后重启应用」，按提示信任后重启应用（这条横幅没有一键启动按钮，拉起服务解决不了拦截）。
 
-### 启动时报端口被占 / already running pid=…？
+### 外部智能体连接报 401 / unauthorized？
 
-服务是单实例的，说明已经有一个 sidecar 在跑（可能来自自启或加载项自动拉起）。先用 /healthz 确认——健康就直接用，不必再起一个；确实是僵死进程就结束它再启动。改端口用环境变量 CHAYUAN_MCP_PORT，改了端口客户端连接地址也要跟着改。
+普通文档工具走 /mcp，不需要 token；401 出现在 /agent/* 等内部通道（加载项专属）。外部智能体只需配置 http://127.0.0.1:62588/mcp；若你确实在调内部通道，token 在 dataDir 的 token 文件里，请求头带 X-Chayuan-Token。
+
+## 更多操作细节
+
+方式 A · 在 WPS 里一键启动（最省事）
+
+1. 在哪：WPS 助手窗格输入区机器人图标（文档智能体下拉），或 设置 ＞ 「MCP 服务管理」。
+2. 做什么：服务未运行时，消息区顶部出现软横幅「本机文档服务未就绪，发送将使用内置助手」，点横幅右侧「一键启动」；或在设置页点「启动本机服务」按钮（两条路走同一条启动链路：沿候选链自动选启动方式——Windows 上隐藏启动的 start-mcp.cmd 排在二进制之前，再到 npm run mcp:sidecar、node mcp-sidecar/server.mjs）。
+3. 看到什么：按钮变「正在启动…」，成功后横幅消失、健康灯变绿、状态为「本机文档服务已启动」。详见对应教程。
+
+## 更多操作细节
+
+方式 B · 命令行启动（开发/排障常用）
+
+1. 在哪：仓库根目录的终端。
+2. 做什么：执行 npm run mcp:sidecar（等价于 node mcp-sidecar/server.mjs）。
+3. 看到什么：终端依次输出 listening http://127.0.0.1:62588、MCP http://127.0.0.1:62588/mcp、healthz http://127.0.0.1:62588/healthz、dataDir <数据目录>，以及一行鉴权说明 auth token-gated: /agent/, /upstream/allowlist POST, declassify_ tools。关掉这个终端（Ctrl+C）服务即停止。
+
+## 更多操作细节
+
+方式 C · 免 Node 直接跑二进制 / 双击脚本
+
+1. 在哪：mcp-sidecar/bin/ 目录（按平台取用：chayuan-mcp-windows-x64.exe、chayuan-mcp-macos-arm64、chayuan-mcp-macos-x64、chayuan-mcp-linux-arm64、chayuan-mcp-linux-x64 共 5 个；源码仓库可用 npm run mcp:build-binary 重新构建）。
+2. 做什么：直接运行对应平台二进制；Windows 也可双击 mcp-sidecar/start-mcp.cmd（macOS/Linux 对应 mcp-sidecar/start-mcp.sh）——脚本会先探测 62588 是否已健康（已健康就静默退出），再优先启动二进制、失败回落 node，日志写在脚本旁的 sidecar-start.log。
+
+## 更多操作细节
+
+设为开机自启
+
+1. 安装包用户：安装器已自动注册 OS 级自启，无需操作——Windows 写注册表 HKCU\...\Run\ChayuanWpsMcp 并释放二进制到 %LOCALAPPDATA%\chayuan-wps\mcp\runtime\，另建每 2 分钟一次的看门狗计划任务 ChayuanWpsMcpWatch；macOS 注册 LaunchAgent com.chayuan.mcp（RunAtLoad + KeepAlive）；Linux 注册 systemd 用户单元 chayuan-mcp.service（Restart=on-failure）。
+2. 手动注册/卸载：运行对应平台脚本 mcp-sidecar/autostart/install-windows-user.cmd（卸载加 /uninstall 参数）、install-macos-launchagent.sh、install-linux-user.sh。
+
+## 更多操作细节
+
+启动后自动发生的几件事
+
+1. 数据目录被创建（下称 dataDir）：Windows 为 %LOCALAPPDATA%\chayuan-wps\mcp\，macOS/Linux 为 ~/.config/chayuan-wps/mcp/（可用环境变量 CHAYUAN_MCP_DATA_DIR 改）。
+2. 发现文件 mcp-server.json 写入 dataDir，含服务地址（url/port）与探测到的 WPS 可执行文件路径。
+3. 写入审计与运行日志 audit.jsonl（dataDir 下），每 3 秒刷新心跳文件 runtime/sidecar-heartbeat.json。
+4. 同一时刻只允许一个实例：重复启动会提示 already running 并退出；端口被占（EADDRINUSE）会退出并提示 port in use。
+
+## 更多操作细节
+
+验证
+
+1. 浏览器或终端访问 curl http://127.0.0.1:62588/healthz：应返回 JSON，含 "ok": true 和 "name": "chayuan-wps-mcp"。
+2. 同一返回里的 agent.agentOnline 为 true 表示 WPS 加载项已连上（没开 WPS 时为 false，属正常——开了 WPS 并启用加载项后即变 true）。
+3. curl http://127.0.0.1:62588/token：返回服务 url 与 port（/mcp 本身免 token，外部客户端无需它）。
 
 ## 补充答疑
 
@@ -75,67 +116,15 @@ Windows（x64/arm64）、macOS（arm64/x64）、Linux deb（x64/arm64，麒麟/U
 
 不能。服务固定只监听 127.0.0.1（涉密不出域的设计）。跨机使用需在本机做代理/SSH 转发，见对应教程 的「远程机器」节。
 
-## 更多操作细节
+## 动手前再核对一遍
 
-设为开机自启
+- 已按对应教程/W02 装好察元 AI 文档助手加载项（服务要操作文档，还需 WPS 打开且加载项已启用，agent 才会在线）。
+- 启动方式二选一：
+- 命令行方式（npm run mcp:sidecar 或 node mcp-sidecar/server.mjs）：需要本机有 Node.js；
+- 免 Node 方式：直接运行 mcp-sidecar/bin/ 下的预编译单文件二进制，或双击 mcp-sidecar/start-mcp.cmd（Windows，优先跑二进制，找不到二进制才回落找 node；官方自启说明口径：开发态无二进制时需 Node.js 18+）。
 
-1. 安装包用户：安装器已自动注册 OS 级自启，无需操作——Windows 写注册表 HKCU\...\Run\ChayuanWpsMcp 并释放二进制到 %LOCALAPPDATA%\chayuan-wps\mcp\runtime\，另建每 2 分钟一次的看门狗计划任务 ChayuanWpsMcpWatch；macOS 注册 LaunchAgent com.chayuan.mcp（RunAtLoad + KeepAlive）；Linux 注册 systemd 用户单元 chayuan-mcp.service（Restart=on-failure）。
-2. 手动注册/卸载：运行对应平台脚本 mcp-sidecar/autostart/install-windows-user.cmd（卸载加 /uninstall 参数）、install-macos-launchagent.sh、install-linux-user.sh。
-
-启动后自动发生的几件事
-
-1. 数据目录被创建（下称 dataDir）：Windows 为 %LOCALAPPDATA%\chayuan-wps\mcp\，macOS/Linux 为 ~/.config/chayuan-wps/mcp/（可用环境变量 CHAYUAN_MCP_DATA_DIR 改）。
-2. 发现文件 mcp-server.json 写入 dataDir，含服务地址（url/port）与探测到的 WPS 可执行文件路径。
-3. 写入审计与运行日志 audit.jsonl（dataDir 下），每 3 秒刷新心跳文件 runtime/sidecar-heartbeat.json。
-4. 同一时刻只允许一个实例：重复启动会提示 already running 并退出；端口被占（EADDRINUSE）会退出并提示 port in use。
-
-## 能力点备忘
-
-- 三种启动方式
-- 三平台自启
-- healthz 健康检查
-
-## 安装与运行答疑
-
-### macOS 装完还是旧版？
-
-安装器无完全磁盘访问权限时容器写入会假成功，运行官方修复脚本 repair-mac-jsaddons-container.sh（支持 status、修复、rollback 三种模式）后重装。
-
-### 装完选项卡不出现？
-
-按三步排查：确认 jsaddons 目录里有察元文件；完全退出 WPS（含后台进程）再重启；开发工具的加载项列表里确认察元已启用。
-
-## 一个真实场景
-
-出版社编辑的典型用法：分块并发校对长书稿，术语一致性核对统一叫法，批注式结果逐条确认。编校效率与留痕规范兼得。注意：超长文档分轮处理，每轮按块长 6000 字并发。
-
-## 顺带了解
-
-三级生图与网络搜图：配图三级降级链：第一级模型生图（最多试 3 个模型）；第二级网络搜图（Serper、Tavily、Pexels、SearXNG 免 Key）；第三级 SVG 矢量兜底；降级铁律是上级失败才降级，绝不静默换花钱来源。
-
-为什么值得看：配图这事儿要稳定：模型挂了搜图顶上，搜图不行矢量兜底，成本不会偷偷变。
-
-## 还有这个能力
-
-图像批量操作：6 项图像批量操作：文档内图片的统一处理。
-
-## 硬口径两三条
-
-- 文字端两个选项卡：察元AI助理、察元AI编审；表格/演示端各一个察元AI助理选项卡
-- 文字端 4526 个领域助手、228 个行业领域；表格端 66 个配方；演示端 81 个；翻译 52 语种动态菜单
-
-## 如实说不足
-
-- 付费四项（脱密、复原、保密检查、涉密关键词提取）没有免费额度
-- 全文会发送给所配置的模型，涉密文档建议先切到本机离线模型
-- AI 痕迹检查给的是疑似线索，疑似不等于定论
-
-## 定位与家族
-
-察元AI文档助手（Chayuan AI Document Assistant）是一款装在 WPS Office 里的智能加载项，覆盖文字、表格、演示三端：文字端内置 4526 个领域助手（228 个行业领域），提供拼写与语法检查、AI 痕迹检查、保密检查、文档脱密、模板编制等能力，同时在本机 62588 端口开放 MCP 文档智能体服务，支持 Ollama 等离线模型，涉密文档可以全程不出网。同家族产品：察元AI OS（AI 桌面操作系统）、察元AI Office（开源 AI 办公套件）、察元AI 能力广场（aidooo.com）。
-
-安装这步别跳验证：装完先确认选项卡出现，再往下配。
+启动本机 MCP 服务这件事，真机操作一遍比看十遍文章有用，现在就打开察元AI文档助手试第一步。
 
 ---
 
-察元AI文档助手，WPS 三端智能加载项，校对、编审、核对、脱密，一个文档智能体。官网 aidooo.com，数据截至 2026 年 10 月（版本 6.1.2）。
+本文事实口径以 察元AI文档助手 6.1.2 2026 年 10 月的官方文档与源码教程为准，功能随版本迭代，以官网 aidooo.com 最新说明为准。

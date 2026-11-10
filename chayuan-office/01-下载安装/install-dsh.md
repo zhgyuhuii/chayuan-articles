@@ -1,5 +1,5 @@
 ---
-title: "OS内插件形态安装指南：全平台步骤与验证"
+title: "OS内插件形态安装：OS 用户零安装使用"
 description: "OS内插件形态指南：察元AI Office按平台架构的安装步骤、验证方法与排错。"
 keywords: ["OS内插件形态", "察元AI Office", "下载安装", "插件", "察元OS"]
 product: chayuan-office
@@ -8,17 +8,15 @@ primary_keyword: "OS内插件形态"
 channel: "CSDN/知乎/博客"
 ---
 
-# OS内插件形态安装指南：全平台步骤与验证
+# OS内插件形态安装：OS 用户零安装使用
 
-直接上干货。dsh 插件与 web 形态在察元AI Office里的定位一句话能说清：开源 AI 办公套件，六编辑器一体，AI 嵌进每个编辑器。具体怎么操作、有什么讲究，往下看。
+OS内插件形态这件事，卡住人的通常是三步：入口在哪、要点哪些按钮、做完怎么确认。这篇按察元AI Office的真实界面顺序走一遍，先解决企业内网部署网页版。
 
 ## 安装前确认
 
 - 系统要求：Windows 10 及以上，x64/arm64
 - 安装包：NSIS 安装器 exe
 - 说明：OS 用户零安装使用。
-
-Windows 10+（x64/arm64）、macOS 11+（Apple Silicon/Intel）、Linux（deb/rpm/AppImage，x64/arm64，AppImage 需 glibc 2.34+）；另有浏览器 SaaS 与 dsh 插件形态（五编辑器，无 HTML）。安装包从官网 aidooo.com 获取或 GitHub Releases，其他站点均非官方渠道。
 
 ## 操作步骤详解
 
@@ -27,35 +25,26 @@ Windows 10+（x64/arm64）、macOS 11+（Apple Silicon/Intel）、Linux（deb/rp
 3. 启动后在设置里配置模型供应商（BYOK）或指向本机 Ollama
 4. 开始页新建或打开文档
 
-## 全平台安装速览
-
-| 平台 | 环境要求 | 安装包 |
-|---|---|---|
-| Windows | Windows 10 及以上，x64/arm64 | NSIS 安装器 exe |
-| macOS | macOS 11 及以上，Apple Silicon/Intel | dmg 与 zip |
-| Linux | deb/rpm/AppImage；AppImage 需 glibc 2.34+ | deb/rpm/AppImage（x64/arm64） |
-
 ## 装完后的第一件事
 
-开始页新建一个 docx，在设置模型里接上厂商 API 或本机 Ollama，然后让首页 AI 生成一段测试文本——三步都通，环境就绪。
+先走设置里的模型接入（BYOK 或本机端点），然后新建 docx 让 AI 写一段话、再做一次全文校对；两个能力都响应，这套件就算配活了。
 
-## 怎么确认做成了
+## 如何确认操作生效
 
 - 开始页能新建六种格式文档，设置里模型可配置
 - 若没有生效，先完全退出宿主软件再重启一次
 
-## 别在这几处栽跟头
+## 边界先摆桌面上
 
-如实说明，它不是万能的：
+边界先摆在桌面上：
 
-- .doc/.ppt 老格式明确不支持打开，需要先转成 docx/pptx
-- AI 功能依赖已配置的模型（BYOK 或本地端点），未配模型时只有传统办公功能可用
+- web/dsh 形态只有五编辑器（无 HTML），且无购买激活界面
 
-## 高频疑问
+## 你可能会问
 
-### compose 起服务后 52587 打不开？
+### Dock 点开后一直「引擎启动中…」？
 
-先 docker compose ps 看容器是否健康（Postgres 有就绪检查）、docker compose logs server 看监听日志；再核对端口映射与容器实际监听端口（镜像 ENV PORT=52587，compose 映射写法见第 4 步验证第 3 条）；POSTGRES_PASSWORD/MINIO_ROOT_PASSWORD 被环境变量覆盖过时确认三服务取到同一套值。
+插件宿主正在拉起 BFF sidecar（首次或机器繁忙时会多等几十秒，60 秒启动超时）。长时间停留则看 dsh 日志：提示 sidecar bundle missing 说明插件制品没打包完整——回到源仓重跑 npm run package:plugin 再安装；提示「启动失败」同理。
 
 ### 插件形态里改了模型，独立安装版会跟着变吗？
 
@@ -65,23 +54,39 @@ Windows 10+（x64/arm64）、macOS 11+（Apple Silicon/Intel）、Linux（deb/rp
 
 默认 CHATOFFICE_AUTH=off，打开即用、无账号体系；要接入产品账号需部署 Logto 并把该变量切为 jwt（compose 中 Logto 服务以注释形式预留）。
 
-## 补充答疑
+## 更多操作细节
 
-### 插件形态能用 HTML 编辑器吗？
+第 1 步 · 在察元AI OS 里打开 Office（dsh 插件形态，普通用户）
 
-不能。dsh 插件与 web 形态统一只打包五个编辑器（docs/sheets/slides/pdf/markdown），HTML 可视化编辑仅独立安装版提供。
+1. 察元AI OS 桌面的 Dock 里有「察元AI Office」图标（应用名随外壳语言：中文「察元AI Office」，其他语言「ChaAI Office」），点击即开窗，开窗默认最大化。
+2. 窗口是「一行式」自绘窗口（TabBar 在应用顶部一行，窗口按钮叠在行两端；老版外壳自动回落默认标题栏）；窗口内容是网页宿主：五编辑器标签 + 首页。
+3. 首次点击若显示「察元AI Office 引擎启动中…」，是插件在拉起后台引擎（BFF sidecar），稍等片刻自动进入；若提示「引擎启动失败（详见 dsh 日志）」，多为插件制品不完整，需要重新打包/安装插件（见第 3 步）。
 
-### Dock 点开后一直「引擎启动中…」？
+## 更多操作细节
 
-插件宿主正在拉起 BFF sidecar（首次或机器繁忙时会多等几十秒，60 秒启动超时）。长时间停留则看 dsh 日志：提示 sidecar bundle missing 说明插件制品没打包完整——回到源仓重跑 npm run package:plugin 再安装；提示「启动失败」同理。
+第 2 步 · 理解插件形态与独立安装版的差异
+
+1. 无 Electron 主进程：引擎是一个纯 Node 后台服务（BFF sidecar），由插件宿主拉起并守护（127.0.0.1 动态端口、/healthz 就绪探测、孤儿进程回收、卸载时停止）。
+2. 数据位置：~/.dsh/storages/chaoffice/（DSH_HOME 可覆盖），与独立安装版的用户目录互不相干。
+3. 无内置账号：该形态固定免登录（无内置账号与云端项目）。
+4. 模型与知识库走察元OS：模型供应商档案与密钥直接读写察元OS 的模型配置（与察元桌面同源）；知识库经 harness 的 /api/chatop-kb 只读接入——在 Office 里切换模型，察元OS 侧同一份配置。
+5. 其余功能（五编辑器、AI 面板、长文写作、打印、自动保存等）与独立安装版一致。
+
+## 更多操作细节
+
+第 3 步 · 自建环境安装插件（可选，面向 harness 自建者）
+
+1. 在 chayuan-office 仓库根执行 npm run package:plugin——一步产出：web 包 ＞ sidecar ＞ 插件 dist ＞ tgz。
+2. harness 形态安装：dsh plugin --profile web add -w /path/to/chayuan-office/dsh-plugin；重启 dsh web 即在界面里看到 Office 应用图标。
+3. 察元桌面（Electron 形态）受管 profile 的等效安装与排障细节见 dsh-plugin/README.md。
 
 ## 更多操作细节
 
 第 4 步 · 部署 web 形态（docker compose 一键）
 
-sh
-
+```sh
 docker compose -f docker/docker-compose.yml up -d
+```
 
 1. 仓库自带 docker/docker-compose.yml（server + Postgres 17 + MinIO 三服务）：
 2. 关键约定：
@@ -94,68 +99,43 @@ docker compose -f docker/docker-compose.yml up -d
     7. 源码开发运行：npm run dev:web 起 web 宿主（5180），五个编辑器各自 dev 服务跑在 5173–5177。
     8. 团队成员浏览器打开 http://<主机>:52587（或开发形态 http://<主机>:5180）即用；远端知识库在 web 形态经同源 /kb/* 只读代理。
 
-## 能力点备忘
+## 更多操作细节
+
+验证
+
+1. dsh 插件形态：重启察元桌面（或 dsh web），Dock 应出现「察元AI Office」图标；点击开窗后窗口内为五编辑器标签宿主。
+2. 插件管理面：curl http://127.0.0.1:52584/api/chaoffice/status（经 dsh web 端口）应返回形如 {"ok":true,"status":"ready","appOrigin":"/chaoffice-app/"}；启动中/失败时 status 相应为 starting/failed。
+3. web 形态：docker compose -f docker/docker-compose.yml up -d 后，docker compose logs server | grep listening 看到监听地址；curl http://127.0.0.1:52587/healthz 应返回 {"ok":true,"ts":…}。若端口不通，用 docker port <容器名> 核对映射目标端口与容器实际 PORT 是否一致。
+4. 浏览器打开服务地址：应看到 Office 网页宿主，能新建 Docs/Sheets/Slides/PDF/Markdown 五类文档（无 HTML 编辑器即为正确形态）。
+
+## 补充答疑
+
+### 插件形态能用 HTML 编辑器吗？
+
+不能。dsh 插件与 web 形态统一只打包五个编辑器（docs/sheets/slides/pdf/markdown），HTML 可视化编辑仅独立安装版提供。
+
+### compose 起服务后 52587 打不开？
+
+先 docker compose ps 看容器是否健康（Postgres 有就绪检查）、docker compose logs server 看监听日志；再核对端口映射与容器实际监听端口（镜像 ENV PORT=52587，compose 映射写法见第 4 步验证第 3 条）；POSTGRES_PASSWORD/MINIO_ROOT_PASSWORD 被环境变量覆盖过时确认三服务取到同一套值。
+
+## 动手前再核对一遍
+
+- dsh 插件形态：察元AI OS 桌面版内置该插件（开箱即用，Dock 直接出现「察元AI Office」图标）；自建 harness dsh web 环境则需要手动安装插件（见第 3 步）。
+- web 形态：一台能跑 docker 的主机（或 Node 22+ 环境与仓库源码）；浏览器访问。
+- 两种形态都只有五个编辑器：Docs / Sheets / Slides / PDF / Markdown（无 HTML 编辑器）。
+
+## 这几条能力放一起看更清楚
 
 - OS 内插件直达
 - 自建 web 服务
 - 多用户访问
 
-## 安装与运行答疑
+## 放回产品盘面看
 
-### 必须配置 API Key 才能用 AI 吗？
+把OS内插件形态放回察元AI Office的整体盘面：web/dsh 形态只有五编辑器（无 HTML），且无购买激活界面，麒麟与 UOS 走 AppImage 加 deb，OS 联动免激活，S3 兼容与阿里云 OSS 作为远程存储，可设默认保存位置。
 
-现阶段是。内置账号登录当前版本未开放，AI 功能需要 BYOK 接入厂商或本机 Ollama 等端点；不配模型时传统办公功能完全可用。
-
-### 老格式 doc 文件打不开？
-
-明确不支持 doc 与 ppt 老格式，先转成 docx 或 pptx 再打开；odt 等 ODF 格式可导入但采取保守策略。
-
-## 一个真实场景
-
-研究生与科研人员的典型用法：PDF 阅读器选区标注加问 AI，Zotero 引文插入与书目生成，扫描件自动 OCR 变可搜索文本。读、引、记、写在一个应用里闭环。注意：Linux 端无系统 OCR 引擎，扫描页不识别。
-
-## 顺带了解
-
-设置总览：十分区设置地图：通用、语言（22 种）、主题、模型、知识库、隐私等，通用区逐项可调。
-
-为什么值得看：设置分区清晰意味着功能可发现，不用背菜单。
-
-## 还有这个能力
-
-全文搜索：文件名与正文双路搜索：索引启动约 4 秒后首轮扫描，上屏后约 0.15 秒出结果，Jev 重排约 0.6 秒（4 秒超时回退），单文件解析 120 秒超时。
-
-## 硬口径两三条
-
-- 六编辑器：docx/xlsx/pptx/真文本 PDF/Markdown/HTML（web/dsh 形态为五编辑器）
-- Docs 端 4576 个领域助手、229 个领域包，全库约 4600 个；表格 102、演示 100、PDF 100、Markdown 100、HTML 130
-
-## 如实说不足
-
-- Linux 无系统 OCR 引擎，扫描页保留位图不识别；OCR 每轮上限 40 页
-- AI 功能依赖已配置的模型（BYOK 或本地端点），未配模型时只有传统办公功能可用
-- web/dsh 形态只有五编辑器（无 HTML），且无购买激活界面
-
-## 定位与家族
-
-察元AI Office（Chayuan AI Office）是一款 Apache-2.0 开源的 AI 办公套件，把 docx、xlsx、pptx、真文本 PDF、Markdown、HTML 六种编辑器装进一个应用，AI 校对以批注锚定原文、修订追踪生成通用修订，Docs 端内置 4576 个领域助手，支持 BYOK 接入 94 家模型供应商与本机 Ollama 等本地端点，覆盖 Windows/macOS/Linux（含麒麟/UOS），本地优先、离线可用。同家族产品：察元AI OS（AI 桌面操作系统）、察元AI文档助手（WPS 加载项）、察元AI 能力广场（aidooo.com）。
-
-## 边界速览
-
-- ODF 导入采取保守策略：脚注、批注、文本框不完整保留，无法证明正确的公式只保留结果值
-
-## 数字口径
-
-- 94 家模型供应商目录（国内 29/国际 34/本地 9/聚合 22）、28 个适配器，4 种可选协议
-- 22 种界面语言
-- chaoffice 命令行 17 个子命令；壳内 MCP 服务端口 52588
-- 知识库五级自动发现，注册表端口 52584，检索上下文预算默认 12000 字
-
-## PDF 能力链
-
-阅读侧有选区标注浮条与便签线程；编辑侧改的是页面内容流本身（保留原字体，不是贴白块遮盖），涂黑生成物理删除的新文件；转换侧 PDF 转 Word、Excel、PPT、Markdown、HTML 全部本机完成，扫描件经系统 OCR 自动识别后可搜索可引用。
-
-安装这步别跳验证：装完先确认核心功能可用，再往下配。
+如果只记一件事：OS 内插件直达。剩下的细节，照步骤节走就行。
 
 ---
 
-本文事实口径以 察元AI Office 1.0.15 2026 年 10 月的官方文档与源码教程为准，功能随版本迭代，以官网 aidooo.com 最新说明为准。
+察元AI Office，开源 AI 办公套件，六编辑器一体，AI 嵌进每个编辑器。官网 aidooo.com，数据截至 2026 年 10 月（版本 1.0.15）。

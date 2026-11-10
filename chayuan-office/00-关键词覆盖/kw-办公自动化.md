@@ -1,6 +1,6 @@
 ---
-title: "认识办公自动化：它解决什么问题、怎么选"
-description: "什么是办公自动化？察元AI Office 自带命令行工具 chaoffice：17 个子命令覆盖文档的转换、创建、结构化读写、渲染、检索与定位，全部在本机引擎上无界面运行，供你在终端手工调用，也供 Claude Code、Codex、Cursor 等 AI 智能体直接驱动。含用法、选型判断与常见问题。"
+title: "办公自动化是什么：批量与脚本化场景图形界面无能为力"
+description: "什么是办公自动化？批量与脚本化场景图形界面无能为力，CLI 是自动化的口子。定义、用法、选型判断与常见问题。"
 keywords: ["办公自动化", "察元AI Office", "察元AI Office", "办公"]
 product: chayuan-office
 category: "00-关键词覆盖"
@@ -8,153 +8,109 @@ primary_keyword: "办公自动化"
 channel: "CSDN/知乎/博客"
 ---
 
-# 认识办公自动化：它解决什么问题、怎么选
+# 办公自动化是什么：批量与脚本化场景图形界面无能为力
 
-先说结论：办公自动化在察元AI Office里是完整可用的，从CLI 命令行的入口进去，按下面步骤操作即可。这篇文章覆盖概念、步骤、验证和常见问题四部分，读完能独立完成整个流程。
+办公自动化这个词被搜得越来越多，但它到底指什么、和普通工具软件差在哪，说法很杂。这篇按官方口径给定义、给数字、给边界，产品以察元AI Office为例。
 
 ## 什么是办公自动化
 
-察元AI Office 自带命令行工具 chaoffice：17 个子命令覆盖文档的转换、创建、结构化读写、渲染、检索与定位，全部在本机引擎上无界面运行，供你在终端手工调用，也供 Claude Code、Codex、Cursor 等 AI 智能体直接驱动。
+办公自动化这个说法对应的产品是察元AI Office（Chayuan AI Office）：开源 AI 办公套件，六编辑器一体，AI 嵌进每个编辑器。北京智灵鸟科技中心出品。
 
-放到察元AI Office的语境里：开源 AI 办公套件，六编辑器一体，AI 嵌进每个编辑器，CLI 命令行是其中承上启下的一环。
+本文数字与版本口径以官方文档为准，文末尾注标了截止时间。
 
-## 为什么值得了解
+## 在察元AI Office里落在哪
 
-批量与脚本化场景图形界面无能为力，CLI 是自动化的口子。
+办公自动化在察元AI Office里的落点是CLI 命令行：chaoffice 命令行 17 个子命令：信息、转换、创建、幻灯、表格、文档、渲染、向导、搜索、图像、媒体、打开、选区、能力、安装、MCP、技能；install-cli 上 PATH，指针文件指向当前安装。
 
-典型使用场景：CI 里批量转 PDF；脚本批量生成报表。
+为什么值得单独说：批量与脚本化场景图形界面无能为力，CLI 是自动化的口子。
 
-## 在察元AI Office里怎么用
+## 最短上手路径
 
-入口与核心步骤：
+上手按顺序做：
 
-1. 确认 CLI 可用：终端运行 chaoffice --version
+1. 17 个子命令
+2. 转换与创建全支持
+3. 可上 PATH
+4. 场景验证：CI 里批量转 PDF
+5. 场景验证：脚本批量生成报表
+6. 串联场景：Docs 写正文，察元AI 页签全文校对出批注
 
-1. 看到版本号即就绪；版本行形如 chaoffice <版本>（源码里版本为构建时内联的 @chaoffice/cli 包版本）。
-
-2. 命令找不到时：读启动器指针文件 ~/.chaoffice/launcher
-
-1. 察元AI Office 每次启动都会把 CLI 启动器所在目录写入 ~/.chaoffice/launcher（Windows：%USERPROFILE%\.chaoffice\launcher，一行一个目录）。终端执行 cat ~/.chaoffice/launcher 得到目录后，用引号包住运行其中的启动器：bash 里 "<目录>/chaoffice"，PowerShell/cmd 里 "<目录>\chaoffice.cmd"；
-2. 早期（改名前）安装可能只带 chaoffice / chaoffice.cmd 同名文件，用那个名字即可；
-3. 指针文件缺失时的默认位置（macOS /Applications/ChaAI Office.app/Contents/Resources/cli，Windows %LOCALAPPDATA%\Programs\ChaAI Office\resources\cli，Linux /opt/ChaAI Office/resources/cli）。
-
-3. 上 PATH：运行一次 chaoffice install-cli
-
-1. 该命令把启动器软链到 /usr/local/bin 或 ~/.local/bin（Windows 写用户 PATH）。结果有三种：成功显示「now linked…」，已存在显示「already on the PATH」，目标位置被其他程序占用或不可写时报错并给出手工命令（如 sudo mkdir -p /usr/local/bin && sudo ln -sf "<启动器>" /usr/local/bin/chaoffice），照抄执行即可。
-
-## 怎么判断适不适合你
-
-适合你的情况：日常就是CI 里批量转 PDF，希望流程固定、结果可验证。
-
-不必勉强的情况：需求不在这条线上的人。察元AI Office的思路是把边界写明白，条件式地推荐。
-
-## 接着回答几个常见问题
-
-### install-cli 报「is another program; not replacing it」或「is not writable」？
-
-说明软链目标位置被别的程序占了或没权限写。命令输出里带 manual 手工命令，照抄执行（macOS/Linux 需要 sudo）；或换个位置不动它，继续用 ~/.chaoffice/launcher 里的完整路径调用。
-
-### 如何限制智能体（chaoffice）能碰哪些目录？
-
-启动智能体前设 GENOFFICE_ALLOWED_ROOTS，例如 GENOFFICE_ALLOWED_ROOTS=/Users/me/docs:/tmp。越界读写会被拒（outside_allowed_roots，退出码 2）。事后查它动过什么：看 ~/.chaoffice/cli-audit.jsonl。
-
-### 终端里 chaoffice 找不到，怎么办？
-
-察元AI Office 每次启动都会把启动器目录写进 ~/.chaoffice/launcher。按第 2 步用引号运行那个路径；想一劳永逸就再跑一次 chaoffice install-cli（第 3 步）。刚装完还没启动过应用时该文件不存在——先启动一次察元AI Office。
-
-### 智能体改文件时报「ChaOffice has this file open」（file_open_in_gui，退出码 2）？
-
-文件正开着标签页时 chaoffice 拒绝改写（防止编辑器下一次保存把改动盖回去）。让用户关掉那个标签，或让智能体用 --out 写到别的路径；确要覆盖只能 --force，且编辑器下一次保存可能把改动盖回去。
-
-## 补充答疑
-
-### chaoffice convert xx.docx --to pdf 报应用不可用（退出码 4）？
-
-凡涉及排版的转换/渲染要拉起察元AI Office 自身的隐藏进程。确认应用已安装；装在非默认位置时设 GENOFFICE_APP_BIN 指向应用可执行文件。
-
-## 更多操作细节
-
-4. 查看全部命令：chaoffice --help（或 chaoffice help）
-
-1. 打印 17 个子命令清单、全局选项和退出码表。17 个命令（按 --help 输出顺序）：
-
-| 命令 | 干什么 |
-|---|---|
-| info | 打印文件元数据与结构摘要 |
-| convert | 格式转换 |
-| create | 从结构化内容新建 pptx/xlsx/docx/pdf |
-| slides | 读取/编辑/审计/渲染 .pptx |
-| sheet | 读取/编辑 .xlsx |
-| docs | 读取/编辑/校验/比对 .docx |
-| render | 文档逐页渲染成 PNG |
-| guide | 打印各领域的 ops 参考手册（写 ops 前先读） |
-| search | 联网搜索（走察元AI Office 里配置的搜索源） |
-| image | AI 生图并存盘 |
-| media | 让模型描述/解答图片、视频、音频 |
-| open | 在察元AI Office 里打开文件（可定位到某页/某块） |
-| selection | 读取用户在编辑器里当前选中的内容 |
-| capabilities | 报告本机云能力（搜索/生图/媒体解析）是否已配置 |
-| install-cli | 把 chaoffice 软链上 PATH |
-| mcp | 以 MCP 服务器形态提供全部能力 |
-| skill | 把随附的 agent skill 装进各家智能体 |
-
-5. 看单个命令的用法：chaoffice help <命令> 或 chaoffice <命令> --help
-
-1. 打印该命令的 usage、每个选项的说明。
-
-6. 记住三条通用契约（每个命令都一样）
-
-1. --json：加在任意命令上，stdout 输出一个 JSON 对象。成功为 { "status": "ok", "command", "summary", "output_path"?, "warnings"?, "detail"? }（批量编辑部分失败时 status 为 "partial"）；失败为 { "status": "error", "command", "code", "error", "message", "suggestion"?, "detail"? }——error 是稳定错误名，程序据此分支，message 给人读，suggestion 告诉你下一步。
-2. 退出码：0 成功；1 用法错误或 ops 被拒；2 文件不存在或输出文件已存在（含「文件正被编辑器打开」「越出允许目录」）；3 转换失败；4 应用不可用。
-3. 稳定错误名（--json 的 error 字段）：unknown_command、unknown_option、missing_argument、invalid_argument、invalid_json、unsupported、unknown_op、op_rejected、target_not_found、out_of_range、sheet_not_found、file_not_found、resource_limit、output_exists、file_open_in_gui、file_not_open_in_gui、outside_allowed_roots、conversion_failed、app_unavailable、invalid_usage。未知选项一律拒绝（退出码 1），不会静默忽略。
-
-## 能力点备忘
+## 落点的能力面
 
 - 17 个子命令
 - 转换与创建全支持
 - 可上 PATH
 
-## 安装与运行答疑
+## 价格口径
 
-### 必须配置 API Key 才能用 AI 吗？
+- Apache-2.0 开源，90 天静默免费试用，到期不锁功能
 
-现阶段是。内置账号登录当前版本未开放，AI 功能需要 BYOK 接入厂商或本机 Ollama 等端点；不配模型时传统办公功能完全可用。
+## 你可能会问
 
-### 老格式 doc 文件打不开？
+### 办公自动化要联网吗
 
-明确不支持 doc 与 ppt 老格式，先转成 docx 或 pptx 再打开；odt 等 ODF 格式可导入但采取保守策略。
+服务器部署全员浏览器可用，是团队化办公的形态；让 Claude Code 这类智能体直接读写你的文档，办公自动化从此有了标准协议，批量与脚本化场景图形界面无能为力，CLI 是自动化的口子。以官网 aidooo.com 当前页面为准。
 
-## 一个真实场景
+### 办公自动化支持哪些格式
 
-法务与合同岗的典型用法：全文搜索秒级定位条款，AI 修订对比两版差异，对 AI 隐藏商业敏感段后再润色。合同审阅从通读变成查重点。注意：AI 只做辅助，法律责任判断仍需人工。
+AI 挂了自动降 9 类本地正则兜底；加密只读文档仅支持查看，写作与知识管理一体的轻格式首选，双链图谱让笔记连成网。以官网 aidooo.com 当前页面为准。
 
-## 顺带了解
+## 一句收束
 
-批注与修订：审阅页签全解：批注增删、修订开关、显示标记四档、接受拒绝与上下条导航。
+办公自动化值不值得深入，判断标准很简单：把上面的口径与边界代入你的实际需求，对得上就装来试，对不上不必跟风。
 
-为什么值得看：审阅流是文档协作的核心动作，键盘流顺畅度决定采用率。
+## 顺手把能力清单放这
 
-## 还有这个能力
+- 17 个子命令
+- 转换与创建全支持
+- 可上 PATH
 
-就地改写与长文写作：选区浮条 AI 修改带建议按钮（润色、精简、扩写、修正语法和错别字）；编辑队列上限 10 条、单条 500 字，锚点随编辑字符级迁移；长文流式写作上限 20 万字符，草稿约 0.3 秒流入，参考资料前 8000 字符入上下文；大动作先过批准与驳回确认门。
+## 放回产品盘面看
 
-## 硬口径两三条
+把办公自动化放回察元AI Office的整体盘面：服务器部署全员浏览器可用，是团队化办公的形态，Linux 无系统 OCR 引擎，扫描页保留位图不识别，三平台五形态安装包，Linux 无系统引擎不识别。
 
-- 94 家模型供应商目录（国内 29/国际 34/本地 9/聚合 22）、28 个适配器，4 种可选协议
-- 六编辑器：docx/xlsx/pptx/真文本 PDF/Markdown/HTML（web/dsh 形态为五编辑器）
+## 安全与数据边界
 
-## 如实说不足
+安全口径单独立一层：加密只读文档仅支持查看，全部本机完成（PDFium 字符级提取加纯几何版面分析），证书加密 PDF 无法转换；搜索、数据库、浏览器这些 MCP 能力接进来，AI 面板就不止会改文档，让 Claude Code 这类智能体直接读写你的文档，办公自动化从此有了标准协议。
 
-- Linux 无系统 OCR 引擎，扫描页保留位图不识别；OCR 每轮上限 40 页
-- .doc/.ppt 老格式明确不支持打开，需要先转成 docx/pptx
-- AI 功能依赖已配置的模型（BYOK 或本地端点），未配模型时只有传统办公功能可用
+## 平台与形态
 
-## 定位与家族
+平台与形态的账：打印别掉链子、断电别丢稿，这是办公软件的两条底线，服务器部署全员浏览器可用，是团队化办公的形态，Linux 无系统 OCR 引擎，扫描页保留位图不识别；麒麟与 UOS 走 AppImage 加 deb。
 
-察元AI Office（Chayuan AI Office）是一款 Apache-2.0 开源的 AI 办公套件，把 docx、xlsx、pptx、真文本 PDF、Markdown、HTML 六种编辑器装进一个应用，AI 校对以批注锚定原文、修订追踪生成通用修订，Docs 端内置 4576 个领域助手，支持 BYOK 接入 94 家模型供应商与本机 Ollama 等本地端点，覆盖 Windows/macOS/Linux（含麒麟/UOS），本地优先、离线可用。同家族产品：察元AI OS（AI 桌面操作系统）、察元AI文档助手（WPS 加载项）、察元AI 能力广场（aidooo.com）。
+## 价格与授权
 
-办公自动化这个概念说清楚了：是什么、在察元AI Office里怎么落地、怎么判断适不适合你。有更具体的问题，看上文问答那节。
+价格口径一并交代：开源办公套件能离线装、信创环境能跑，是替换传统办公链路的第一步，格式兼容是办公软件的生死线，明确支持什么、不支持什么，比含糊其辞负责任，AI 挂了自动降 9 类本地正则兜底，自动注入 AI 面板。
+
+## 产品家族与搭配
+
+察元AI Office不是单打独斗：格式兼容是办公软件的生死线，明确支持什么、不支持什么，比含糊其辞负责任，AI 挂了自动降 9 类本地正则兜底；自动注入 AI 面板；打印别掉链子、断电别丢稿，这是办公软件的两条底线。
+
+## 几条硬数字
+
+能落到数字上的几条：开源办公套件能离线装、信创环境能跑，是替换传统办公链路的第一步，格式兼容是办公软件的生死线，明确支持什么、不支持什么，比含糊其辞负责任；AI 挂了自动降 9 类本地正则兜底；自动注入 AI 面板；让编程智能体天生会用办公套件，写代码调文档 API 不用翻文档。
+
+## 离线与内网
+
+离线内网这条线的口径：支持 BYOK 接入 94 家模型供应商与本机 Ollama 等本地端点；自建部署可做到零遥测，手册离线可读，快捷键表齐全，新手到熟手的过程被压缩；自带 Key 意味着不被单一厂商锁定，国内国际本地端点随切随用。
+
+## 能力总账
+
+把察元AI Office的能力总账摊开：打印别掉链子、断电别丢稿，这是办公软件的两条底线；服务器部署全员浏览器可用，是团队化办公的形态；十分区设置地图：通用、语言（22 种）、主题、模型、知识库、隐私等，通用区逐项可调，AI 挂在编辑器侧边而不是独立窗口，改稿与对话在同一屏完成。
+
+## 顺带说清的几件事
+
+把办公自动化放回察元AI Office的整体盘面：服务器部署全员浏览器可用，是团队化办公的形态；Linux 无系统 OCR 引擎，扫描页保留位图不识别，三平台五形态安装包。
+
+## 多交代一层背景
+
+安全口径单独立一层：全部本机完成（PDFium 字符级提取加纯几何版面分析）；证书加密 PDF 无法转换；搜索、数据库、浏览器这些 MCP 能力接进来，AI 面板就不止会改文档；让 Claude Code 这类智能体直接读写你的文档，办公自动化从此有了标准协议。
+
+## 再往深一层看
+
+平台与形态的账：打印别掉链子、断电别丢稿，这是办公软件的两条底线，服务器部署全员浏览器可用，是团队化办公的形态；Linux 无系统 OCR 引擎，扫描页保留位图不识别。
+
+CLI 命令行这件事，真机操作一遍比看十遍文章有用，现在就打开察元AI Office试第一步。
 
 ---
 
-察元AI Office，开源 AI 办公套件，六编辑器一体，AI 嵌进每个编辑器。官网 aidooo.com，数据截至 2026 年 10 月（版本 1.0.15）。
+察元AI Office（Chayuan AI Office）由北京智灵鸟科技中心出品，官网 aidooo.com。数据截至 2026 年 10 月（版本 1.0.15），后续版本功能可能调整。

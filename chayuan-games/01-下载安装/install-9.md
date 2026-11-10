@@ -1,5 +1,5 @@
 ---
-title: "竞技场接入国际厂商：OpenAI、Claude、Gemini配置"
+title: "竞技场接入国际厂商：三家配置要点"
 description: "竞技场接入国际厂商教程：OpenAI、Claude、Gemini 三家 Key 的获取来源、配置步骤与验证方法，含 Claude 原生协议自动转换的机制说明。"
 keywords: ["竞技场接入国际厂商", "察元竞技场", "OpenAI配置", "Claude配置", "Gemini配置"]
 product: chayuan-games
@@ -8,7 +8,7 @@ primary_keyword: "竞技场接入国际厂商"
 channel: "CSDN/知乎/博客"
 ---
 
-# 竞技场接入国际厂商：OpenAI、Claude、Gemini配置
+# 竞技场接入国际厂商：三家配置要点
 
 手里只有 OpenAI、Claude、Gemini 的 Key，能不能上桌？能，而且操作上与国内厂商没有本质差别。这篇讲竞技场接入国际厂商的三件事：三家各自去哪拿 Key、配置动作怎么做、Claude 的协议自动转换是怎么回事。网络与合规的部分也提前说清，不藏着。
 

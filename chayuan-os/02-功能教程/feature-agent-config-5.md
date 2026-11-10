@@ -1,6 +1,6 @@
 ---
-title: "模型接入上手指南：照着做十分钟跑通"
-description: "模型接入完整教程：给智能体接模型有两条路：自动——在设置里一键把模型代理地址 + 模型名写进五家（Harness / Claude Code / Codex ……步骤含真实按钮文案与验证方法。"
+title: "模型接入：新装智能体接上本地模型"
+description: "模型接入完整教程：自动路省心，手动路适合有特殊偏好的玩家，两条路都通向同一个代理。步骤含真实按钮文案与验证方法。"
 keywords: ["模型接入", "察元AI OS", "智能体配置", "Codex配置"]
 product: chayuan-os
 category: "02-功能教程"
@@ -8,101 +8,42 @@ primary_keyword: "模型接入"
 channel: "CSDN/知乎/博客"
 ---
 
-# 模型接入上手指南：照着做十分钟跑通
+# 模型接入：新装智能体接上本地模型
 
-模型接入这个话题我被问过三次以上，每次都要重新讲一遍。与其反复口述，不如写成一篇：从配置智能体的入口讲到验证，中间的分支也一并说清，基于察元AI OS。
+先说这篇能帮你干什么：读完能在察元AI OS里独立完成模型接入，路径是新装智能体接上本地模型。步骤里的每个「」按钮都是界面原文。
 
-## 先对齐一下概念
+## 一句话说清定位
 
-给智能体接模型有两条路：自动——在设置里一键把模型代理地址 + 模型名写进五家；手动——直接编辑各家自己的配置文件直连模型代理（http://127.0.0.1:52581），写入后智能体内的 /model 面板能看到并切换这些模型。
+模型接入能做的事拆开就这几件：写入即生效可切换；各家配置文件面文档化；五家自动写入带备份。对应的界面入口是配置智能体
 
-自动路省心，手动路适合有特殊偏好的玩家，两条路都通向同一个代理。
+先把定位立住，再看步骤。
 
-按真实界面写，按钮文案原样引用。
-
-## 先确认这些再开始
+## 开工前检查这几样
 
 - 模型代理在运行（固定 http://127.0.0.1:52581，一号一口写死）：设置 ＞ 模型 ＞ 「模型代理设置」页顶部状态点为绿色「代理运行中」。
 - 代理里有可用模型：本地已装模型（引用串 local/<模型名>）或已加入代理的厂商路由（<厂商id>/<模型名>）。可 curl http://127.0.0.1:52581/v1/models 查看清单。
 - 手动路线只要求目标智能体 CLI 已安装；文件直接改，不依赖桌面形态。
 - 模型引用串以代理清单为准：本地模型形如 local/qwen3.5-4b-q4km，厂商模型形如 deepseek/deepseek-chat。
 
-## 操作步骤详解
+## 配置智能体：从入口到完成
 
-路线 A：自动一键写入（推荐）
-
-三个入口（向导第 3 步 / 设置 ＞ 默认模型 / 模型代理面板「统一应用…」）、应用对话框逐项 UI、写入内容、备份与回退，全部见对应教程 把模型应用到智能体——自动与手动写的是同一套键，本篇不重复展开。以下只讲手动面。
-
-路线 B：手动改各家配置文件
-
-先记住三条公共约定：
-
-偷懒办法：设置 ＞ 模型 ＞ 模型代理设置 ＞ 被代理模型清单里本地模型行点「帮助」，弹出的接入指南含各家可复制的配置片段——片段与自动「应用」写入的内容由同一生成函数产出，抄它不会错。
-
-1. 地址：OpenAI 兼容对话面基址 http://127.0.0.1:52581。Codex / OpenCode / OpenClaw 的地址要带 /v1 后缀；Claude Code 的 ANTHROPIC_BASE_URL 不带 /v1（它自己拼 /v1/messages，代理同端口提供换算面）。
-2. 免 key：代理对本机调用不验证密钥（任意 Bearer 或不带都放行，审计记 anonymous）。真实厂商密钥永远不需要写进这些文件。
-3. 哨兵凭证：Claude Code 和 OpenClaw 要求「有凭证」的形态才肯启动/请求——免 key 接代理时写哨兵值 chatop-local（代理认它，不是真密钥）。
-
-Codex（~/.codex/config.toml）
-
-写入形态（自动应用写的就是这个样子，可直接抄）：
-
-toml
-
-model = "local/qwen3.5-4b-q4km"
-
-model_provider = "chatop-proxy"
-
-[model_providers.chatop-proxy]
-
-name = "chatop-proxy"
-
-base_url = "http://127.0.0.1:52581/v1"
-
-wire_api = "responses"
-
-supports_websockets = false
-
-stream_idle_timeout_ms = 600000
-
-要点与坑（均为真机实锤）：
-
-验证：终端执行 codex debug models——目录可载且只剩注入模型即通过；端到端试一发 codex exec --skip-git-repo-check "只回复两个字：成功"。
-
-1. 根表键 model / model_provider / model_catalog_json 必须写在文件最顶部（第一个 [表] 头之前、所有 # BEGIN chatop … 托管块之外）。写进某张表内或托管块里会被解析进别人的表/被块重写吞掉，codex 恒回 openai 默认。
-2. Codex ≥0.154 只认 [model_providers.<id>] 表；顶层 base_url / api_key 被静默忽略。wire_api 只能写 "responses"（"chat" 已被移除，载入即报错）。
-3. 免 key 可省 experimental_bearer_token；代理不校验。
-4. /model 可见性：codex 的模型选择器不读 [model_providers]，只认 model_catalog_json 指向的 JSON 目录，且该目录整体替换内置 ChatGPT 列表。目录条目有一整套必填字段（缺任一即拒载目录），手写极易翻车——推荐让自动应用生成（落在 ~/.codex/model-catalogs/chatop.json，config.toml 根表多出 model_catalog_json = "<该文件路径>"），手动场景直接复用这个已生成的文件。
-5. 目录是启动时加载：改完配置必须重开 codex 会话，/model 才刷新。
-6. 接厂商模型不要直连厂商地址：codex 的工具形态（namespace/custom）第三方 Responses 面一律 400，厂商模型必须经代理（模型名用 <厂商id>/<模型名> 命名空间；自动应用的厂商直连也会被强制改道代理）。
-
-Claude Code（~/.claude/settings.json）
+Claude Code（`~/.claude/settings.json`）
 
 写入 env 段（合并进现有 JSON，其他键保留）：
 
-json
-
+```json
 {
-
 "env": {
-
 "ANTHROPIC_BASE_URL": "http://127.0.0.1:52581",
-
 "ANTHROPIC_AUTH_TOKEN": "chatop-local",
-
 "ANTHROPIC_MODEL": "local/qwen3.5-4b-q4km",
-
 "ANTHROPIC_DEFAULT_SONNET_MODEL": "local/qwen3.5-4b-q4km",
-
 "ANTHROPIC_DEFAULT_OPUS_MODEL": "<注入清单里的第二个模型>",
-
 "ANTHROPIC_DEFAULT_HAIKU_MODEL": "<注入清单里的第三个模型>",
-
 "ANTHROPIC_SMALL_FAST_MODEL": "<注入清单里的第三个模型>"
-
 }
-
 }
+```
 
 要点与坑：
 
@@ -112,103 +53,35 @@ json
 2. Claude Code 没有自定义模型目录：/model 面板固定 Opus / Sonnet / Haiku 三档 + custom 手输。注入靠三档分槽：sonnet = 默认模型、opus = 清单第二个、haiku = 清单第三个（只有一个模型时三档写同一个值）。/model 里切档 = 在注入模型间切换。
 3. 手动多模型就按「清单按序分进三档」的规则写上面三个 ANTHROPIC_DEFAULT_*_MODEL 键。
 
-OpenCode（~/.config/opencode/opencode.json）
-
-写入形态（注意是 XDG 全局配置；旧路径 ~/.opencode/opencode.json 是数据目录，CLI 不读）：
-
-json
-
-{
-
-"$schema": "https://opencode.ai/config.json",
-
-"model": "chatop-proxy/local/qwen3.5-4b-q4km",
-
-"provider": {
-
-"chatop-proxy": {
-
-"npm": "@ai-sdk/openai-compatible",
-
-"name": "Chayuan local model service",
-
-"options": { "baseURL": "http://127.0.0.1:52581/v1" },
-
-"models": {
-
-"local/qwen3.5-4b-q4km": { "name": "local/qwen3.5-4b-q4km" },
-
-"deepseek/deepseek-chat": { "name": "deepseek/deepseek-chat" }
-
-}
-
-}
-
-}
-
-}
-
-要点与坑：
-
-验证：终端执行 opencode models——列出 chatop-proxy 下注入模型即通过；CLI 内模型切换面板可见可切。
-
-1. 顶层 baseURL / apiKey 被忽略——地址（和密钥，免 key 时可省）必须放 provider.<id>.options。
-2. 顶层 model 必须是 <providerId>/<模型名> 带斜杠；写裸模型名会被当成 provider 名，报 ProviderModelNotFoundError。
-3. /model 可见性：provider.<id>.models 映射的键就是 CLI 内模型切换器显示的模型清单；不写 models 键 = 该 provider 下无模型可选，且默认模型必须在映射里（不在则会话报 Model not found）。
-4. 历史残留排查：旧版本曾把 chatop-local provider 的 npm 包键写成 npmjs（非法 schema，模型能列、请求期不可用）——手改时如见到 npmjs 键改成 npm。
-5. 本地模型冷加载：引擎被 15 分钟空闲自动卸载后第一个请求会挂住数分钟且无反馈，先 curl 代理预热再判断是不是配置问题。
-
-OpenClaw（~/.openclaw/openclaw.json）
+OpenClaw（`~/.openclaw/openclaw.json`）
 
 写入形态（自定义 provider 走 models.providers.<id>）：
 
-json
-
+```json
 {
-
 "models": {
-
 "providers": {
-
 "chatop-proxy": {
-
 "baseUrl": "http://127.0.0.1:52581/v1",
-
 "apiKey": "chatop-local",
-
 "api": "openai-completions",
-
 "models": [
-
 {
-
 "id": "local/qwen3.5-4b-q4km",
-
 "name": "local/qwen3.5-4b-q4km",
-
 "reasoning": false,
-
 "input": ["text"],
-
 "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
-
 "contextWindow": 131072,
-
 "maxTokens": 8192
-
 }
-
 ]
-
 }
-
 }
-
 },
-
 "agents": { "defaults": { "model": { "primary": "chatop-proxy/local/qwen3.5-4b-q4km" } } }
-
 }
+```
 
 要点与坑：
 
@@ -219,10 +92,6 @@ json
 3. 该文件是严格 JSON：不能加注释，写坏 JSON 会让自动应用直接报错拒写（不覆写你的文件），手改同样要保持合法。
 4. OpenClaw 2026.9+ 已删除顶层 --model 旗标——别在启动参数里带模型，模型选择回归其自身 /model 面板，可见性只能靠这份配置文件。
 5. 默认模型 = agents.defaults.model.primary，值形如 <providerId>/<模型名>；多模型往 models[] 数组里追加条目即可在面板切换。
-
-Harness（无手动配置文件）
-
-DeepSeek Harness 不走用户可改的配置文件：自动应用会把代理地址 + 模型清单写进它的模型服务配置（provider 名显示 local (proxy)），之后在 Harness 会话窗的模型下拉里直接选用。手动路线无需操作，日常切换模型见对应教程（Harness 主对话窗与选模型）。
 
 ## 收尾检查
 
@@ -235,39 +104,55 @@ DeepSeek Harness 不走用户可改的配置文件：自动应用会把代理地
 5. OpenClaw：openclaw models list 出现注入行与 default 标记。
 6. 手动写完又想回到「托管」状态：直接跑一次 M9 的自动应用即可——它幂等重写自家托管块（Codex 的 # BEGIN chatop provider 块、OpenClaw 的 provider 段等），文件里你写在托管块之外的自定义内容会保留。
 
-## 谁需要这个功能
+## 什么情况下用得上
 
-手动微调某家的模型槽位，想让已装的 CLI 智能体（Claude Code / Codex / OpenCode / OpenClaw）用察元的本地模型或厂商模型，新装智能体接上本地模型，应用成功后在智能体里 /model 看不到模型，需要核对配置文件内容。
+手动微调某家的模型槽位；想让已装的 CLI 智能体（Claude Code / Codex / OpenCode / OpenClaw）用察元的本地模型或厂商模型；新装智能体接上本地模型；应用成功后在智能体里 /model 看不到模型，需要核对配置文件内容。
 
 用户常搜的问法：智能体怎么配置模型？Codex 的 config.toml 要写什么；能不能手动把代理地址写进 Claude Code / OpenCode。
 
-## 它的局限也要说清楚
+## 边界先摆桌面上
 
-功能归功能，这几个边界先摆清楚：
+用之前要认的账：
 
-- 全量安装包含模型权重约 4.7GB，轻量包约 1GB，完整离线能力需要额外下载权重
+- 暂不支持龙芯平台；本地不提供视频生成（视频生成走云端路由）
 - 8GB 内存设备建议一次只加载一个对话模型，复杂任务受限
+- 云端厂商模型调用需自备 API Key
+- Docker 云桌面、跨终端互联这类进阶形态需要一点动手能力
 
-## 常见问题
+## 你可能会问
 
-### 手动写的配置，被「应用」覆盖了？
+### 不想背这些键，有现成片段可抄吗？
 
-自动应用是合并写入：只重写模型相关字段和自家的 # BEGIN chatop 托管块，块外的自定义内容保留。若你把自定义键写进了托管块内，块整体重写时会丢——挪到块外。
+设置 ＞ 模型 ＞ 模型代理设置 ＞ 被代理模型清单 ＞ 本地模型行「帮助」，接入指南里每家一段可复制片段，与自动「应用」写入内容同源（同一生成函数），照抄不会与托管写入漂移。
 
-### OpenCode 报 ProviderModelNotFoundError 或 Model not found？
+## 顺手把能力清单放这
 
-两个必查点：顶层 model 是否带 <providerId>/ 斜杠前缀；默认模型是否也出现在 provider.<id>.models 映射里（清单为空或缺默认模型都会报）。
+- 五家自动写入带备份
+- 各家配置文件面文档化
+- 写入即生效可切换
 
-### Codex 手动写完 provider，/model 里还是内置 ChatGPT 模型列表？
+## 放回产品盘面看
 
-/model 面板只认 model_catalog_json 目录（整体替换内置列表），不读 [model_providers]。用 M9 自动应用一次让它生成 ~/.codex/model-catalogs/chatop.json，再重开 codex 会话（目录启动时加载）。
+把模型接入放回察元AI OS的整体盘面：想换默认模型随时可以在设置里重跑向导，不用重装；本地模型解决有无问题，复杂任务还是需要云端旗舰模型；断网时云端模型不可用，可设自动回落本地，模型库按本机内存预算分层推荐（能跑/勉强/跑不动三档标记）。
 
-### Claude Code 一启动就报 403 / 让我登录？
+## 安全与数据边界
 
-ANTHROPIC_BASE_URL 设了但 ANTHROPIC_AUTH_TOKEN 没落哨兵 chatop-local——启动登录检查会绕过你的 BASE_URL 直连官方 403。补上哨兵值即可。
+安全口径单独立一层：常用模型可钉住常驻；一台 16GB 内存的机器跑两个 8B 模型必然卡死；显式的加载卸载加自动卸载策略是本地模型的生存之道；自动卸载会释放常驻模型，重度使用记得钉住。
 
-整体用下来，配置智能体的流程是清楚的：入口集中、步骤有反馈、做完有验证。第一次照着走一遍，后面基本就是肌肉记忆了。卡住就回看常见问题那一节。
+## 平台与形态
+
+平台与形态的账：很多人卡在第一步不是不会用 AI，是被各家智能体各配一遍模型劝退的；概念页解释模型代理机制，默认对话模型选择，重跑入口在设置＞模型＞设置向导。
+
+## 价格与授权
+
+价格口径一并交代：共享同一个模型代理；设置常驻任务新建：写指令、选模型或智能体（或直跑）、配工作区知识库与联网开关；购买 OS 授权后，同机察元AI Office 自动免激活，免费下载使用，购买只停提醒、不锁功能。
+
+## 产品家族与搭配
+
+察元AI OS不是单打独斗：单个模型有偏好也有盲区；让几个模型围绕同一命题各自作答或接力深化，模型直跑宠无角色卡也能入群；本地模型多宠同发会排队（本地档 4 路并发上限）。
+
+配置智能体这件事，真机操作一遍比看十遍文章有用，现在就打开察元AI OS试第一步。
 
 ---
 
-本文事实口径以 察元AI OS 3.1.15 2026 年 10 月的官方文档与源码教程为准，功能随版本迭代，以官网 aidooo.com 最新说明为准。
+察元AI OS（Chayuan AI OS）由北京智灵鸟科技中心出品，官网 aidooo.com。数据截至 2026 年 10 月（版本 3.1.15），后续版本功能可能调整。

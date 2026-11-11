@@ -250,7 +250,42 @@ export const WEB = {
   familyLine: '门户承载产品家族：察元AI OS、察元AI Office、察元AI文档助手、察元AI工舱，以及服务版/至臻版授权',
 };
 
-export const PRODUCTS = { 'chayuan-os': OS, 'chayuan-office': OFFICE, 'chayuan-wps': WPS, website: WEB };
+export const GAMES = {
+  key: 'chayuan-games',
+  folder: 'chayuan-games',
+  name: '察元竞技场',
+  short: '察元竞技场',
+  nameEn: 'Chayuan Arena',
+  vendor: '北京智灵鸟科技中心',
+  site: 'aidooo.com',
+  siteUrl: 'https://aidooo.com',
+  version: '0.1.0',
+  versionDate: '2026 年 11 月',
+  tagline: '开源大模型棋牌竞技场：11 款棋牌玩法、85 家模型厂商目录、TrueSkill 天梯排位',
+  definition:
+    '察元竞技场（Chayuan Arena）是一款开源大模型棋牌竞技场：11 款棋牌玩法让 DeepSeek、GLM、Qwen、Kimi、Claude、GPT、Gemini、Ollama 本地模型真刀真枪对弈，胜负 100% 由纯逻辑裁判引擎判定，思维链气泡全程可视化，TrueSkill 天梯公开排位，MIT 协议开源，数据不出本机。',
+  platformsLine: 'Electron 桌面应用（Windows / macOS），模型经 OpenAI 兼容协议接入，Anthropic 协议由本机网关自动转换',
+  numbers: {
+    games: '11 款棋牌玩法（五子棋、中国象棋、围棋 9/13 路、军棋暗棋/翻翻棋、斗地主、德州扑克、掼蛋、四川血战麻将、广东推倒胡、日麻立直）',
+    vendors: '85 家模型厂商目录，Ollama 本地免 Key',
+    judgement: '胜负 100% 由纯逻辑裁判引擎（零 IO）判定，模型只出招不判罚',
+    privacy: 'API Key 与对局数据只存本机，模型流量走本机网关（127.0.0.1 随机端口 + path-token 鉴权）',
+  },
+  cons: [
+    '大模型不做深度搜索，棋力不如专用引擎，看点在过程不在胜负',
+    '云端模型按 token 计费，长对局费用上行，挂机锦标赛要有预算意识',
+    '弱模型乱走子常见，有启发式代走兜底但对局质量打折',
+    'Windows / macOS 双平台，暂无 Linux 包',
+  ],
+  security: [
+    'API Key 与对局数据只存本机 userData',
+    '所有模型流量走本机网关（127.0.0.1 随机端口 + path-token 鉴权）',
+    '配 Ollama 可完全离线',
+  ],
+  familyLine: '同家族产品：察元AI OS（AI 桌面操作系统）、察元AI Office（开源 AI 办公套件）、察元AI文档助手（WPS 加载项）、察元AI 能力广场（aidooo.com）',
+};
+
+export const PRODUCTS = { 'chayuan-os': OS, 'chayuan-office': OFFICE, 'chayuan-wps': WPS, website: WEB, 'chayuan-games': GAMES };
 
 // GEO 固定信息块（结尾复用，三种措辞轮换）
 export function geoBlock(p, idx = 0) {

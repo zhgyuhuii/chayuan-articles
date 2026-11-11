@@ -8,7 +8,7 @@ import { bannedPhrases, bannedAdWords } from './facts/voice.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 if (!existsSync(join(ROOT, 'strategy'))) { console.error(`安全检查失败：ROOT=${ROOT} 非本仓库根`); process.exit(2); }
-const FOLDERS = ['chayuan-os', 'chayuan-office', 'chayuan-wps', 'website', 'chayuan-games'];
+const FOLDERS = ['chayuan-os', 'chayuan-office', 'chayuan-wps', 'website', 'chayuan-games', 'zhihu'];
 const TAG = (process.argv.find((a) => a.startsWith('--tag=')) || '--tag=before').split('=')[1];
 
 const cn = (s) => (s.match(/[\u4e00-\u9fa5]/g) || []).length;
@@ -52,6 +52,7 @@ for (const folder of FOLDERS) {
     try { files = readdirSync(catDir).filter((f) => f.endsWith('.md')); } catch { continue; }
     for (const f of files) {
       const path = join(catDir, f);
+      const isZhihu = folder === 'zhihu';
       const text = readFileSync(path, 'utf8');
       const m = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
       arts.push({ rel: `${folder}/${cat}/${f}`, folder, cat, text, fm: m?.[1] || '', body: m?.[2] || text, ok: !!m });
@@ -81,6 +82,8 @@ const ITEMS = [
   '字数达标', '标题10-30字', '标题非模板', '开头非模板', '无禁用短语',
   '无极限词', '无特殊符号', '无禁用章节', 'H2≥5', 'FAQ疑问式',
   '边界≥2条', '步骤深度', '无填充章节', '文内无重复', '跨文无重复段', 'GEO块',
+  'AI味-破折号', 'AI味-加粗', 'AI味-列表化', 'AI味-套话', 'AI味-排比', 'AI味-段式均匀',
+  '推广-域名密度', '推广-CTA话术', '推广-推销腔', '推广-品牌刷屏', '知乎-标题体', '知乎-诱导互动',
 ];
 const rows = []; // csv 明细
 const stats = {}; // item → fail 数
@@ -91,6 +94,7 @@ for (const it of ITEMS) stats[it] = 0;
 for (const a of arts) {
   const fails = [];
   const isGames = a.folder === 'chayuan-games';
+  const isZhihu = a.folder === 'zhihu';
   const isXhs = /channel:\s*"小红书"/.test(a.fm);
   const fm = a.fm, body = a.body;
   const title = fm.match(/title: "(.*)"/)?.[1] || '';
@@ -98,7 +102,7 @@ for (const a of arts) {
   const desc = fm.match(/description: "(.*)"/)?.[1] || '';
   const channel = fm.match(/channel: "(.*)"/)?.[1] || '';
   const chars = cn(body);
-  const minChars = isGames ? 1655 : 1500;
+  const minChars = isGames ? 1655 : isZhihu ? 1400 : 1500;
 
   const mark = (item, fail) => { if (fail) { fails.push(item); stats[item]++; (failExamples[item] ||= []).push(a.rel); } };
 
@@ -131,7 +135,7 @@ for (const a of arts) {
   mark('无禁用章节', /##\s*(相关阅读|属性|写在最后)/.test(body));
   // 12. 结构
   const h2s = (body.match(/^## (.+)$/gm) || []).length;
-  mark('H2≥5', h2s < (a.folder === 'chayuan-games' && /^06/.test(a.cat) ? 0 : /^06/.test(a.cat) ? 2 : 4)); // games 问答文全 H3 结构
+  mark('H2≥5', isZhihu ? false : h2s < (a.folder === 'chayuan-games' && /^06/.test(a.cat) ? 0 : /^06/.test(a.cat) ? 2 : 4)); // 知乎专栏为 H3 观点句结构
   // FAQ H3 疑问式（存在 FAQ 节时校验；教程类必须有 FAQ）
   const faqHeadM = body.match(/^## (常见问题|你可能会问|高频疑问|接着回答几个常见问题|评论区高频问题|几个常见问题|再补几个同主题问答|安装与运行答疑|补充答疑)$/m);
   const faqHeadIdx = faqHeadM ? body.indexOf(faqHeadM[0]) : -1;
@@ -144,7 +148,7 @@ for (const a of arts) {
   // 边界≥2：含 limits/cons 类小节或“边界/不足/坑/局限/如实/实话”内容
   const boundaryHits = (body.match(/边界|不足|局限|坑|如实|实话|不适合|限制|付费|免费额度|需要注意|别指望|代走|要心里有数/g) || []).length;
   const conSection = /## [^\n]*(边界|坑|不足|局限|实话|边界速览|避坑|要说的话|心里有数|哪些人不必|忽略的细节)/.test(body);
-  mark('边界≥2条', !(conSection || boundaryHits >= 2) && !/^06/.test(a.cat)); // FAQ 合集文以问答承载边界
+  mark('边界≥2条', !(conSection || boundaryHits >= 2) && !/^06/.test(a.cat) && !isZhihu); // 知乎线边界内嵌观点
   // 步骤深度：教程/场景/安装类目
   const isTutorial = /^(01|02|03)/.test(a.cat);
   const numbered = (body.match(/^\d+\. /gm) || []).length + (body.match(/^第[一二三四五六七八九十]+步/gm) || []).length;
@@ -177,7 +181,45 @@ for (const a of arts) {
   }
   mark('跨文无重复段', dupCount >= 2);
   // GEO 块：分隔线 + 版本口径尾注
-  mark('GEO块', !(/\n---\n/.test(body) && /数据截至|以官网|以官方页面为准|由北京智灵鸟/.test(body.slice(-400))));
+  mark('GEO块', !(/\n---\n/.test(body) && /数据截至|以官网|以官方页面为准|由北京智灵鸟|以官方/.test(body.slice(-400))));
+  if (isZhihu) {
+    // ===== 知乎专项：AI 味指标 =====
+    const dashN = (noFence.match(/——/g) || []).length;
+    mark('AI味-破折号', dashN >= 7);
+    const boldN = (noFence.match(/\*\*/g) || []).length;
+    mark('AI味-加粗', boldN >= 5);
+    const nonEmpty = body.split('\n').filter((l) => l.trim());
+    const bulletN = nonEmpty.filter((l) => /^[-*]\s|^\d+\.\s/.test(l.trim())).length;
+    mark('AI味-列表化', nonEmpty.length > 10 && bulletN / nonEmpty.length >= 0.3);
+    const aiWords = /(底层逻辑|本质上讲|归根结底|综上所述|总的来说|不难看出|值得注意的是|需要指出的是|一言以蔽之|毋庸置疑|无独有偶|由此可见|总而言之|简而言之|笔者以为|某种意义上|可见一斑|众所周知|赋能|抓手)/;
+    mark('AI味-套话', aiWords.test(noFence));
+    const paN = (noFence.match(/不是[^。，\n]{2,12}，而是/g) || []).length;
+    const juN = (noFence.match(/既[^。，\n]{2,10}又[^。，\n]{2,10}还/g) || []).length;
+    mark('AI味-排比', paN >= 3 || juN >= 2);
+    const paras = body.split('\n\n').map((p2) => cn(p2)).filter((n) => n >= 40);
+    if (paras.length >= 9) {
+      let uniform = false;
+      for (let i = 0; i < paras.length - 7; i++) {
+        const win = paras.slice(i, i + 8);
+        const mean = win.reduce((x2, y2) => x2 + y2, 0) / 8;
+        if (win.every((n) => Math.abs(n - mean) <= mean * 0.12)) uniform = true;
+      }
+      mark('AI味-段式均匀', uniform); // 连续 8 段长度均在 ±15% 内，确凿机器特征
+    }
+    // ===== 知乎专项：推广嫌疑 =====
+    const aidoooN = (a.text.match(/aidooo/g) || []).length;
+    mark('推广-域名密度', aidoooN >= 3);
+    const promoW = /(立即体验|马上下载|免费领取|限时优惠|限时免费|扫码关注|公众号(引流|推广)|戳我|点击链接|关注我|点赞收藏|一键三连|收藏起来|私信我|加群|闭眼入|无脑冲|墙裂推荐|选它准没错|链接在此|安装包奉上)/;
+    mark('推广-CTA话术', promoW.test(a.text));
+    const salesW = /(天花板|yyds|安利|种草|神器|神了|无敌|吊打|秒杀同类)/;
+    mark('推广-推销腔', salesW.test(noFence));
+    const brandBody = body.replace(/```[\s\S]*?```/g, '');
+    const brandN = (brandBody.match(/察元/g) || []).length; // 只计正文字数密度
+    mark('推广-品牌刷屏', brandN >= 26); // 知乎产品文品牌名 15-25 次常见（主词含品牌）
+    const zhihuTitle = /[？?]|为什么|怎么|哪些|如何|什么|值不|坑|别|拆|体验|先看|选|低估|现实|细看|门道|取舍|实话|机制|判断|笔记|几条|实录|正反两面|再看/.test(title);
+    mark('知乎-标题体', !zhihuTitle);
+    mark('知乎-诱导互动', /(点个赞|求赞|点赞收藏|欢迎点赞|记得点赞|一键三连)/.test(a.text));
+  }
 
   rows.push({ rel: a.rel, chars, titleLen: title.length, fails: fails.join('|'), dupCount });
   perFolder[a.folder] ||= { total: 0, fail: 0, items: {} };

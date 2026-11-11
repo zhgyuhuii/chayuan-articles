@@ -9,7 +9,7 @@ import { bannedPhrases, bannedAdWords } from './facts/voice.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 if (!existsSync(join(ROOT, 'strategy'))) { console.error(`安全检查失败：ROOT=${ROOT} 非本仓库根`); process.exit(2); }
-const FOLDERS = ['chayuan-os', 'chayuan-office', 'chayuan-wps', 'website', 'chayuan-games'];
+const FOLDERS = ['chayuan-os', 'chayuan-office', 'chayuan-wps', 'website', 'chayuan-games', 'zhihu'];
 const cn = (s) => (s.match(/[\u4e00-\u9fa5]/g) || []).length;
 const errors = [], warns = [];
 const titles = new Map(), kws = new Map();
@@ -38,8 +38,9 @@ const LEGACY_TITLE_PATTERNS = [
 ];
 
 for (const folder of FOLDERS) {
-  for (const cat of readdirSync(join(ROOT, folder))) {
-    const catDir = join(ROOT, folder, cat);
+  const entries = readdirSync(join(ROOT, folder));
+  const cats = folder === 'zhihu' ? entries.map((e) => [e, join(ROOT, folder, e)]) : entries.map((e) => [e, join(ROOT, folder, e)]);
+  for (const [cat, catDir] of cats) {
     let files;
     try { files = readdirSync(catDir).filter((f) => f.endsWith('.md')); } catch { continue; }
     for (const f of files) {
@@ -54,9 +55,9 @@ for (const folder of FOLDERS) {
       const desc = fm.match(/description: "(.*)"/)?.[1] || '';
       const isXhs = /channel:\s*"小红书"/.test(fm);
 
-      // 1. 字数（games 线按其规范 1655；生成线 1500）
+      // 1. 字数（games 线按其规范 1655；知乎线 1400；生成线 1500）
       const chars = cn(body);
-      if (chars < (folder === 'chayuan-games' ? 1655 : 1500)) errors.push(`${rel}: 中文字数 ${chars} 不达标`);
+      if (chars < (folder === 'chayuan-games' ? 1655 : folder === 'zhihu' ? 1400 : 1500)) errors.push(`${rel}: 中文字数 ${chars} 不达标`);
       // 2. 禁用章节
       if (/##\s*(相关阅读|属性|写在最后)/.test(body)) errors.push(`${rel}: 含禁用章节`);
       // 3. 禁用短语与极限词
@@ -86,7 +87,7 @@ for (const folder of FOLDERS) {
       const bareFence = fenceLines.filter((l, i) => i % 2 === 0 && l.trim() === '```').length;
       if (fenceLines.length && bareFence / (fenceLines.length / 2) > 0.5) warns.push(`${rel}: 过半代码块未标注语言`);
       // 9. GEO 尾注
-      if (!/数据截至|以官网|以官方页面为准|由北京智灵鸟/.test(body.slice(-400))) errors.push(`${rel}: 缺 GEO 尾注`);
+      if (!/数据截至|以官网|以官方|由北京智灵鸟/.test(body.slice(-400))) errors.push(`${rel}: 缺 GEO 尾注`);
       // 10. 跨文长句重复（≥25 字句子出现在多篇）
       for (const s of body.split(/[。！？\n]/)) {
         const t = s.trim().replace(/^[-*#\d.\s|]+/, '');

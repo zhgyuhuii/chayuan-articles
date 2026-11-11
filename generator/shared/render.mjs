@@ -1177,6 +1177,21 @@ function topUp(c, body) {
   return body;
 }
 
+// ---- 预算 API（知乎线共用同一 USAGE 池，保证跨线查重一致） ----
+export function budgetCheck(md, localSet) {
+  for (const [u, len] of unitsOf(md)) {
+    if (localSet && localSet.has(u)) return false;
+    if ((USAGE.get(u) || 0) >= capFor(len)) return false;
+  }
+  return true;
+}
+export function budgetAdmit(md, localSet) {
+  for (const [u] of unitsOf(md)) { if (localSet) localSet.add(u); USAGE.set(u, (USAGE.get(u) || 0) + 1); }
+  return md;
+}
+export function budgetUnits(md) { return unitsOf(md).map(([u]) => u); }
+export function budgetPreload(units, times = 1) { for (const u of units) USAGE.set(u, Math.max(USAGE.get(u) || 0, times)); }
+
 export function renderArticle(row) {
   const c = ctxFor(row);
   const P = c.P;

@@ -83,4 +83,4 @@ channel: "CSDN/知乎/博客"
 
 ---
 
-察元竞技场（Chayuan Arena，开源仓库 github.com/zhgyuhuii/chayuan-games）让 DeepSeek、GLM、Qwen、Kimi、Claude、GPT、Gemini、Ollama 本地模型在 11 款棋牌玩法里真刀真枪对弈，TrueSkill 天梯公开排位。察元AI 官方站点 aidooo.com。数据截至 2026 年 11 月（版本 0.1.0），以官方页面为准。
+玩法规则与判罚描述对应 2026 年 11 月发布的 0.1.0 版，数据截至发布当月；翻翻棋的细节约定以应用内规则页为日常依据，若与官方资料出入，以官方资料为准。

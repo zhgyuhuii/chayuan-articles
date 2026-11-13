@@ -32,7 +32,7 @@ chayuan-articles/
 │   ├── verify.mjs            # 第一道：全量硬性质检
 │   ├── fact-audit.mjs        # 第三道：数字与口径审计
 │   └── facts/                # 事实层（products/topics/voice + harvested）
-├── chayuan-os/     579 篇  # 察元AI OS：模型/灵宠/群聊/知识库/智能体/互联
+├── chayuan-os/     581 篇  # 察元AI OS：模型/灵宠/群聊/知识库/智能体/互联
 ├── chayuan-office/ 313 篇  # 察元AI Office：六编辑器/AI 校对/修订/PDF/BYOK
 ├── chayuan-wps/    322 篇  # 察元AI文档助手：校对/编审/核对/脱密/MCP
 ├── chayuan-games/  200 篇  # 察元竞技场：大模型棋牌竞技场/TrueSkill天梯/观战复盘/本机网关

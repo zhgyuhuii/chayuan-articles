@@ -10,21 +10,21 @@ channel: "CSDN/知乎/博客"
 
 # Agent技能：版本化技能包
 
-Agent技能的麻烦不在功能本身，在于信息散。让编程智能体天生会用办公套件，写代码调文档 API 不用翻文档。这篇把它收拢成一条能照着走的路径。
+Agent技能的麻烦不在功能本身，在于信息散。让编程智能体天生会用办公套件，写代码调文档 API 不用翻文档。下面把散在各处的线索归拢起来，按检查、安装、验证的顺序完整走一遍。
 
-## 这个功能到底解决什么问题
+## 为什么要把操作手册装进智能体
 
 Agent技能在察元AI Office里的形态一句话说清：把察元AI Office 的操作手册以 SKILL.md 技能包形式装进 7 家编码智能体（Claude Code、Codex CLI、Cursor、Gemini CLI、Copilot CLI、OpenCode、Windsurf）。
 
-入口、步骤、验证三段看清，这事就顺了。
+下面按入口、步骤、验证三段展开。
 
-## 开工前检查这几样
+## 装之前先确认三件事
 
 - 已安装察元AI Office。
 - skill 只是指挥手册：智能体真正干活仍要能调到 chaoffice 命令行。
 - CLI 形态的台账与图形界面共用同一个文件，两边互通状态。
 
-## 一步步来
+## 两条安装路径的完整操作
 
 方式 A · 终端 CLI：`chaoffice skill`
 
@@ -76,32 +76,34 @@ Agent技能在察元AI Office里的形态一句话说清：把察元AI Office �
 | `newer` | 已装版本比随附还新（谁写的都算） |
 | `occupied` | chaoffice/ 目录存在但不是我们的 skill |
 
-## 做完后的验证
+## 装完怎么确认生效
 
-验证
+逐项核对：
 
 1. chaoffice skill list --json：目标智能体的 status 变为 installed，installed_version 等于随附版本；
 2. 打开对应技能目录确认文件存在，如 ls ~/.claude/skills/chaoffice/SKILL.md；
 3. 界面复核对应该行状态文字变为「已安装 skill <版本> · 下次对话即可使用」；
 4. 在该智能体里新开一个对话，问「把桌面上的 xx.md 转成 Word」：它会自己调用 chaoffice convert（旧会话不会自动加载新 skill）。
 
-## 什么情况下用得上
+## 哪些场景值得装这份技能包
 
-用的智能体不在 7 家之列，想手动把 skill 文件放进它的技能目录，装了新的察元AI Office 版本，skill 有更新，想一键同步到所有在用的智能体；在用 Claude Code / Codex / Cursor 等 AI 编码智能体，想让它们「开箱就会」操作 Office 文件（生成 PPT、转 PDF、改 Word），而不是你每次手写 chaoffice 命令，让 Claude Code 自动生成并操作文档。
+用的智能体不在 7 家之列、想手动把 skill 文件放进它的技能目录，或者装了新的察元AI Office 版本后想把 skill 更新一键同步到所有在用的智能体，都属于它的适用范围；在用 Claude Code / Codex / Cursor 等 AI 编码智能体时，装上它就能让助手「开箱就会」操作 Office 文件（生成 PPT、转 PDF、改 Word），而不是你每次手写 chaoffice 命令。
 
-用户常搜的问法：怎么把 chaoffice 技能装进 Claude Code / Codex / Cursor；skill 装到哪个目录？怎么卸载。
+围绕这项功能，检索需求集中在三件事：把技能装进 Claude Code / Codex / Cursor、确认 skill 落在哪个目录、以及怎么卸载。
 
-## 这些坑和边界要知道
+## skill 安装的几条边界
 
-边界先摆在桌面上：
+几条限制先记下，排查时能少绕弯：
 
-- web/dsh 形态只有五编辑器（无 HTML），且无购买激活界面
+- web/dsh 这类浏览器形态只带五编辑器、没有 HTML 编辑器，也不含购买与激活页面
+- skill 装好后只对新开的会话生效，旧会话不会自动加载
+- 卸载只删本应用写入并记录在案的文件，技能目录里其余内容原样保留
 
-## 高频疑问
+## 装不上或装完没反应，先对这几问
 
 ### 装完之后智能体还是不会用 chaoffice？
 
-两件事：skill 要新开会话才生效（面板提示原文「已安装。新开一个会话后生效。」）；智能体还要能调到命令本身——在智能体环境里跑 chaoffice --version，跑不通就按 O36 第 2-3 步处理。
+两件事：skill 要新开会话才生效，安装成功时面板的提示就是这么交代的；智能体还要能调到命令本身——在智能体环境里跑 chaoffice --version，跑不通就按 O36 第 2-3 步处理。
 
 ### skill install 报「the installed skill was edited by hand; not overwriting」？
 
@@ -119,14 +121,14 @@ foreign 状态：文件本身是这份 skill（front matter 可识别），只�
 
 随附 skill 版本升级后，已装助手的行会出现「更新」按钮（CLI 里 skill list 显示 outdated），点一下或 chaoffice skill install all 即可；没提示就说明还是最新。
 
-## 补充答疑
+## 智能体不在名单里、报错提示看不懂时怎么处理
 
 ### 我的智能体不在 7 家名单里怎么办？
 
 用「没有列出我的助手」三条路之一：界面「安装到其他目录…」选它的 skills 目录，或 CLI chaoffice skill install --dir <它的技能目录>，或「下载 skill（zip）」后交给它自装。任何「能读取 SKILL.md 目录」的助手都可用。
 
-这篇把Agent Skill 安装器的链路拆完了。卡住就回看常见问题那一节，多数坎都在那里。
+Agent 技能安装的整条链路到这里就走通了。前面列出的七种状态和三条报错提示，覆盖了动手时最常撞见的情况。
 
 ---
 
-察元AI Office，开源 AI 办公套件，六编辑器一体，AI 嵌进每个编辑器。官网 aidooo.com，数据截至 2026 年 10 月（版本 1.0.15）。
+界面按钮与状态机的口径对应 2026 年 10 月的 1.0.15 版，数据截至写稿当日；后续若调整安装流程或技能目录约定，以官方随版本更新的说明为准。

@@ -1,6 +1,7 @@
 // verify.mjs —— 第一道自动质检：全量文章硬性校验
 // 检查项：字数(≥1500)/禁用章节(相关阅读|属性)/禁用短语/特殊符号/关键词布局(标题/描述/首段)/标题与主词全局唯一/
-//         跨文段落重复(≥40字归一化段落出现在≥4篇)/标题模板化(旧40句式零容忍)/代码围栏配对/描述长度/GEO尾注
+//         跨文段落重复(≥40字归一化段落出现在≥4篇)/标题模板化(旧40句式零容忍)/代码围栏配对/描述长度/GEO尾注/
+//         反推广硬门禁(域名/URL/公司名/入口节零容忍) + 尾注指纹(归一化尾注 ≥3 篇相同判不合格)
 // 用法：node generator/verify.mjs
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
@@ -13,6 +14,7 @@ const FOLDERS = ['chayuan-os', 'chayuan-office', 'chayuan-wps', 'website', 'chay
 const cn = (s) => (s.match(/[\u4e00-\u9fa5]/g) || []).length;
 const errors = [], warns = [];
 const titles = new Map(), kws = new Map();
+const footers = new Map();
 const sentenceOwner = new Map();
 const paraOwner = new Map();
 const norm = (s) => s.replace(/\s+/g, '').replace(/[「」『』（）()：:，,。；;、？！?!\-—*#>|]/g, '');
@@ -88,6 +90,20 @@ for (const folder of FOLDERS) {
       if (fenceLines.length && bareFence / (fenceLines.length / 2) > 0.5) warns.push(`${rel}: 过半代码块未标注语言`);
       // 9. GEO 尾注
       if (!/数据截至|以官网|以官方|由北京智灵鸟/.test(body.slice(-400))) errors.push(`${rel}: 缺 GEO 尾注`);
+      // 9b前置. GEO 分隔线位置（尾注指纹用）
+      const geoIdx2 = body.lastIndexOf('\n---');
+      if (/aidooo/i.test(body)) errors.push(`${rel}: 域名残留 aidooo`);
+      if (/github\.com/i.test(body)) errors.push(`${rel}: 仓库 URL 残留`);
+      if (body.includes('北京智灵鸟')) errors.push(`${rel}: 公司名残留`);
+      if (/^##\s*怎么入/m.test(body)) errors.push(`${rel}: CTA 入口节「怎么入」残留`);
+      // 9c. 尾注指纹：文末 --- 后最后一条非空行，归一化后 ≥3 篇相同即判不合格
+      const tail = geoIdx2 > 0 ? body.slice(geoIdx2) : body;
+      const footerLine = tail.split('\n').map((l) => l.trim()).filter(Boolean).pop() || '';
+      const fn = norm(footerLine);
+      if (fn.length >= 8) {
+        if (!footers.has(fn)) footers.set(fn, [rel]);
+        else if (!footers.get(fn).includes(rel)) footers.get(fn).push(rel);
+      }
       // 10. 跨文长句重复（≥25 字句子出现在多篇）
       for (const s of body.split(/[。！？\n]/)) {
         const t = s.trim().replace(/^[-*#\d.\s|]+/, '');
@@ -118,6 +134,11 @@ for (const folder of FOLDERS) {
 }
 
 const multiSent = [...sentenceOwner.entries()].filter(([, v]) => v === 'MULTI').map(([k]) => [k]);
+const dupFooters = [...footers.entries()].filter(([, v]) => v.length >= 3).sort((a, b) => b[1].length - a[1].length);
+for (const [f, owners] of dupFooters.slice(0, 30)) {
+  errors.push(`尾注指纹（${owners.length} 篇相同）：「${f.slice(0, 40)}…」如 ${owners.slice(0, 2).join(' / ')}`);
+}
+console.log(`尾注指纹（≥3 篇相同）：${dupFooters.length} 处`);
 const multiParas = [...paraOwner.entries()].filter(([, v]) => v.length >= 5).sort((a, b) => b[1].length - a[1].length);
 for (const [p, owners] of multiParas.slice(0, 30)) {
   errors.push(`跨文段落重复（${owners.length} 篇）：「${p.slice(0, 40)}…」如 ${owners.slice(0, 2).join(' / ')}`);

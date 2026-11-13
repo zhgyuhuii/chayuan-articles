@@ -76,6 +76,21 @@ for (const a of arts) {
 }
 const dupParas = [...paraOwners.entries()].filter(([, v]) => v === 'MULTI');
 
+// ---------- 尾注指纹：文末 --- 后最后一条非空行，归一化后跨篇相同 ----------
+const footerOwners = new Map();
+for (const a of arts) {
+  const gi = a.body.lastIndexOf('\n---');
+  const tail = gi > 0 ? a.body.slice(gi) : a.body;
+  const footerLine = tail.split('\n').map((l) => l.trim()).filter(Boolean).pop() || '';
+  const fn = norm(footerLine);
+  if (fn.length < 8) continue;
+  if (!footerOwners.has(fn)) footerOwners.set(fn, [a.rel]);
+  else if (!footerOwners.get(fn).includes(a.rel)) footerOwners.get(fn).push(a.rel);
+}
+
+// ---------- 模板骨架小节（strategy/07 R6，逐篇另起自然标题后不得残留） ----------
+const SKELETON_HEADS = /^(放回产品盘面看|安全与数据边界|价格与授权|产品家族与搭配|几条硬数字|能力总账|补充几条口径|顺带说清的几件事|多交代一层背景|再往深一层看|这些坑和边界要知道|你可能会问|动手前再核对一遍|离线与内网|顺手记的要点|边角信息|补充细节清单|这几条能力放一起看更清楚|具体怎么操作|更多操作细节|能力面再摊开一层)$/;
+
 // ---------- 逐篇逐项审核 ----------
 const ITEMS = [
   'FM完整', '标题含主词', '描述含主词', '描述≤160', '首段含主词',
@@ -83,7 +98,8 @@ const ITEMS = [
   '无极限词', '无特殊符号', '无禁用章节', 'H2≥5', 'FAQ疑问式',
   '边界≥2条', '步骤深度', '无填充章节', '文内无重复', '跨文无重复段', 'GEO块',
   'AI味-破折号', 'AI味-加粗', 'AI味-列表化', 'AI味-套话', 'AI味-排比', 'AI味-段式均匀',
-  '推广-域名密度', '推广-CTA话术', '推广-推销腔', '推广-品牌刷屏', '知乎-标题体', '知乎-诱导互动',
+  '推广-域名残留', '推广-商业尾注', '推广-CTA话术', '推广-推销腔', '推广-品牌刷屏', '推广-模板小节', '推广-尾注指纹', '推广-运营话术',
+  '知乎-标题体', '知乎-诱导互动',
 ];
 const rows = []; // csv 明细
 const stats = {}; // item → fail 数
@@ -182,7 +198,24 @@ for (const a of arts) {
   mark('跨文无重复段', dupCount >= 2);
   // GEO 块：分隔线 + 版本口径尾注
   mark('GEO块', !(/\n---\n/.test(body) && /数据截至|以官网|以官方页面为准|由北京智灵鸟|以官方/.test(body.slice(-400))));
-  if (isZhihu) {
+    // ===== 推广嫌疑（2026-11-12 起全线生效，strategy/07 反推广修订标准） =====
+    const aidoooN = (a.text.match(/aidooo/gi) || []).length;
+    mark('推广-域名残留', aidoooN >= 1);
+    mark('推广-商业尾注', /由北京智灵鸟/.test(a.text) || /github\.com/i.test(a.text));
+    const promoW = /(立即体验|马上下载|免费领取|限时优惠|限时免费|扫码关注|公众号(引流|推广)|戳我|点击链接|关注我|点赞收藏|一键三连|收藏起来|私信我|加群|闭眼入|无脑冲|墙裂推荐|选它准没错|链接在此|安装包奉上|##\s*怎么入|怎么入|入口就是官网|官网搜索|搜索即达|赶紧试试)/;
+    mark('推广-CTA话术', promoW.test(a.body));
+    const salesW = /(天花板|yyds|安利|种草|神器|神了|无敌|吊打|秒杀同类|闭眼入|无脑冲)/;
+    mark('推广-推销腔', salesW.test(body));
+    const brandBody = body.replace(/```[\s\S]*?```/g, '');
+    const brandN = (brandBody.match(/察元/g) || []).length;
+    mark('推广-品牌刷屏', brandN >= 16);
+    const skelHit = [...body.matchAll(/^## (.+)$/gm)].some((x) => SKELETON_HEADS.test(x[1].trim()));
+    mark('推广-模板小节', skelHit);
+    const gi = body.lastIndexOf('\n---');
+    const myFooter = norm((gi > 0 ? body.slice(gi) : body).split('\n').map((l) => l.trim()).filter(Boolean).pop() || '');
+    mark('推广-尾注指纹', myFooter.length >= 8 && footerOwners.get(myFooter) && footerOwners.get(myFooter).length >= 3);
+    mark('推广-运营话术', /首图建议|评论区预埋/.test(body));
+    if (isZhihu) {
     // ===== 知乎专项：AI 味指标 =====
     const dashN = (noFence.match(/——/g) || []).length;
     mark('AI味-破折号', dashN >= 7);
@@ -206,17 +239,7 @@ for (const a of arts) {
       }
       mark('AI味-段式均匀', uniform); // 连续 8 段长度均在 ±15% 内，确凿机器特征
     }
-    // ===== 知乎专项：推广嫌疑 =====
-    const aidoooN = (a.text.match(/aidooo/g) || []).length;
-    mark('推广-域名密度', aidoooN >= 3);
-    const promoW = /(立即体验|马上下载|免费领取|限时优惠|限时免费|扫码关注|公众号(引流|推广)|戳我|点击链接|关注我|点赞收藏|一键三连|收藏起来|私信我|加群|闭眼入|无脑冲|墙裂推荐|选它准没错|链接在此|安装包奉上)/;
-    mark('推广-CTA话术', promoW.test(a.text));
-    const salesW = /(天花板|yyds|安利|种草|神器|神了|无敌|吊打|秒杀同类)/;
-    mark('推广-推销腔', salesW.test(noFence));
-    const brandBody = body.replace(/```[\s\S]*?```/g, '');
-    const brandN = (brandBody.match(/察元/g) || []).length; // 只计正文字数密度
-    mark('推广-品牌刷屏', brandN >= 26); // 知乎产品文品牌名 15-25 次常见（主词含品牌）
-    const zhihuTitle = /[？?]|为什么|怎么|哪些|如何|什么|值不|坑|别|拆|体验|先看|选|低估|现实|细看|门道|取舍|实话|机制|判断|笔记|几条|实录|正反两面|再看/.test(title);
+      const zhihuTitle = /[？?]|为什么|怎么|哪些|如何|什么|值不|坑|别|拆|体验|先看|选|低估|现实|细看|门道|取舍|实话|机制|判断|笔记|几条|实录|正反两面|再看/.test(title);
     mark('知乎-标题体', !zhihuTitle);
     mark('知乎-诱导互动', /(点个赞|求赞|点赞收藏|欢迎点赞|记得点赞|一键三连)/.test(a.text));
   }
